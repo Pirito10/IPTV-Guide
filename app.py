@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify # type: ignore
 import xml.etree.ElementTree as ET
 import re
 
@@ -23,20 +23,35 @@ def parse_epg():
     
     return epg_data
 
-# Función para leer la lista M3U y extraer solo los canales
+# Función para leer la lista M3U y extraer los canales
 def parse_m3u():
-    channels = {}
+    # Lista con los canales encontrados
+    channels = []
     with open(M3U_FILE, "r", encoding="utf-8") as f:
         lines = f.readlines()
         for i in range(len(lines)):
+            # Leemos la línea con la información del canal
             if lines[i].startswith("#EXTINF"):
-                match = re.search(r'tvg-id="(.*?)"', lines[i])
-                tvg_id = match.group(1) if match else None
+                # Extraemos los datos con expresiones regulares
+                logo_match = re.search(r'tvg-logo="(.*?)"', lines[i])
+                tvg_id_match = re.search(r'tvg-id="(.*?)"', lines[i])
+                group_match = re.search(r'group-title="(.*?)"', lines[i])
                 name_match = re.search(r',(.+)$', lines[i].strip())
-                channel_name = name_match.group(1) if name_match else "Desconocido"
+                
+                logo_url = logo_match.group(1) if logo_match else ""
+                tvg_id = tvg_id_match.group(1) if tvg_id_match else ""
+                group = group_match.group(1) if group_match else ""
+                channel_name = name_match.group(1) if name_match else ""
+                # Extraemos la URL de la siguiente línea
                 url = lines[i + 1].strip() if i + 1 < len(lines) else ""
-                if tvg_id:
-                    channels[tvg_id] = {"name": channel_name, "url": url}
+                
+                channels.append({
+                    "tvg_id": tvg_id,
+                    "name": channel_name,
+                    "group": group,
+                    "logo": logo_url,
+                    "url": url
+                })
     return channels
 
 @app.route("/")
@@ -55,4 +70,4 @@ def channels():
     return jsonify(parse_m3u())
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=3000, debug=False)
