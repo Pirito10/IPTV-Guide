@@ -1,63 +1,83 @@
 from flask import Flask, render_template, jsonify # type: ignore
 import xml.etree.ElementTree as ET
 import re
+import requests
 
 app = Flask(__name__)
 
 # Ruta a los archivos
-EPG_FILE = "guia.xml"
-M3U_FILE = "lista.m3u"
+EPG_URL = "https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/guiatv.xml"
+M3U_URL = "https://proxy.zeronet.dev/1H3KoazXt2gCJgeD8673eFvQYXG7cbRddU/lista-ace.m3u"
+
+# Función para descargar un archivo desde una URL
+def fetch_file(url):
+    try:
+        response = requests.get(url, timeout=10)  # 10 segundos de timeout
+        response.raise_for_status()  # Lanza una excepción si hay un error
+        return response.text
+    except requests.exceptions.RequestException as e:
+        print(f"Error al descargar {url}: {e}")
+        return None
 
 # Función para leer la guía EPG y extraer los programas
 def parse_epg():
-    tree = ET.parse(EPG_FILE)  # Carga el archivo XML
-    root = tree.getroot()  # Nodo raíz
     epg_data = {}  # Diccionario donde almacenaremos la información
-
-    for programme in root.findall("programme"):  # Recorremos cada elemento <programme>
-        channel_id = programme.get("channel")  # Extraemos el ID del canal
-        title = programme.find("title").text if programme.find("title") is not None else "Sin título" # Extraemos el título del programa
-        start = programme.get("start")[:14]  # Extraemos la fecha y hora de inicio
-        stop = programme.get("stop")[:14]  # Extraemos la fecha y hora de finalización
-
-        # Agregamos la información al diccionario agrupada por canal
-        epg_data.setdefault(channel_id, []).append({
-            "title": title,
-            "start": start,
-            "stop": stop
-        })
+    xml_content = fetch_file(EPG_URL)
+    if not xml_content:
+        return epg_data
     
+    try:
+        root = ET.fromstring(xml_content)  # Nodo raíz
+        for programme in root.findall("programme"):  # Recorremos cada elemento <programme>
+            channel_id = programme.get("channel")  # Extraemos el ID del canal
+            title = programme.find("title").text if programme.find("title") is not None else "Sin título" # Extraemos el título del programa
+            start = programme.get("start")[:14]  # Extraemos la fecha y hora de inicio
+            stop = programme.get("stop")[:14]  # Extraemos la fecha y hora de finalización
+
+            # Agregamos la información al diccionario agrupada por canal
+            epg_data.setdefault(channel_id, []).append({
+                "title": title,
+                "start": start,
+                "stop": stop
+            })
+    except ET.ParseError as e:
+        print(f"Error al parsear el XML: {e}")
+        
     return epg_data
 
 # Función para leer la lista M3U y extraer los canales
 def parse_m3u():
     # Lista con los canales encontrados
     channels = []
-    with open(M3U_FILE, "r", encoding="utf-8") as f:
-        lines = f.readlines()
-        for i in range(len(lines)):
-            # Leemos la línea con la información del canal
-            if lines[i].startswith("#EXTINF"):
-                # Extraemos los datos con expresiones regulares
-                logo_match = re.search(r'tvg-logo="(.*?)"', lines[i])
-                tvg_id_match = re.search(r'tvg-id="(.*?)"', lines[i])
-                group_match = re.search(r'group-title="(.*?)"', lines[i])
-                name_match = re.search(r',(.+)$', lines[i].strip())
-                
-                logo_url = logo_match.group(1) if logo_match else ""
-                tvg_id = tvg_id_match.group(1) if tvg_id_match else ""
-                group = group_match.group(1) if group_match else ""
-                channel_name = name_match.group(1) if name_match else ""
-                # Extraemos la URL de la siguiente línea
-                url = lines[i + 1].strip() if i + 1 < len(lines) else ""
-                
-                channels.append({
-                    "tvg_id": tvg_id,
-                    "name": channel_name,
-                    "group": group,
-                    "logo": logo_url,
-                    "url": url
-                })
+    m3u_content = fetch_file(M3U_URL)
+    if not m3u_content:
+        return channels
+    
+    lines = m3u_content.splitlines()
+
+    for i in range(len(lines)):
+        # Leemos la línea con la información del canal
+        if lines[i].startswith("#EXTINF"):
+            # Extraemos los datos con expresiones regulares
+            logo_match = re.search(r'tvg-logo="(.*?)"', lines[i])
+            tvg_id_match = re.search(r'tvg-id="(.*?)"', lines[i])
+            group_match = re.search(r'group-title="(.*?)"', lines[i])
+            name_match = re.search(r',(.+)$', lines[i].strip())
+            
+            logo_url = logo_match.group(1) if logo_match else ""
+            tvg_id = tvg_id_match.group(1) if tvg_id_match else ""
+            group = group_match.group(1) if group_match else ""
+            channel_name = name_match.group(1) if name_match else ""
+            # Extraemos la URL de la siguiente línea
+            url = lines[i + 1].strip() if i + 1 < len(lines) else ""
+            
+            channels.append({
+                "tvg_id": tvg_id,
+                "name": channel_name,
+                "group": group,
+                "logo": logo_url,
+                "url": url
+            })
     return channels
 
 # Ruta a la página principal
