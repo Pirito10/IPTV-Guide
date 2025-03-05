@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía IPTV</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        table {
+            width: 80%;
+            margin: auto;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Guía de Programación IPTV</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Canal</th>
+                <th>Programa</th>
+                <th>Horario</th>
+                <th>Enlace</th>
+            </tr>
+        </thead>
+        <tbody id="epg-table">
+        </tbody>
+    </table>
+
+    <script>
+        async function fetchEPG() {
+            const epgResponse = await fetch('/api/epg');
+            const epgData = await epgResponse.json();
+            const channelsResponse = await fetch('/api/channels');
+            const channelsData = await channelsResponse.json();
+
+            const tableBody = document.getElementById("epg-table");
+            tableBody.innerHTML = "";
+
+            for (const [channel, programs] of Object.entries(epgData)) {
+                const channelUrl = channelsData[channel] || "No disponible";
+                programs.forEach(program => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${channel}</td>
+                        <td>${program.title}</td>
+                        <td>${program.start} - ${program.stop}</td>
+                        <td>
+                            <input type="text" value="${channelUrl}" readonly>
+                            <button onclick="copyToClipboard(this)">Copiar</button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+        }
+
+        function copyToClipboard(button) {
+            const input = button.previousElementSibling;
+            input.select();
+            document.execCommand("copy");
+            alert("Enlace copiado: " + input.value);
+        }
+
+        fetchEPG();
+    </script>
+</body>
+
+</html>
