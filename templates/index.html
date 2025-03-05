@@ -11,9 +11,17 @@
             text-align: center;
         }
 
+        .epg-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-start;
+            overflow-x: auto;
+            width: 100%;
+        }
+
         .channel-container {
             width: 300px;
-            margin: auto;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -37,14 +45,52 @@
             color: blue;
             text-decoration: underline;
         }
+
+        .timeline-container {
+            display: flex;
+            flex-direction: column;
+            overflow-x: auto;
+            width: calc(100% - 300px);
+            border-left: 2px solid #000;
+            padding-left: 10px;
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            width: 1440px;
+            /* 60px por cada hora (24h) */
+            position: relative;
+        }
+
+        .timeline div {
+            width: 60px;
+            text-align: center;
+            font-size: 12px;
+            border-right: 1px solid #ddd;
+        }
     </style>
 </head>
 
 <body>
     <h1>Lista de Canales IPTV</h1>
-    <div class="channel-container" id="channel-list"></div>
+    <div class="epg-container">
+        <div class="channel-container" id="channel-list"></div>
+        <div class="timeline-container">
+            <div class="timeline" id="timeline"></div>
+        </div>
+    </div>
 
     <script>
+        function generateTimeline() {
+            const timeline = document.getElementById("timeline");
+            for (let i = 0; i < 24; i++) {
+                const hourBlock = document.createElement("div");
+                hourBlock.textContent = i.toString().padStart(2, '0') + ":00";
+                timeline.appendChild(hourBlock);
+            }
+        }
+
         async function fetchChannels() {
             const response = await fetch('/api/channels');
             const channels = await response.json();
@@ -70,6 +116,7 @@
             });
         }
 
+        generateTimeline();
         fetchChannels();
     </script>
 </body>
