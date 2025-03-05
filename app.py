@@ -5,54 +5,66 @@ import requests
 from datetime import datetime, timedelta
 from apscheduler.schedulers.background import BackgroundScheduler
 
+# Servidor Flask
 app = Flask(__name__)
 
-# Ruta a los archivos
+# Enlaces a los archivos
 EPG_URL = "https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/guiatv.xml"
 M3U_URL = "https://proxy.zeronet.dev/1H3KoazXt2gCJgeD8673eFvQYXG7cbRddU/lista-ace.m3u"
 
 # Variables para almacenamiento en caché
 cached_epg_data = {}
 cached_m3u_data = {}
-epg_retry_count = 0  # Contador de intentos fallidos
+# Contandor de intentos fallidos
+epg_retry_count = 0
 
+# Planificador de tareas
 scheduler = BackgroundScheduler()
 
 # Función para descargar un archivo desde una URL
 def fetch_file(url):
     try:
-        response = requests.get(url, timeout=10)  # 10 segundos de timeout
-        response.raise_for_status()  # Lanza una excepción si hay un error
+        response = requests.get(url, timeout=10)
+        # Lanzamos una excepción si hay un error
+        response.raise_for_status()
         return response.text
+    
     except requests.exceptions.RequestException as e:
         print(f"Error al descargar {url}:\n{e}\n")
         return None
-    
+
+# Función para descargar la guía EPG y almacenarla en caché
 def update_epg():
     global cached_epg_data, epg_retry_count
     print(f"Intentando descargar la guía EPG (intento {epg_retry_count + 1}/4)...")
 
+    # Descargamos el archivo con la guía EPG
     xml_content = fetch_file(EPG_URL)
 
+    # Si hubo un error, lo reintentamos hasta 3 veces
     if not xml_content:
         if (epg_retry_count < 3):
             epg_retry_count += 1
+            # Programamos el siguiente reintento
             delay = epg_retry_count * 30
             retry_time = datetime.now() + timedelta(minutes=delay)
-            print(f"Programando reintento {epg_retry_count + 1}/4 en {delay} minutos")
             scheduler.add_job(update_epg, "date", run_date=retry_time)
+            print(f"Programando reintento {epg_retry_count + 1}/4 en {delay} minutos")
         else:
             print("No se pudo descargar la guía EPG tras 4 intentos fallidos")
         return
     
+    # Parseamos y almacenamos el fichero XML
     try:
-        epg_data = {}
+        epg_data = {} # Diccionario para almacenar la guía EPG
         root = ET.fromstring(xml_content)  # Nodo raíz
-        for programme in root.findall("programme"):  # Recorremos cada elemento <programme>
-            channel_id = programme.get("channel")  # Extraemos el ID del canal
-            title = programme.find("title").text if programme.find("title") is not None else "Sin título" # Extraemos el título del programa
-            start = programme.get("start")[:14]  # Extraemos la fecha y hora de inicio
-            stop = programme.get("stop")[:14]  # Extraemos la fecha y hora de finalización
+        # Recorremos cada elemento <programme>
+        for programme in root.findall("programme"):
+            # Extraemos la información necesaria
+            channel_id = programme.get("channel")  # ID del canal
+            title = programme.find("title").text if programme.find("title") is not None else "Sin título" # Título del programa
+            start = programme.get("start")[:14]  # Fecha y hora de inicio
+            stop = programme.get("stop")[:14]  # Fecha y hora de finalización
 
             # Agregamos la información al diccionario agrupada por canal
             epg_data.setdefault(channel_id, []).append({
@@ -60,9 +72,11 @@ def update_epg():
                 "start": start,
                 "stop": stop
             })
+        # Actualizamos la caché
         cached_epg_data = epg_data
         epg_retry_count = 0
         print("Guía EPG actualizada correctamente")
+
     except ET.ParseError as e:
         print(f"Error al parsear la guía EPG: {e}")
 
@@ -123,12 +137,14 @@ def epg():
 def channels():
     return jsonify(parse_m3u())
 
-
+# Programamos la actualización de la guía EPG
 scheduler.add_job(update_epg, "cron", hour="10,14,18,22", minute=0)
 scheduler.start()
 
+# Actualizamos la guía EPG al iniciar la aplicación
 update_epg()
 
+# Iniciamos el servidor Flask
 if __name__ == "__main__":
     try:
         app.run(host="0.0.0.0", port=3000, debug=False)
