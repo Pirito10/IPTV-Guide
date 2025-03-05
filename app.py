@@ -8,18 +8,24 @@ app = Flask(__name__)
 EPG_FILE = "guia.xml"
 M3U_FILE = "lista.m3u"
 
-# Función para leer el XMLTV y extraer la guía
+# Función para leer la guía EPG y extraer los programas
 def parse_epg():
-    tree = ET.parse(EPG_FILE)
-    root = tree.getroot()
-    epg_data = {}
-    
-    for programme in root.findall("programme"):
-        channel_id = programme.get("channel")
-        title = programme.find("title").text if programme.find("title") is not None else "Sin título"
-        start = programme.get("start")
-        stop = programme.get("stop")
-        epg_data.setdefault(channel_id, []).append({"title": title, "start": start, "stop": stop})
+    tree = ET.parse(EPG_FILE)  # Carga el archivo XML
+    root = tree.getroot()  # Nodo raíz
+    epg_data = {}  # Diccionario donde almacenaremos la información
+
+    for programme in root.findall("programme"):  # Recorremos cada elemento <programme>
+        channel_id = programme.get("channel")  # Extraemos el ID del canal
+        title = programme.find("title").text if programme.find("title") is not None else "Sin título" # Extraemos el título del programa
+        start = programme.get("start")[:14]  # Extraemos la fecha y hora de inicio
+        stop = programme.get("stop")[:14]  # Extraemos la fecha y hora de finalización
+
+        # Agregamos la información al diccionario agrupada por canal
+        epg_data.setdefault(channel_id, []).append({
+            "title": title,
+            "start": start,
+            "stop": stop
+        })
     
     return epg_data
 
@@ -54,17 +60,24 @@ def parse_m3u():
                 })
     return channels
 
+# Ruta a la página principal
 @app.route("/")
 def index():
     return render_template("index.html")
 
+# Ruta a la API para obtener la guía EPG
 @app.route("/api/epg")
 def epg():
+    # Parseamos la guía EPG y la lista M3U
     epg_data = parse_epg()
     channels_data = parse_m3u()
-    filtered_epg = {tvg_id: epg_data.get(tvg_id, []) for tvg_id in channels_data}
+    # Extraemos los IDs de los canales presentes en la lista M3U
+    channel_ids = [channel["tvg_id"] for channel in channels_data if channel["tvg_id"]]
+    # Filtramos la guía EPG para obtener solo los programas de los canales presentes en la lista M3U
+    filtered_epg = {tvg_id: epg_data.get(tvg_id, []) for tvg_id in channel_ids}
     return jsonify(filtered_epg)
 
+# Ruta a la API para obtener los canales
 @app.route("/api/channels")
 def channels():
     return jsonify(parse_m3u())
