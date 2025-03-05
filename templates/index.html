@@ -4,87 +4,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guía IPTV</title>
+    <title>Lista de Canales IPTV</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
         }
 
-        table {
-            width: 80%;
+        .channel-container {
+            width: 300px;
             margin: auto;
-            border-collapse: collapse;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        th,
-        td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
+        .channel {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            width: 100%;
         }
 
-        th {
-            background-color: #f2f2f2;
-        }
-
-        button {
-            cursor: pointer;
+        .channel img {
+            max-width: 50px;
+            margin-right: 10px;
         }
     </style>
 </head>
 
 <body>
-    <h1>Guía de Programación IPTV</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Canal</th>
-                <th>Programa</th>
-                <th>Horario</th>
-                <th>Enlace</th>
-            </tr>
-        </thead>
-        <tbody id="epg-table">
-        </tbody>
-    </table>
+    <h1>Lista de Canales IPTV</h1>
+    <div class="channel-container" id="channel-list"></div>
 
     <script>
-        async function fetchEPG() {
-            const epgResponse = await fetch('/api/epg');
-            const epgData = await epgResponse.json();
-            const channelsResponse = await fetch('/api/channels');
-            const channelsData = await channelsResponse.json();
+        async function fetchChannels() {
+            const response = await fetch('/api/channels');
+            const channels = await response.json();
+            const channelList = document.getElementById("channel-list");
+            channelList.innerHTML = "";
 
-            const tableBody = document.getElementById("epg-table");
-            tableBody.innerHTML = "";
-
-            for (const [channel, programs] of Object.entries(epgData)) {
-                const channelUrl = channelsData[channel] || "No disponible";
-                programs.forEach(program => {
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-                        <td>${channel}</td>
-                        <td>${program.title}</td>
-                        <td>${program.start} - ${program.stop}</td>
-                        <td>
-                            <input type="text" value="${channelUrl}" readonly>
-                            <button onclick="copyToClipboard(this)">Copiar</button>
-                        </td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-            }
+            channels.forEach(channel => {
+                const channelDiv = document.createElement("div");
+                channelDiv.classList.add("channel");
+                channelDiv.innerHTML = `
+                    <img src="${channel.logo}" alt="Logo">
+                    <span>${channel.name}</span>
+                `;
+                channelList.appendChild(channelDiv);
+            });
         }
 
-        function copyToClipboard(button) {
-            const input = button.previousElementSibling;
-            input.select();
-            document.execCommand("copy");
-            alert("Enlace copiado: " + input.value);
-        }
-
-        fetchEPG();
+        fetchChannels();
     </script>
 </body>
 
