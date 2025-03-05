@@ -31,6 +31,12 @@
             max-width: 50px;
             margin-right: 10px;
         }
+
+        .channel span {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+        }
     </style>
 </head>
 
@@ -50,9 +56,17 @@
                 channelDiv.classList.add("channel");
                 channelDiv.innerHTML = `
                     <img src="${channel.logo}" alt="Logo">
-                    <span>${channel.name}</span>
+                    <span onclick="copyToClipboard('${channel.url}')">${channel.name}</span>
                 `;
                 channelList.appendChild(channelDiv);
+            });
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Enlace copiado: " + text);
+            }).catch(err => {
+                console.error("Error al copiar: ", err);
             });
         }
 
