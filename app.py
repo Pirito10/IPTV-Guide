@@ -2,12 +2,21 @@ from flask import Flask, render_template, jsonify # type: ignore
 import xml.etree.ElementTree as ET
 import re
 import requests
+from datetime import datetime, timedelta
+from apscheduler.schedulers.background import BackgroundScheduler
 
 app = Flask(__name__)
 
 # Ruta a los archivos
 EPG_URL = "https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/guiatv.xml"
 M3U_URL = "https://proxy.zeronet.dev/1H3KoazXt2gCJgeD8673eFvQYXG7cbRddU/lista-ace.m3u"
+
+# Variables para almacenamiento en caché
+cached_epg_data = {}
+cached_m3u_data = {}
+epg_retry_count = 0  # Contador de intentos fallidos
+
+scheduler = BackgroundScheduler()
 
 # Función para descargar un archivo desde una URL
 def fetch_file(url):
@@ -16,17 +25,28 @@ def fetch_file(url):
         response.raise_for_status()  # Lanza una excepción si hay un error
         return response.text
     except requests.exceptions.RequestException as e:
-        print(f"Error al descargar {url}: {e}")
+        print(f"Error al descargar {url}:\n{e}\n")
         return None
+    
+def update_epg():
+    global cached_epg_data, epg_retry_count
+    print(f"Intentando descargar la guía EPG (intento {epg_retry_count + 1}/4)...")
 
-# Función para leer la guía EPG y extraer los programas
-def parse_epg():
-    epg_data = {}  # Diccionario donde almacenaremos la información
     xml_content = fetch_file(EPG_URL)
+
     if not xml_content:
-        return epg_data
+        if (epg_retry_count < 3):
+            epg_retry_count += 1
+            delay = epg_retry_count * 30
+            retry_time = datetime.now() + timedelta(minutes=delay)
+            print(f"Programando reintento {epg_retry_count + 1}/4 en {delay} minutos")
+            scheduler.add_job(update_epg, "date", run_date=retry_time)
+        else:
+            print("No se pudo descargar la guía EPG tras 4 intentos fallidos")
+        return
     
     try:
+        epg_data = {}
         root = ET.fromstring(xml_content)  # Nodo raíz
         for programme in root.findall("programme"):  # Recorremos cada elemento <programme>
             channel_id = programme.get("channel")  # Extraemos el ID del canal
@@ -40,10 +60,11 @@ def parse_epg():
                 "start": start,
                 "stop": stop
             })
+        cached_epg_data = epg_data
+        epg_retry_count = 0
+        print("Guía EPG actualizada correctamente")
     except ET.ParseError as e:
-        print(f"Error al parsear el XML: {e}")
-        
-    return epg_data
+        print(f"Error al parsear la guía EPG: {e}")
 
 # Función para leer la lista M3U y extraer los canales
 def parse_m3u():
@@ -89,7 +110,7 @@ def index():
 @app.route("/api/epg")
 def epg():
     # Parseamos la guía EPG y la lista M3U
-    epg_data = parse_epg()
+    epg_data = update_epg()
     channels_data = parse_m3u()
     # Extraemos los IDs de los canales presentes en la lista M3U
     channel_ids = [channel["tvg_id"] for channel in channels_data if channel["tvg_id"]]
@@ -102,5 +123,14 @@ def epg():
 def channels():
     return jsonify(parse_m3u())
 
+
+scheduler.add_job(update_epg, "cron", hour="10,14,18,22", minute=0)
+scheduler.start()
+
+update_epg()
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=3000, debug=False)
+    try:
+        app.run(host="0.0.0.0", port=3000, debug=False)
+    except (KeyboardInterrupt, SystemExit):
+        scheduler.shutdown()
