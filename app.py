@@ -169,7 +169,6 @@ scheduler.start()
 
 # Actualizamos la guía EPG y la lista M3U al iniciar la aplicación
 update_epg()
-update_m3u()
 
 # Iniciamos el servidor Flask
 if __name__ == "__main__":
