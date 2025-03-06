@@ -180,6 +180,6 @@ update_m3u()
 # Iniciamos el servidor Flask
 if __name__ == "__main__":
     try:
-        app.run(host="0.0.0.0", port=3000, debug=False)
+        app.run(host="0.0.0.0", port=3333, debug=False)
     except (KeyboardInterrupt, SystemExit):
         scheduler.shutdown()
