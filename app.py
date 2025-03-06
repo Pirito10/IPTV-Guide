@@ -103,7 +103,7 @@ def update_m3u():
         print("No se pudo descargar la lista M3U")
         return
     
-    m3u_data = {} # Diccionario para almacenar los canales
+    m3u_data = [] # Diccionario para almacenar los canales
 
     # Parseamos y almacenamos el archivo M3U
     lines = m3u_content.splitlines()
