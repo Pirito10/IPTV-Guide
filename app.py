@@ -145,14 +145,8 @@ def index():
 # Ruta a la API para obtener la guía EPG
 @app.route("/api/epg")
 def epg():
-    # Parseamos la guía EPG y la lista M3U
-     epg_data = update_epg()
-     channels_data = update_m3u()
-    # Extraemos los IDs de los canales presentes en la lista M3U
-     channel_ids = [channel["tvg_id"] for channel in channels_data if channel["tvg_id"]]
-    # Filtramos la guía EPG para obtener solo los programas de los canales presentes en la lista M3U
-     filtered_epg = {tvg_id: epg_data.get(tvg_id, []) for tvg_id in channel_ids}
-     return jsonify(filtered_epg)
+    # Devolvemos la guía almacenada en caché
+     return jsonify(cached_epg_data)
 
 # Ruta a la API para obtener los canales
 @app.route("/api/channels")
