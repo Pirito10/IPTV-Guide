@@ -1,36 +1,28 @@
-function generateTimeline() {
-    const timeline = document.getElementById("timeline");
-    for (let i = 0; i < 24; i++) {
-        const hourBlock = document.createElement("div");
-        hourBlock.textContent = i.toString().padStart(2, '0') + ":00";
-        timeline.appendChild(hourBlock);
+document.addEventListener("DOMContentLoaded", async function () {
+    const channelsContainer = document.getElementById("channels-container");
+
+    try {
+        const response = await fetch("/api/channels");
+        const channels = await response.json();
+
+        channels.forEach(channel => {
+            const row = document.createElement("div");
+            row.classList.add("channel-row");
+
+            const logo = document.createElement("img");
+            logo.src = channel.logo;
+            logo.alt = channel.name;
+            logo.classList.add("channel-logo");
+
+            const name = document.createElement("span");
+            name.textContent = channel.name;
+            name.classList.add("channel-name");
+
+            row.appendChild(logo);
+            row.appendChild(name);
+            channelsContainer.appendChild(row);
+        });
+    } catch (error) {
+        console.error("Error loading channels:", error);
     }
-}
-
-async function fetchChannels() {
-    const response = await fetch('/api/channels');
-    const channels = await response.json();
-    const channelList = document.getElementById("channel-list");
-    channelList.innerHTML = "";
-
-    channels.forEach(channel => {
-        const channelDiv = document.createElement("div");
-        channelDiv.classList.add("channel");
-        channelDiv.innerHTML = `
-            <img src="${channel.logo}" alt="Logo">
-            <span onclick="copyToClipboard('${channel.url}')">${channel.name}</span>
-        `;
-        channelList.appendChild(channelDiv);
-    });
-}
-
-function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).then(() => {
-        alert("Enlace copiado: " + text);
-    }).catch(err => {
-        console.error("Error al copiar: ", err);
-    });
-}
-
-generateTimeline();
-fetchChannels();
+});

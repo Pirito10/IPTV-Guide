@@ -1,63 +1,44 @@
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
+    background-color: #1e1e1e;
+    color: white;
+    margin: 0;
+    padding: 0;
 }
 
-.epg-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-    overflow-x: auto;
+.container {
+    width: 90%;
+    margin: 20px auto;
+}
+
+.channel-table {
     width: 100%;
+    border-collapse: collapse;
 }
 
-.channel-container {
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.channel {
+.channel-row {
     display: flex;
     align-items: center;
     padding: 10px;
-    border-bottom: 1px solid #ccc;
-    width: 100%;
+    border-bottom: 1px solid #444;
 }
 
-.channel img {
-    max-width: 50px;
+.channel-logo {
+    width: 50px;
+    height: 50px;
     margin-right: 10px;
 }
 
-.channel span {
-    cursor: pointer;
-    color: blue;
-    text-decoration: underline;
-}
-
-.timeline-container {
-    display: flex;
-    flex-direction: column;
-    overflow-x: auto;
-    width: calc(100% - 300px);
-    border-left: 2px solid #000;
-    padding-left: 10px;
+.channel-name {
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .timeline {
-    display: flex;
-    justify-content: space-between;
-    width: 1440px;
-    /* 60px por cada hora (24h) */
+    flex-grow: 1;
+    height: 50px;
+    background: #333;
+    margin-left: 20px;
     position: relative;
-}
-
-.timeline div {
-    width: 60px;
-    text-align: center;
-    font-size: 12px;
-    border-right: 1px solid #ddd;
+    border-radius: 5px;
 }

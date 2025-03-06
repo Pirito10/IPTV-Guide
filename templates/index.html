@@ -5,20 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Canales IPTV</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 
 <body>
     <h1>Canales IPTV Acestream</h1>
     <h3>🖕🏻 Tebas 🖕🏻</h3>
-    <div class="epg-container">
-        <div class="channel-container" id="channel-list"></div>
-        <div class="timeline-container">
-            <div class="timeline" id="timeline"></div>
-        </div>
+
+    <div class="container">
+        <table class="epg-table">
+            <thead>
+                <tr>
+                    <th>Canal</th>
+                    <th>Guía de Programación</th>
+                </tr>
+            </thead>
+            <tbody id="channels-container">
+            </tbody>
+        </table>
     </div>
 
-    <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <script src="/static/main.js"></script>
 </body>
 
 </html>
