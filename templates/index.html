@@ -5,75 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Canales IPTV</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-
-        .epg-container {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: flex-start;
-            overflow-x: auto;
-            width: 100%;
-        }
-
-        .channel-container {
-            width: 300px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .channel {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-            width: 100%;
-        }
-
-        .channel img {
-            max-width: 50px;
-            margin-right: 10px;
-        }
-
-        .channel span {
-            cursor: pointer;
-            color: blue;
-            text-decoration: underline;
-        }
-
-        .timeline-container {
-            display: flex;
-            flex-direction: column;
-            overflow-x: auto;
-            width: calc(100% - 300px);
-            border-left: 2px solid #000;
-            padding-left: 10px;
-        }
-
-        .timeline {
-            display: flex;
-            justify-content: space-between;
-            width: 1440px;
-            /* 60px por cada hora (24h) */
-            position: relative;
-        }
-
-        .timeline div {
-            width: 60px;
-            text-align: center;
-            font-size: 12px;
-            border-right: 1px solid #ddd;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
-    <h1>Lista de Canales IPTV</h1>
+    <h1>Canales IPTV Acestream</h1>
+    <h3>🖕🏻 Tebas 🖕🏻</h3>
     <div class="epg-container">
         <div class="channel-container" id="channel-list"></div>
         <div class="timeline-container">
@@ -81,44 +18,7 @@
         </div>
     </div>
 
-    <script>
-        function generateTimeline() {
-            const timeline = document.getElementById("timeline");
-            for (let i = 0; i < 24; i++) {
-                const hourBlock = document.createElement("div");
-                hourBlock.textContent = i.toString().padStart(2, '0') + ":00";
-                timeline.appendChild(hourBlock);
-            }
-        }
-
-        async function fetchChannels() {
-            const response = await fetch('/api/channels');
-            const channels = await response.json();
-            const channelList = document.getElementById("channel-list");
-            channelList.innerHTML = "";
-
-            channels.forEach(channel => {
-                const channelDiv = document.createElement("div");
-                channelDiv.classList.add("channel");
-                channelDiv.innerHTML = `
-                    <img src="${channel.logo}" alt="Logo">
-                    <span onclick="copyToClipboard('${channel.url}')">${channel.name}</span>
-                `;
-                channelList.appendChild(channelDiv);
-            });
-        }
-
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                alert("Enlace copiado: " + text);
-            }).catch(err => {
-                console.error("Error al copiar: ", err);
-            });
-        }
-
-        generateTimeline();
-        fetchChannels();
-    </script>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
 </body>
 
 </html>
