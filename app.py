@@ -60,6 +60,7 @@ def update_epg():
     try:
         epg_data = {} # Diccionario para almacenar la guía EPG
         root = ET.fromstring(xml_content) # Nodo raíz
+
         # Recorremos cada elemento <programme>
         for programme in root.findall("programme"):
             # Extraemos la información necesaria
@@ -74,8 +75,15 @@ def update_epg():
                 "start": start,
                 "stop": stop
             })
+        
+        # Actualizamos la lista M3U
+        update_m3u()
+        # Extraemos los IDs de los canales presentes en la lista M3U
+        channel_ids = {channel["tvg_id"] for channel in cached_m3u_data if channel["tvg_id"]}
+        # Filtramos la guía EPG para obtener solo los programas de los canales presentes en la lista M3U
+        filtered_epg = {tvg_id: epg_data.get(tvg_id, []) for tvg_id in channel_ids}
         # Actualizamos la caché
-        cached_epg_data = epg_data
+        cached_epg_data = filtered_epg
         epg_retry_count = 0
         print("Guía EPG actualizada correctamente")
 
