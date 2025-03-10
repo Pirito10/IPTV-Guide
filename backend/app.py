@@ -1,4 +1,5 @@
-from flask import Flask, render_template, jsonify # type: ignore
+from flask import Flask, jsonify
+from flask_cors import CORS
 import xml.etree.ElementTree as ET
 import re
 import requests
@@ -7,6 +8,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 # Servidor Flask
 app = Flask(__name__)
+CORS(app)
 
 # Enlaces a los archivos
 EPG_URL = "https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/guiatv.xml"
@@ -137,19 +139,14 @@ def update_m3u():
     last_m3u_update = datetime.now()
     print("Lista M3U actualizada correctamente")
 
-# Ruta a la página principal
-@app.route("/")
-def index():
-    return render_template("index.html")
-
 # Ruta a la API para obtener la guía EPG
-@app.route("/api/epg")
+@app.route("/api/epg", methods=["GET"])
 def epg():
     # Devolvemos la guía almacenada en caché
      return jsonify(cached_epg_data)
 
 # Ruta a la API para obtener los canales
-@app.route("/api/channels")
+@app.route("/api/channels", methods=["GET"])
 def channels():
     global last_m3u_update
 
@@ -173,6 +170,6 @@ update_epg()
 # Iniciamos el servidor Flask
 if __name__ == "__main__":
     try:
-        app.run(host="0.0.0.0", port=3333, debug=False)
+        app.run(host="0.0.0.0", port=5000, debug=True)
     except (KeyboardInterrupt, SystemExit):
         scheduler.shutdown()
