@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 # Enlaces a los archivos
 EPG_URL = "https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/guiatv.xml"
-M3U_URL = "https://proxy.zeronet.dev/1H3KoazXt2gCJgeD8673eFvQYXG7cbRddU/lista-ace.m3u"
+M3U_URL = "http://127.0.0.1:43110/1H3KoazXt2gCJgeD8673eFvQYXG7cbRddU/lista-ace.m3u"
 
 # Variables para almacenamiento en caché
 cached_epg_data = {}
