@@ -155,7 +155,7 @@ def channels():
 
     # Verificamos si se ha actualizado la lista M3U en el último minuto
     if last_m3u_update and (datetime.now() - last_m3u_update).seconds < 60:
-        print("La lista M3U se actualizó hace menos de 1 minutos, usando caché...")
+        print("La lista M3U se actualizó hace menos de 1 minuto, usando caché...")
     else:
         # Si ha pasado más de un minuto, actualizamos la lista M3U
         update_m3u()
