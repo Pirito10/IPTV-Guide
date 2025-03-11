@@ -104,9 +104,9 @@ def update_epg():
         # Actualizamos la lista M3U
         update_m3u()
         # Extraemos los IDs de los canales presentes en la lista M3U
-        channel_ids = {channel["tvg_id"] for channel in cached_m3u_data if channel["tvg_id"]}
+        channel_ids = {channel["id"] for channel in cached_m3u_data if channel["id"]}
         # Filtramos la guía EPG para obtener solo los programas de los canales presentes en la lista M3U
-        filtered_epg = {tvg_id: epg_data.get(tvg_id, []) for tvg_id in channel_ids}
+        filtered_epg = {id: epg_data.get(id, []) for id in channel_ids}
         # Actualizamos la caché
         cached_epg_data = filtered_epg
         epg_retry_count = 0
@@ -138,8 +138,8 @@ def update_m3u():
             # Extraemos los datos con expresiones regulares
             logo_match = re.search(r'tvg-logo="(.*?)"', lines[i]) # URL del logo
             logo_url = logo_match.group(1) if logo_match else ""
-            tvg_id_match = re.search(r'tvg-id="(.*?)"', lines[i]) # ID del canal
-            tvg_id = tvg_id_match.group(1) if tvg_id_match else ""
+            id_match = re.search(r'tvg-id="(.*?)"', lines[i]) # ID del canal
+            id = id_match.group(1) if id_match else ""
             group_match = re.search(r'group-title="(.*?)"', lines[i]) # Grupo del canal
             group = group_match.group(1) if group_match else ""
             name_match = re.search(r',(.+)$', lines[i].strip()) # Nombre del canal
@@ -150,7 +150,7 @@ def update_m3u():
             
             # Agregamos el canal al diccionario
             m3u_data.append({
-                "tvg_id": tvg_id,
+                "id": id,
                 "name": channel_name,
                 "group": group,
                 "logo": logo_url,

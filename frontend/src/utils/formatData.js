@@ -6,17 +6,17 @@ export const formatChannels = (channels) => {
     // Recorremos la lista de canales
     channels.forEach((channel) => {
         // Obtenemos los datos del canal
-        const { tvg_id, logo, name, url } = channel
+        const { id, logo, name, url } = channel
 
         // Si un canal con el mismo ID ya existe, incrementamos el contador para ese ID
-        if (channelCount[tvg_id]) {
-            channelCount[tvg_id] += 1
+        if (channelCount[id]) {
+            channelCount[id] += 1
         } else {
-            channelCount[tvg_id] = 1
+            channelCount[id] = 1
         }
 
         // Generamos un ID único para el canal
-        const uniqueId = `${tvg_id}-${channelCount[tvg_id]}`
+        const uniqueId = `${id}-${channelCount[id]}`
 
         // Añadimos el canal a la lista
         uniqueChannels.push({
