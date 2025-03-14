@@ -193,6 +193,6 @@ update_epg()
 # Iniciamos el servidor Flask
 if __name__ == "__main__":
     try:
-        app.run()
+        app.run(host="192.168.0.4")
     except (KeyboardInterrupt, SystemExit):
         scheduler.shutdown()
