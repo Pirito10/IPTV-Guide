@@ -13,8 +13,8 @@ export const useFetchTVData = () => {
             try {
                 // Solicitamos los datos de los canales y la guía EPG al backend
                 const [channelsResponse, epgResponse] = await Promise.all([
-                    fetch("http://localhost:5000/api/channels"),
-                    fetch("http://localhost:5000/api/epg")
+                    fetch("http://pirito10.duckdns.org/api/channels"),
+                    fetch("http://pirito10.duckdns.org/api/epg")
                 ])
 
                 if (!channelsResponse.ok || !epgResponse.ok) {
