@@ -43,6 +43,7 @@ export const formatEpg = (epg, formattedChannels) => {
                 id: `${channel.uuid}-${program.start}`,
                 channelUuid: channel.uuid,
                 title: program.title,
+                description: program.description || "Descripción no disponible",
                 since: new Date(program.start).toISOString(),
                 till: new Date(program.stop).toISOString(),
                 image: "/tebas.jpg",

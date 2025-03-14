@@ -91,12 +91,14 @@ def update_epg():
             # Extraemos la información necesaria
             channel_id = programme.get("channel") # ID del canal
             title = programme.find("title").text if programme.find("title") is not None else "Sin título" # Título del programa
+            description = programme.find("desc").text if programme.find("desc") is not None else "Sin descripción" # Descripción del programa
             start = convert_epg_time(programme.get("start")) # Fecha y hora de inicio
             stop = convert_epg_time(programme.get("stop")) # Fecha y hora de finalización
 
             # Agregamos la información al diccionario agrupada por canal
             epg_data.setdefault(channel_id, []).append({
                 "title": title,
+                "description": description,
                 "start": start,
                 "stop": stop
             })
