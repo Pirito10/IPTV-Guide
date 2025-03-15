@@ -16,9 +16,9 @@ const TVGuide = () => {
     const epgProps = useEpg({
         epg: formattedEpg,
         channels: formattedChannels,
-        startDate: new Date().toISOString().split("T")[0], // Fecha actual
         width: 1850,
         height: 900,
+        startDate: new Date().toISOString().split("T")[0] + "T00:00:00", // Fecha actual
     });
 
     // Mientras carga, mostramos un mensaje
