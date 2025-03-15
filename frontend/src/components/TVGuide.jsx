@@ -18,6 +18,7 @@ const TVGuide = () => {
         channels: formattedChannels,
         width: 1850,
         height: 900,
+        dayWidth: 10000,
         startDate: new Date().toISOString().split("T")[0] + "T00:00:00", // Fecha actual
     });
 
