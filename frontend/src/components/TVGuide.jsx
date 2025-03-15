@@ -31,11 +31,9 @@ const TVGuide = () => {
     // Devolvemos el HTML con la guía de TV
     return (
         <div>
-            <div>
-                <Epg {...epgProps.getEpgProps()} >
-                    <Layout {...epgProps.getLayoutProps()} />
-                </Epg>
-            </div>
+            <Epg {...epgProps.getEpgProps()} >
+                <Layout {...epgProps.getLayoutProps()} />
+            </Epg>
         </div>
     );
 };
