@@ -1,10 +1,10 @@
 import React, { useMemo, useEffect, useState } from 'react'
 import { useEpg, Epg, Layout, ProgramBox, ProgramContent, ProgramFlex, ProgramStack, ProgramTitle, ProgramText, useProgram } from 'planby'
-import { useFetchTVData } from '../hooks/useFetchTVData'
-import { formatChannels, formatEpg } from '../utils/formatData'
+import { useFetchTVData } from './hooks/useFetchTVData'
+import { formatChannels, formatEpg } from './utils/formatData'
 
 // Componente con la guía de TV
-const TVGuide = () => {
+const App = () => {
     // Obtenemos los datos de los canales y programas del backend
     const { channels, epg, loading } = useFetchTVData()
 
@@ -78,4 +78,4 @@ const TVGuide = () => {
     );
 };
 
-export default TVGuide;
+export default App;
