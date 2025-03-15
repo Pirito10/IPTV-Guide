@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useEffect, useState } from 'react'
 import { useEpg, Epg, Layout } from 'planby'
 import { useFetchTVData } from '../hooks/useFetchTVData'
 import { formatChannels, formatEpg } from '../utils/formatData'
@@ -7,6 +7,9 @@ import { formatChannels, formatEpg } from '../utils/formatData'
 const TVGuide = () => {
     // Obtenemos los datos de los canales y programas del backend
     const { channels, epg, loading } = useFetchTVData()
+
+    // Estado para saber si ya se ha hecho scroll a la hora actual
+    const [hasScrolled, setHasScrolled] = useState(false)
 
     // Formateamos los datos de los canales y programas al formato de Planby
     const formattedChannels = useMemo(() => formatChannels(channels), [channels]);
@@ -19,6 +22,14 @@ const TVGuide = () => {
         dayWidth: 10000,
         startDate: new Date().toISOString().split("T")[0] + "T00:00:00", // Fecha actual
     });
+
+    // Ejecutamos un scroll a la hora actual
+    useEffect(() => {
+        if (!hasScrolled && epgProps.onScrollToNow) {
+            epgProps.onScrollToNow();
+            setHasScrolled(true)
+        }
+    }, [hasScrolled, epgProps]);
 
     // Mientras carga, mostramos un mensaje
     if (loading) return <p>Cargando datos...</p>;
