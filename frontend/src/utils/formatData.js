@@ -45,8 +45,7 @@ export const formatEpg = (epg, formattedChannels) => {
                 title: program.title,
                 description: program.description || "Descripción no disponible",
                 since: new Date(program.start).toISOString(),
-                till: new Date(program.stop).toISOString(),
-                image: "/tebas.jpg",
+                till: new Date(program.stop).toISOString()
             }))
         )
     })
