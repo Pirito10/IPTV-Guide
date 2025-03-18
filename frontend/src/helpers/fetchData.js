@@ -1,3 +1,5 @@
+import { formatChannels, formatEpg } from './formatData'
+
 // Función para obtener los datos de los canales y la guía EPG del backend
 export const fetchData = async () => {
     try {
@@ -17,9 +19,13 @@ export const fetchData = async () => {
             epgResponse.json()
         ])
 
-        return { channelsData, epgData }
+        // Convertimos los datos al formato de Planby
+        const channels = formatChannels(channelsData)
+        const epg = formatEpg(epgData, channels)
+
+        return { channels, epg }
     } catch (error) {
         console.error("Error obteniendo los datos:", error)
-        return { channelsData: [], epgData: [] }
+        return { channels: [], epg: [] }
     }
 }
