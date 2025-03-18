@@ -144,8 +144,8 @@ def update_m3u():
         if lines[i].startswith("#EXTINF"):
             # Extraemos los datos con expresiones regulares
             logo_match = re.search(r'tvg-logo="(.*?)"', lines[i]) # URL del logo
-            logo_url = logo_match.group(1)
-            logo_url = logo_url if logo_url else DEFAULT_LOGO
+            logo = logo_match.group(1)
+            logo = logo if logo else DEFAULT_LOGO
 
             id_match = re.search(r'tvg-id="(.*?)"', lines[i]) # ID del canal
             id = id_match.group(1)
@@ -156,7 +156,7 @@ def update_m3u():
             group = group if group else DEFAULT_GROUP
 
             name_match = re.search(r',(.+)$', lines[i].strip()) # Nombre del canal
-            channel_name = name_match.group(1)
+            name = name_match.group(1)
 
             # Extraemos la URL de la siguiente línea
             url = lines[i + 1].strip()
@@ -164,9 +164,9 @@ def update_m3u():
             # Agregamos el canal al diccionario
             m3u_data.append({
                 "id": id,
-                "name": channel_name,
+                "name": name,
                 "group": group,
-                "logo": logo_url,
+                "logo": logo,
                 "url": url
             })
 
