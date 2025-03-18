@@ -21,8 +21,8 @@ export const formatChannels = (channels) => {
         // Añadimos el canal a la lista
         uniqueChannels.push({
             uuid: uniqueId,
-            logo: logo || "/tebas.jpg",
-            name: name || "Canal desconocido",
+            logo: logo,
+            name: name,
             url: url,
         })
     })
@@ -43,7 +43,7 @@ export const formatEpg = (epg, formattedChannels) => {
                 id: `${channel.uuid}-${program.start}`,
                 channelUuid: channel.uuid,
                 title: program.title,
-                description: program.description || "Descripción no disponible",
+                description: program.description,
                 since: new Date(program.start).toISOString(),
                 till: new Date(program.stop).toISOString()
             }))
