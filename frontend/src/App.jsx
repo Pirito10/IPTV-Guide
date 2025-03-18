@@ -5,7 +5,7 @@ import { ProgramItem } from './components'
 
 const App = () => {
     // Obtenemos los datos y propiedades de la guía de programación
-    const { epgProps, isLoading } = useApp();
+    const { epgProps, isLoading } = useApp()
 
     // Renderizamos el HTML de la guía de programación
     return (
@@ -17,7 +17,7 @@ const App = () => {
                 />
             </Epg>
         </div>
-    );
-};
+    )
+}
 
-export default App;
+export default App
