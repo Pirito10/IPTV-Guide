@@ -25,6 +25,7 @@ last_m3u_update = None
 # Valores por defecto para los canales
 DEFAULT_LOGO = "https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM="
 DEFAULT_ID = "unknown"
+DEFAULT_GROUP = "OTROS"
 
 # Planificador de tareas
 scheduler = BackgroundScheduler()
@@ -152,6 +153,8 @@ def update_m3u():
 
             group_match = re.search(r'group-title="(.*?)"', lines[i]) # Grupo del canal
             group = group_match.group(1)
+            group = group if group else DEFAULT_GROUP
+
             name_match = re.search(r',(.+)$', lines[i].strip()) # Nombre del canal
             channel_name = name_match.group(1)
 
