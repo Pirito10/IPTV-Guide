@@ -5,12 +5,12 @@ import { ProgramItem } from './components'
 
 const App = () => {
     // Obtenemos los datos y propiedades de la guía de programación
-    const { epgProps } = useApp();
+    const { epgProps, isLoading } = useApp();
 
     // Renderizamos el HTML de la guía de programación
     return (
         <div>
-            <Epg {...epgProps.getEpgProps()} >
+            <Epg isLoading={isLoading} {...epgProps.getEpgProps()} >
                 <Layout
                     {...epgProps.getLayoutProps()}
                     renderProgram={(props) => <ProgramItem {...props} />}
