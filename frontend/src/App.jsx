@@ -1,46 +1,13 @@
-import React, { useMemo, useEffect, useState } from 'react'
-import { useEpg, Epg, Layout } from 'planby'
-import { useFetchTVData } from './hooks/useFetchTVData'
-import { formatChannels, formatEpg } from './utils/formatData'
-import { ProgramItem } from './components/ProgramItem'
+import React from 'react'
+import { Epg, Layout } from 'planby'
+import { useApp } from './useApp'
+import { ProgramItem } from './components'
 
-// Componente con la guía de TV
 const App = () => {
-    // Obtenemos los datos de los canales y programas del backend
-    const { channels, epg, loading } = useFetchTVData()
+    // Obtenemos los datos y propiedades de la guía de programación
+    const { epgProps } = useApp();
 
-    // Estado para saber si ya se ha hecho scroll a la hora actual
-    const [hasScrolled, setHasScrolled] = useState(false)
-
-    // Formateamos los datos de los canales y programas al formato de Planby
-    const formattedChannels = useMemo(() => formatChannels(channels), [channels]);
-    const formattedEpg = useMemo(() => formatEpg(epg, formattedChannels), [epg, formattedChannels]);
-
-    // Configuración de Planby
-    const epgProps = useEpg({
-        epg: formattedEpg,
-        channels: formattedChannels,
-        width: 1850,
-        height: 900,
-        dayWidth: 10000,
-        startDate: new Date().toISOString().split("T")[0] + "T00:00:00", // Fecha actual
-    });
-
-    // Ejecutamos un scroll a la hora actual
-    useEffect(() => {
-        if (!hasScrolled && epgProps.onScrollToNow) {
-            epgProps.onScrollToNow();
-            setHasScrolled(true)
-        }
-    }, [hasScrolled, epgProps]);
-
-    // Mientras carga, mostramos un mensaje
-    if (loading) return <p>Cargando datos...</p>;
-
-    // Si no hay datos, mostramos un mensaje de error
-    if (!channels.length || Object.keys(epg).length === 0) return <p>No hay datos disponibles.</p>;
-
-    // Devolvemos el HTML con la guía de TV
+    // Renderizamos el HTML de la guía de programación
     return (
         <div>
             <Epg {...epgProps.getEpgProps()} >
