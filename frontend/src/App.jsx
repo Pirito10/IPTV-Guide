@@ -9,7 +9,7 @@ const App = () => {
 
     // Renderizamos el HTML de la guía de programación
     return (
-        <div>
+        <div style={{ height: "80vh" }}>
             <Epg isLoading={isLoading} {...epgProps.getEpgProps()} >
                 <Layout
                     {...epgProps.getLayoutProps()}
