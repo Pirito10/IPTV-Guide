@@ -20,29 +20,29 @@ export const useApp = () => {
         height: 900,
         dayWidth: 10000,
         startDate: new Date().toISOString().split("T")[0] + "T00:00:00", // Fecha actual
-    });
+    })
 
     // Función para cargar los datos de los canales y la guía EPG
     const handleFetchResources = useCallback(async () => {
-        setIsLoading(true);
-        const { channels, epg } = await fetchData();
-        setChannels(channels);
-        setEpg(epg);
-        setIsLoading(false);
-    }, []);
+        setIsLoading(true)
+        const { channels, epg } = await fetchData()
+        setChannels(channels)
+        setEpg(epg)
+        setIsLoading(false)
+    }, [])
 
     // Ejecutamos la carga de datos al montar el componente
     useEffect(() => {
-        handleFetchResources();
-    }, [handleFetchResources]);
+        handleFetchResources()
+    }, [handleFetchResources])
 
     // Ejecutamos un scroll a la hora actual
     useEffect(() => {
         if (!hasScrolled && epgProps.onScrollToNow) {
-            epgProps.onScrollToNow();
+            epgProps.onScrollToNow()
             setHasScrolled(true)
         }
-    }, [hasScrolled, epgProps]);
+    }, [hasScrolled, epgProps])
 
-    return { epgProps, isLoading };
+    return { epgProps, isLoading }
 }
