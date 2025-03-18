@@ -12,7 +12,7 @@ export const useApp = () => {
     const channelsData = useMemo(() => channels, [channels])
     const epgData = useMemo(() => epg, [epg])
 
-    // Configuración de Planby
+    // Configuración de la guía de programación
     const epgProps = useEpg({
         channels: channelsData,
         epg: epgData,
