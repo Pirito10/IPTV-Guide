@@ -140,22 +140,25 @@ def update_m3u():
     # Parseamos y almacenamos el archivo M3U
     lines = m3u_content.splitlines()
     for i in range(len(lines)):
-        # Leemos la línea con la información del canal
+        # Leemos la línea con la información del canal y extraemos los datos con regex
         if lines[i].startswith("#EXTINF"):
-            # Extraemos los datos con expresiones regulares
-            logo_match = re.search(r'tvg-logo="(.*?)"', lines[i]) # URL del logo
-            logo = logo_match.group(1)
-            logo = logo if logo else DEFAULT_LOGO
-
-            id_match = re.search(r'tvg-id="(.*?)"', lines[i]) # ID del canal
+            # ID del canal
+            id_match = re.search(r'tvg-id="(.*?)"', lines[i])
             id = id_match.group(1)
             id = id if id else DEFAULT_ID
 
-            group_match = re.search(r'group-title="(.*?)"', lines[i]) # Grupo del canal
+            # URL del logo
+            logo_match = re.search(r'tvg-logo="(.*?)"', lines[i]) 
+            logo = logo_match.group(1)
+            logo = logo if logo else DEFAULT_LOGO
+
+            # Grupo del canal
+            group_match = re.search(r'group-title="(.*?)"', lines[i]) 
             group = group_match.group(1)
             group = group if group else DEFAULT_GROUP
 
-            name_match = re.search(r',(.+)$', lines[i].strip()) # Nombre del canal
+            # Nombre del canal
+            name_match = re.search(r',(.+)$', lines[i].strip()) 
             name = name_match.group(1)
 
             # Extraemos la URL de la siguiente línea
