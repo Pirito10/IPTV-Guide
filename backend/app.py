@@ -158,11 +158,11 @@ def update_m3u():
             group = group if group else DEFAULT_GROUP
 
             # Nombre del canal
-            name_match = re.search(r', (.+)$', lines[i].strip()) 
+            name_match = re.search(r', (.+)$', lines[i]) 
             name = name_match.group(1)
 
             # Extraemos la URL de la siguiente línea
-            url = lines[i + 1].strip()
+            url = lines[i + 1]
             
             # Agregamos el canal al diccionario
             m3u_data.append({
