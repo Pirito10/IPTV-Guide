@@ -16,7 +16,7 @@ M3U_URL = "http://127.0.0.1:43110/1H3KoazXt2gCJgeD8673eFvQYXG7cbRddU/lista-ace.m
 
 # Variables para almacenamiento en caché
 cached_epg_data = {}
-cached_m3u_data = {}
+cached_m3u_data = []
 # Contandor de intentos fallidos
 epg_retry_count = 0
 # Fecha de la última actualización de la lista M3U
@@ -135,7 +135,7 @@ def update_m3u():
         print("No se pudo descargar la lista M3U")
         return
     
-    m3u_data = [] # Diccionario para almacenar los canales
+    m3u_data = [] # Lista para almacenar los canales
     id_counter = {} # Diccionario para almacenar un contador para cada ID de canal
 
     # Parseamos y almacenamos el archivo M3U
