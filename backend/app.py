@@ -110,8 +110,8 @@ def update_epg():
         
         # Actualizamos la lista M3U
         update_m3u()
-        # Extraemos los IDs de los canales presentes en la lista M3U
-        channel_ids = {channel["id"] for channel in cached_m3u_data if channel["id"]}
+        # Extraemos los IDs de los canales presentes en la lista M3U, sin el contador
+        channel_ids = {channel["id"].split("#")[0] for channel in cached_m3u_data if channel["id"]}
         # Filtramos la guía EPG para obtener solo los programas de los canales presentes en la lista M3U
         filtered_epg = {id: epg_data.get(id, []) for id in channel_ids}
         # Actualizamos la caché
@@ -136,6 +136,7 @@ def update_m3u():
         return
     
     m3u_data = [] # Diccionario para almacenar los canales
+    id_counter = {} # Diccionario para almacenar un contador para cada ID de canal
 
     # Parseamos y almacenamos el archivo M3U
     lines = m3u_content.splitlines()
@@ -146,6 +147,13 @@ def update_m3u():
             id_match = re.search(r'tvg-id="(.*?)"', lines[i])
             id = id_match.group(1)
             id = id if id else DEFAULT_ID
+
+            # Incrementamos el contador para el ID del canal
+            id_counter.setdefault(id, 0)
+            id_counter[id] += 1
+
+            # Establecemos el ID con formato "ID#N"
+            id = f"{id}#{id_counter[id]}"
 
             # URL del logo
             logo_match = re.search(r'tvg-logo="(.*?)"', lines[i]) 
