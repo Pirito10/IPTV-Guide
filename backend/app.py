@@ -145,25 +145,21 @@ def update_m3u():
         if lines[i].startswith("#EXTINF"):
             # ID del canal
             id_match = re.search(r'tvg-id="(.*?)"', lines[i])
-            id = id_match.group(1)
-            id = id if id else DEFAULT_ID
+            id = id_match.group(1) if id_match.group(1) else DEFAULT_ID
 
             # Incrementamos el contador para el ID del canal
             id_counter.setdefault(id, 0)
             id_counter[id] += 1
-
             # Establecemos el ID con formato "ID#N"
             id = f"{id}#{id_counter[id]}"
 
             # URL del logo
             logo_match = re.search(r'tvg-logo="(.*?)"', lines[i]) 
-            logo = logo_match.group(1)
-            logo = logo if logo else DEFAULT_LOGO
+            logo = logo_match.group(1) if logo_match.group(1) else DEFAULT_LOGO
 
             # Grupo del canal
             group_match = re.search(r'group-title="(.*?)"', lines[i]) 
-            group = group_match.group(1)
-            group = group if group else DEFAULT_GROUP
+            group = group_match.group(1) if group_match.group(1) else DEFAULT_GROUP
 
             # Nombre del canal
             name_match = re.search(r', (.+)$', lines[i]) 
