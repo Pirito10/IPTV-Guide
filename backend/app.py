@@ -166,7 +166,7 @@ def update_m3u():
             name = name_match.group(1)
 
             # Extraemos la URL de la siguiente línea
-            url = lines[i + 1]
+            url = lines[i + 1].removeprefix("acestream://")
             
             # Agregamos el canal al diccionario
             m3u_data.append({
