@@ -5,8 +5,8 @@ export const fetchData = async () => {
     try {
         // Hacemos las peticiones a la API
         const [channelsResponse, epgResponse] = await Promise.all([
-            fetch("http://pirito10.duckdns.org/api/channels"),
-            fetch("http://pirito10.duckdns.org/api/epg")
+            fetch("http://127.0.0.1:5000/api/channels"),
+            fetch("http://127.0.0.1:5000/api/epg")
         ])
 
         if (!channelsResponse.ok || !epgResponse.ok) {
