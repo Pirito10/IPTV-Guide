@@ -1,3 +1,7 @@
+// Valores por defecto para los canales
+const DEFAULT_LOGO = "https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM="
+const DEFAULT_GROUP = "OTROS"
+
 // Función para formatear los canales al formato de Planby
 export const formatChannels = (channelsData) => {
     const channels = [] // Lista de canales en formato de Planby
@@ -5,12 +9,13 @@ export const formatChannels = (channelsData) => {
     // Recorremos la lista de canales de la API
     channelsData.forEach((channel) => {
         // Obtenemos los datos del canal
-        const { id, logo, name, url } = channel
+        const { id, logo, group, name, url } = channel
 
         // Añadimos el canal a la lista
         channels.push({
             uuid: id,
-            logo: logo,
+            logo: logo || DEFAULT_LOGO,
+            group: group || DEFAULT_GROUP,
             name: name,
             url: url,
         })

@@ -22,10 +22,8 @@ epg_retry_count = 0
 # Fecha de la última actualización de la lista M3U
 last_m3u_update = None
 
-# Valores por defecto para los canales
-DEFAULT_LOGO = "https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM="
+# ID por defecto para los canales con ID desconocido
 DEFAULT_ID = "unknown"
-DEFAULT_GROUP = "OTROS"
 
 # Planificador de tareas
 scheduler = BackgroundScheduler()
@@ -155,11 +153,11 @@ def update_m3u():
 
             # URL del logo
             logo_match = re.search(r'tvg-logo="(.*?)"', lines[i]) 
-            logo = logo_match.group(1) if logo_match.group(1) else DEFAULT_LOGO
+            logo = logo_match.group(1)
 
             # Grupo del canal
             group_match = re.search(r'group-title="(.*?)"', lines[i]) 
-            group = group_match.group(1) if group_match.group(1) else DEFAULT_GROUP
+            group = group_match.group(1)
 
             # Nombre del canal
             name_match = re.search(r', (.+)$', lines[i]) 
