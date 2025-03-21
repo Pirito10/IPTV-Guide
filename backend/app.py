@@ -2,28 +2,27 @@ from flask import Flask
 from flask_cors import CORS
 from apscheduler.schedulers.background import BackgroundScheduler
 from functools import partial
-import updater
-import routes
+from routes import routes
+from updater import update_epg
 
 # Servidor Flask
 app = Flask(__name__)
+app.register_blueprint(routes)
 CORS(app)
-
-app.register_blueprint(routes.routes)
 
 # Planificador de tareas
 scheduler = BackgroundScheduler()
 
-# Programamos la actualización de la guía EPG
-scheduler.add_job(partial(updater.update_epg, scheduler), "cron", hour="10,14,18,22", minute=0)
-scheduler.start()
-
-# Actualizamos la guía EPG y la lista M3U al iniciar la aplicación
-updater.update_epg(scheduler)
-
-# Iniciamos el servidor Flask
 if __name__ == "__main__":
     try:
+        # Actualizamos la guía EPG y la lista M3U
+        update_epg(scheduler)
+
+        # Programamos la actualización de la guía EPG
+        scheduler.add_job(partial(update_epg, scheduler), "cron", hour="10,14,18,22", minute=0)
+        scheduler.start()
+
+        # Iniciamos el servidor Flask
         app.run(host="0.0.0.0")
     except (KeyboardInterrupt, SystemExit):
         scheduler.shutdown()
