@@ -5,25 +5,11 @@ import re
 import requests
 from datetime import datetime, timedelta
 from apscheduler.schedulers.background import BackgroundScheduler
+import data
 
 # Servidor Flask
 app = Flask(__name__)
 CORS(app)
-
-# Enlaces a los archivos
-EPG_URL = "https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/guiatv.xml"
-M3U_URL = "http://127.0.0.1:43110/1H3KoazXt2gCJgeD8673eFvQYXG7cbRddU/lista-ace.m3u"
-
-# Variables para almacenamiento en caché
-cached_epg_data = {}
-cached_m3u_data = []
-# Contandor de intentos fallidos de descarga de la guía EPG
-epg_retry_count = 0
-# Fecha de la última actualización de la lista M3U
-last_m3u_update = None
-
-# ID por defecto para los canales con ID desconocido
-DEFAULT_ID = "unknown"
 
 # Planificador de tareas
 scheduler = BackgroundScheduler()
@@ -65,21 +51,20 @@ def convert_epg_time(epg_time):
 
 # Función para descargar la guía EPG y almacenarla en caché
 def update_epg():
-    global cached_epg_data, epg_retry_count
-    print(f"Intentando descargar la guía EPG (intento {epg_retry_count + 1}/4)...")
+    print(f"Intentando descargar la guía EPG (intento {data.epg_retry_count + 1}/4)...")
 
     # Descargamos el archivo con la guía EPG
-    xml_content = fetch_file(EPG_URL)
+    xml_content = fetch_file(data.EPG_URL)
 
     # Si hubo un error, lo reintentamos hasta 3 veces
     if not xml_content:
-        if (epg_retry_count < 3):
-            epg_retry_count += 1
+        if (data.epg_retry_count < 3):
+            data.epg_retry_count += 1
             # Programamos el siguiente reintento
-            delay = epg_retry_count * 30
+            delay = data.epg_retry_count * 30
             retry_time = datetime.now() + timedelta(minutes=delay)
             scheduler.add_job(update_epg, "date", run_date=retry_time)
-            print(f"Programando reintento {epg_retry_count + 1}/4 en {delay} minutos")
+            print(f"Programando reintento {data.epg_retry_count + 1}/4 en {delay} minutos")
         else:
             print("No se pudo descargar la guía EPG tras 4 intentos fallidos")
         return
@@ -110,13 +95,13 @@ def update_epg():
         update_m3u()
 
         # Extraemos los IDs de los canales presentes en la lista M3U, sin el contador
-        channel_ids = {channel["id"].split("#")[0] for channel in cached_m3u_data if channel["id"]}
+        channel_ids = {channel["id"].split("#")[0] for channel in data.cached_m3u_data if channel["id"]}
         # Filtramos la guía EPG para obtener solo los programas de los canales presentes en la lista M3U
         filtered_epg = {id: programs for id, programs in epg_data.items() if id in channel_ids and programs}
 
         # Actualizamos la caché
-        cached_epg_data = filtered_epg
-        epg_retry_count = 0
+        data.cached_epg_data = filtered_epg
+        data.epg_retry_count = 0
         print("Guía EPG actualizada correctamente")
 
     except ET.ParseError as e:
@@ -124,11 +109,10 @@ def update_epg():
 
 # Función para leer la lista M3U y extraer los canales
 def update_m3u():
-    global cached_m3u_data, last_m3u_update
     print("Intentando descargar la lista M3U...")
 
     # Descargamos el archivo con la lista M3U
-    m3u_content = fetch_file(M3U_URL)
+    m3u_content = fetch_file(data.M3U_URL)
 
     # Si hubo un error, se mantiene la caché
     if not m3u_content:
@@ -145,7 +129,7 @@ def update_m3u():
         if lines[i].startswith("#EXTINF"):
             # ID del canal
             id_match = re.search(r'tvg-id="(.*?)"', lines[i])
-            id = id_match.group(1) if id_match.group(1) else DEFAULT_ID
+            id = id_match.group(1) if id_match.group(1) else data.DEFAULT_ID
 
             # Incrementamos el contador para el ID del canal
             id_counter.setdefault(id, 0)
@@ -178,30 +162,28 @@ def update_m3u():
             })
 
     # Actualizamos la caché
-    cached_m3u_data = m3u_data
-    last_m3u_update = datetime.now()
+    data.cached_m3u_data = m3u_data
+    data.last_m3u_update = datetime.now()
     print("Lista M3U actualizada correctamente")
 
 # Ruta a la API para obtener la guía EPG
 @app.route("/api/epg", methods=["GET"])
 def epg():
     # Devolvemos la guía almacenada en caché
-     return jsonify(cached_epg_data)
+     return jsonify(data.cached_epg_data)
 
 # Ruta a la API para obtener los canales
 @app.route("/api/channels", methods=["GET"])
 def channels():
-    global last_m3u_update
-
     # Verificamos si se ha actualizado la lista M3U en el último minuto
-    if last_m3u_update and (datetime.now() - last_m3u_update).seconds < 60:
+    if data.last_m3u_update and (datetime.now() - data.last_m3u_update).seconds < 60:
         print("La lista M3U se actualizó hace menos de 1 minuto, usando caché...")
     else:
         # Si ha pasado más de un minuto, actualizamos la lista M3U
         update_m3u()
 
     # Devolvemos la lista de canales almacenada en caché
-    return jsonify(cached_m3u_data)
+    return jsonify(data.cached_m3u_data)
 
 # Programamos la actualización de la guía EPG
 scheduler.add_job(update_epg, "cron", hour="10,14,18,22", minute=0)
