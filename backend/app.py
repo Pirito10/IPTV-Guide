@@ -2,10 +2,10 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 import xml.etree.ElementTree as ET
 import re
-import requests
 from datetime import datetime, timedelta
 from apscheduler.schedulers.background import BackgroundScheduler
 import data
+import utils
 
 # Servidor Flask
 app = Flask(__name__)
@@ -14,47 +14,12 @@ CORS(app)
 # Planificador de tareas
 scheduler = BackgroundScheduler()
 
-# Función para descargar un archivo desde una URL
-def fetch_file(url):
-    try:
-        response = requests.get(url, timeout=10)
-        # Lanzamos una excepción si hay un error
-        response.raise_for_status()
-        return response.text
-    
-    except requests.exceptions.RequestException as e:
-        print(f"Error al descargar {url}:\n{e}\n")
-        return None
-
-# Función para convertir la fecha y hora de la guía EPG a formato ISO 8601
-def convert_epg_time(epg_time):
-    try:
-        # Extraemos la fecha y zona horaria
-        date_part = epg_time[:14]  # "YYYYMMDDHHMMSS"
-        tz_offset = epg_time[15:]  # "+0100"
-
-        # Convertimos la fecha a objeto datetime
-        dt = datetime.strptime(date_part, "%Y%m%d%H%M%S")
-
-        # Si hay un desfase horario, lo convertimos a UTC
-        if tz_offset:
-            sign = 1 if tz_offset[0] == "+" else -1
-            hours_offset = int(tz_offset[1:3])
-            minutes_offset = int(tz_offset[3:5])
-            delta = timedelta(hours=sign * hours_offset, minutes=sign * minutes_offset)
-            dt -= delta  # Restamos el desfase para llevarlo a UTC
-
-        return dt.isoformat() + "Z"  # Convertimos a formato ISO 8601
-    except Exception as e:
-        print(f"Error al convertir fecha EPG: {epg_time}, {e}")
-        return None
-
 # Función para descargar la guía EPG y almacenarla en caché
 def update_epg():
     print(f"Intentando descargar la guía EPG (intento {data.epg_retry_count + 1}/4)...")
 
     # Descargamos el archivo con la guía EPG
-    xml_content = fetch_file(data.EPG_URL)
+    xml_content = utils.fetch_file(data.EPG_URL)
 
     # Si hubo un error, lo reintentamos hasta 3 veces
     if not xml_content:
@@ -80,8 +45,8 @@ def update_epg():
             channel_id = programme.get("channel") # ID del canal
             title = programme.find("title").text # Título del programa
             description = programme.find("desc").text # Descripción del programa
-            start = convert_epg_time(programme.get("start")) # Fecha y hora de inicio
-            stop = convert_epg_time(programme.get("stop")) # Fecha y hora de finalización
+            start = utils.convert_epg_time(programme.get("start")) # Fecha y hora de inicio
+            stop = utils.convert_epg_time(programme.get("stop")) # Fecha y hora de finalización
 
             # Agregamos la información al diccionario agrupada por canal
             epg_data.setdefault(channel_id, []).append({
@@ -112,7 +77,7 @@ def update_m3u():
     print("Intentando descargar la lista M3U...")
 
     # Descargamos el archivo con la lista M3U
-    m3u_content = fetch_file(data.M3U_URL)
+    m3u_content = utils.fetch_file(data.M3U_URL)
 
     # Si hubo un error, se mantiene la caché
     if not m3u_content:
