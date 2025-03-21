@@ -6,13 +6,13 @@ import updater
 routes = Blueprint("routes", __name__)
 
 # Ruta a la API para obtener la guía EPG
-@routes.route("/api/epg", methods=["GET"])
+@routes.route("/api/epg")
 def epg():
     # Devolvemos la guía almacenada en caché
      return jsonify(cache.cached_epg_data)
 
 # Ruta a la API para obtener los canales
-@routes.route("/api/channels", methods=["GET"])
+@routes.route("/api/channels")
 def channels():
     # Verificamos si se ha actualizado la lista M3U en el último minuto
     if cache.last_m3u_update and (datetime.now() - cache.last_m3u_update).seconds < 60:
