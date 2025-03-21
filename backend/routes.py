@@ -1,5 +1,5 @@
-import updater
 import cache
+from updater import update_m3u
 from datetime import datetime
 from flask import jsonify, Blueprint
 
@@ -13,7 +13,7 @@ def channels():
         print("La lista M3U se actualizó hace menos de 1 minuto, usando caché...")
     else:
         # Si ha pasado más de un minuto, actualizamos la lista M3U
-        updater.update_m3u()
+        update_m3u()
 
     # Devolvemos la lista de canales almacenada en caché
     return jsonify(cache.cached_m3u_data)
@@ -22,4 +22,4 @@ def channels():
 @routes.route("/api/epg")
 def epg():
     # Devolvemos la guía almacenada en caché
-     return jsonify(cache.cached_epg_data)
+    return jsonify(cache.cached_epg_data)
