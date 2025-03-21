@@ -112,8 +112,8 @@ def update_epg():
         # Extraemos los IDs de los canales presentes en la lista M3U, sin el contador
         channel_ids = {channel["id"].split("#")[0] for channel in cached_m3u_data if channel["id"]}
         # Filtramos la guía EPG para obtener solo los programas de los canales presentes en la lista M3U
-        filtered_epg = {id: epg_data.get(id, []) for id in channel_ids}
-        
+        filtered_epg = {id: programs for id, programs in epg_data.items() if id in channel_ids and programs}
+
         # Actualizamos la caché
         cached_epg_data = filtered_epg
         epg_retry_count = 0
