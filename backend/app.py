@@ -3,7 +3,7 @@ from flask_cors import CORS
 from apscheduler.schedulers.background import BackgroundScheduler
 from functools import partial
 from routes import routes
-from updater import update_epg
+from services.updater import update_epg
 
 # Servidor Flask
 app = Flask(__name__)

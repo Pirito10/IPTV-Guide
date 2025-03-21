@@ -1,9 +1,8 @@
 import re
 import xml.etree.ElementTree as ET
-from utils import fetch_file, convert_epg_time
 from datetime import datetime, timedelta
-from config import cache
-from config import config
+from services.utils import fetch_file, convert_epg_time
+from config import cache, config
 
 # Fecha de la última actualización de la lista M3U
 last_update = None
