@@ -1,67 +1,9 @@
-from datetime import datetime, timedelta
-import xml.etree.ElementTree as ET
-import re
 import utils
 import cache
 import config
-
-# Función para descargar la guía EPG y almacenarla en caché
-def update_epg(scheduler):
-    print(f"Intentando descargar la guía EPG (intento {cache.epg_retry_count + 1}/4)...")
-
-    # Descargamos el archivo con la guía EPG
-    xml_content = utils.fetch_file(config.EPG_URL)
-
-    # Si hubo un error, lo reintentamos hasta 3 veces
-    if not xml_content:
-        if (cache.epg_retry_count < 3):
-            cache.epg_retry_count += 1
-            # Programamos el siguiente reintento
-            delay = cache.epg_retry_count * 30
-            retry_time = datetime.now() + timedelta(minutes=delay)
-            scheduler.add_job(update_epg, "date", run_date=retry_time)
-            print(f"Programando reintento {cache.epg_retry_count + 1}/4 en {delay} minutos")
-        else:
-            print("No se pudo descargar la guía EPG tras 4 intentos fallidos")
-        return
-    
-    # Parseamos y almacenamos el archivo XML
-    try:
-        epg_data = {} # Diccionario para almacenar la guía EPG
-        root = ET.fromstring(xml_content) # Nodo raíz
-
-        # Recorremos cada elemento <programme>
-        for programme in root.findall("programme"):
-            # Extraemos la información necesaria
-            channel_id = programme.get("channel") # ID del canal
-            title = programme.find("title").text # Título del programa
-            description = programme.find("desc").text # Descripción del programa
-            start = utils.convert_epg_time(programme.get("start")) # Fecha y hora de inicio
-            stop = utils.convert_epg_time(programme.get("stop")) # Fecha y hora de finalización
-
-            # Agregamos la información al diccionario agrupada por canal
-            epg_data.setdefault(channel_id, []).append({
-                "title": title,
-                "description": description,
-                "since": start,
-                "till": stop
-            })
-        
-        # Actualizamos la lista M3U
-        update_m3u()
-
-        # Extraemos los IDs de los canales presentes en la lista M3U, sin el contador
-        channel_ids = {channel["id"].split("#")[0] for channel in cache.cached_m3u_data if channel["id"]}
-        # Filtramos la guía EPG para obtener solo los programas de los canales presentes en la lista M3U
-        filtered_epg = {id: programs for id, programs in epg_data.items() if id in channel_ids and programs}
-
-        # Actualizamos la caché
-        cache.cached_epg_data = filtered_epg
-        cache.epg_retry_count = 0
-        print("Guía EPG actualizada correctamente")
-
-    except ET.ParseError as e:
-        print(f"Error al parsear la guía EPG: {e}")
+import re
+import xml.etree.ElementTree as ET
+from datetime import datetime, timedelta
 
 # Función para leer la lista M3U y extraer los canales
 def update_m3u():
@@ -121,3 +63,61 @@ def update_m3u():
     cache.cached_m3u_data = m3u_data
     cache.last_m3u_update = datetime.now()
     print("Lista M3U actualizada correctamente")
+
+# Función para descargar la guía EPG y almacenarla en caché
+def update_epg(scheduler):
+    print(f"Intentando descargar la guía EPG (intento {cache.epg_retry_count + 1}/4)...")
+
+    # Descargamos el archivo con la guía EPG
+    xml_content = utils.fetch_file(config.EPG_URL)
+
+    # Si hubo un error, lo reintentamos hasta 3 veces
+    if not xml_content:
+        if (cache.epg_retry_count < 3):
+            cache.epg_retry_count += 1
+            # Programamos el siguiente reintento
+            delay = cache.epg_retry_count * 30
+            retry_time = datetime.now() + timedelta(minutes=delay)
+            scheduler.add_job(update_epg, "date", run_date=retry_time)
+            print(f"Programando reintento {cache.epg_retry_count + 1}/4 en {delay} minutos")
+        else:
+            print("No se pudo descargar la guía EPG tras 4 intentos fallidos")
+        return
+    
+    # Parseamos y almacenamos el archivo XML
+    try:
+        epg_data = {} # Diccionario para almacenar la guía EPG
+        root = ET.fromstring(xml_content) # Nodo raíz
+
+        # Recorremos cada elemento <programme>
+        for programme in root.findall("programme"):
+            # Extraemos la información necesaria
+            channel_id = programme.get("channel") # ID del canal
+            title = programme.find("title").text # Título del programa
+            description = programme.find("desc").text # Descripción del programa
+            start = utils.convert_epg_time(programme.get("start")) # Fecha y hora de inicio
+            stop = utils.convert_epg_time(programme.get("stop")) # Fecha y hora de finalización
+
+            # Agregamos la información al diccionario agrupada por canal
+            epg_data.setdefault(channel_id, []).append({
+                "title": title,
+                "description": description,
+                "since": start,
+                "till": stop
+            })
+        
+        # Actualizamos la lista M3U
+        update_m3u()
+
+        # Extraemos los IDs de los canales presentes en la lista M3U, sin el contador
+        channel_ids = {channel["id"].split("#")[0] for channel in cache.cached_m3u_data if channel["id"]}
+        # Filtramos la guía EPG para obtener solo los programas de los canales presentes en la lista M3U
+        filtered_epg = {id: programs for id, programs in epg_data.items() if id in channel_ids and programs}
+
+        # Actualizamos la caché
+        cache.cached_epg_data = filtered_epg
+        cache.epg_retry_count = 0
+        print("Guía EPG actualizada correctamente")
+
+    except ET.ParseError as e:
+        print(f"Error al parsear la guía EPG: {e}")
