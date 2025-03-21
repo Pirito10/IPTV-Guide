@@ -1,15 +1,9 @@
+import updater
+import cache
 from datetime import datetime
 from flask import jsonify, Blueprint
-import cache
-import updater
 
 routes = Blueprint("routes", __name__)
-
-# Ruta a la API para obtener la guía EPG
-@routes.route("/api/epg")
-def epg():
-    # Devolvemos la guía almacenada en caché
-     return jsonify(cache.cached_epg_data)
 
 # Ruta a la API para obtener los canales
 @routes.route("/api/channels")
@@ -23,3 +17,9 @@ def channels():
 
     # Devolvemos la lista de canales almacenada en caché
     return jsonify(cache.cached_m3u_data)
+
+# Ruta a la API para obtener la guía EPG
+@routes.route("/api/epg")
+def epg():
+    # Devolvemos la guía almacenada en caché
+     return jsonify(cache.cached_epg_data)
