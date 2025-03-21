@@ -66,20 +66,22 @@ def update_m3u():
 
 # Función para descargar la guía EPG y almacenarla en caché
 def update_epg(scheduler):
-    print(f"Intentando descargar la guía EPG (intento {cache.epg_retry_count + 1}/4)...")
+    retry_count = 0 # Contandor de intentos fallidos de descarga de la guía EPG
+
+    print(f"Intentando descargar la guía EPG (intento {retry_count + 1}/4)...")
 
     # Descargamos el archivo con la guía EPG
     xml_content = utils.fetch_file(config.EPG_URL)
 
     # Si hubo un error, lo reintentamos hasta 3 veces
     if not xml_content:
-        if (cache.epg_retry_count < 3):
-            cache.epg_retry_count += 1
+        if (retry_count < 3):
+            retry_count += 1
             # Programamos el siguiente reintento
-            delay = cache.epg_retry_count * 30
+            delay = retry_count * 30
             retry_time = datetime.now() + timedelta(minutes=delay)
             scheduler.add_job(update_epg, "date", run_date=retry_time)
-            print(f"Programando reintento {cache.epg_retry_count + 1}/4 en {delay} minutos")
+            print(f"Programando reintento {retry_count + 1}/4 en {delay} minutos")
         else:
             print("No se pudo descargar la guía EPG tras 4 intentos fallidos")
         return
@@ -116,7 +118,7 @@ def update_epg(scheduler):
 
         # Actualizamos la caché
         cache.cached_epg_data = filtered_epg
-        cache.epg_retry_count = 0
+        retry_count = 0
         print("Guía EPG actualizada correctamente")
 
     except ET.ParseError as e:
