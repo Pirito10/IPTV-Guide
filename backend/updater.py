@@ -5,10 +5,15 @@ import xml.etree.ElementTree as ET
 from utils import fetch_file, convert_epg_time
 from datetime import datetime, timedelta
 
+# Fecha de la última actualización de la lista M3U
+last_update = None
+
 # Función para leer la lista M3U y extraer los canales
 def update_m3u():
+    global last_update
+
     # Verificamos si se ha actualizado la lista M3U en el último minuto
-    if cache.last_m3u_update and (datetime.now() - cache.last_m3u_update).seconds < 60:
+    if last_update and (datetime.now() - last_update).seconds < 60:
         print("La lista M3U se actualizó hace menos de 1 minuto, usando caché...")
         return
 
@@ -66,7 +71,7 @@ def update_m3u():
 
     # Actualizamos la caché
     cache.cached_m3u_data = m3u_data
-    cache.last_m3u_update = datetime.now()
+    last_update = datetime.now()
     print("Lista M3U actualizada correctamente")
 
 # Función para descargar la guía EPG y almacenarla en caché
