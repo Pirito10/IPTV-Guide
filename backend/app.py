@@ -93,8 +93,8 @@ def update_epg():
         for programme in root.findall("programme"):
             # Extraemos la información necesaria
             channel_id = programme.get("channel") # ID del canal
-            title = programme.find("title").text if programme.find("title") is not None else "Sin título" # Título del programa
-            description = programme.find("desc").text if programme.find("desc") is not None else "Sin descripción" # Descripción del programa
+            title = programme.find("title").text # Título del programa
+            description = programme.find("desc").text # Descripción del programa
             start = convert_epg_time(programme.get("start")) # Fecha y hora de inicio
             stop = convert_epg_time(programme.get("stop")) # Fecha y hora de finalización
 
@@ -108,10 +108,12 @@ def update_epg():
         
         # Actualizamos la lista M3U
         update_m3u()
+
         # Extraemos los IDs de los canales presentes en la lista M3U, sin el contador
         channel_ids = {channel["id"].split("#")[0] for channel in cached_m3u_data if channel["id"]}
         # Filtramos la guía EPG para obtener solo los programas de los canales presentes en la lista M3U
         filtered_epg = {id: epg_data.get(id, []) for id in channel_ids}
+        
         # Actualizamos la caché
         cached_epg_data = filtered_epg
         epg_retry_count = 0
