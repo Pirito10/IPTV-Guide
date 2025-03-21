@@ -1,6 +1,6 @@
-import cache
-from updater import update_m3u
 from flask import jsonify, Blueprint
+from config import cache
+from updater import update_m3u
 
 routes = Blueprint("routes", __name__)
 

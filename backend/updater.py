@@ -1,9 +1,9 @@
-import cache
-import config
 import re
 import xml.etree.ElementTree as ET
 from utils import fetch_file, convert_epg_time
 from datetime import datetime, timedelta
+from config import cache
+from config import config
 
 # Fecha de la última actualización de la lista M3U
 last_update = None
@@ -74,8 +74,11 @@ def update_m3u():
     last_update = datetime.now()
     print("Lista M3U actualizada correctamente")
 
+    # TODO si no se descargó la lista de canales, la guía EPG queda vacía (no hay canales por los que filtrar) y hay que esperar al timer para que se intente de nuevo
+
 # Función para descargar la guía EPG y almacenarla en caché
 def update_epg(scheduler):
+    # TODO testar esto
     retry_count = 0 # Contandor de intentos fallidos de descarga de la guía EPG
 
     print(f"Intentando descargar la guía EPG (intento {retry_count + 1}/4)...")
