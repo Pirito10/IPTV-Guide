@@ -7,6 +7,11 @@ from datetime import datetime, timedelta
 
 # Función para leer la lista M3U y extraer los canales
 def update_m3u():
+    # Verificamos si se ha actualizado la lista M3U en el último minuto
+    if cache.last_m3u_update and (datetime.now() - cache.last_m3u_update).seconds < 60:
+        print("La lista M3U se actualizó hace menos de 1 minuto, usando caché...")
+        return
+
     print("Intentando descargar la lista M3U...")
 
     # Descargamos el archivo con la lista M3U
