@@ -18,7 +18,7 @@ if __name__ == "__main__":
         # Actualizamos la guía EPG y la lista M3U
         update_epg(scheduler)
 
-        # Programamos la actualización de la guía EPG
+        # Programamos las actualizaciones de la guía EPG
         scheduler.add_job(partial(update_epg, scheduler), "cron", hour="10,14,18,22", minute=0)
         scheduler.start()
 
