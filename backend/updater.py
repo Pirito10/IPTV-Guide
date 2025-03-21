@@ -1,8 +1,8 @@
-import utils
 import cache
 import config
 import re
 import xml.etree.ElementTree as ET
+from utils import fetch_file, convert_epg_time
 from datetime import datetime, timedelta
 
 # Función para leer la lista M3U y extraer los canales
@@ -10,7 +10,7 @@ def update_m3u():
     print("Intentando descargar la lista M3U...")
 
     # Descargamos el archivo con la lista M3U
-    m3u_content = utils.fetch_file(config.M3U_URL)
+    m3u_content = fetch_file(config.M3U_URL)
 
     # Si hubo un error, se mantiene la caché
     if not m3u_content:
@@ -71,7 +71,7 @@ def update_epg(scheduler):
     print(f"Intentando descargar la guía EPG (intento {retry_count + 1}/4)...")
 
     # Descargamos el archivo con la guía EPG
-    xml_content = utils.fetch_file(config.EPG_URL)
+    xml_content = fetch_file(config.EPG_URL)
 
     # Si hubo un error, lo reintentamos hasta 3 veces
     if not xml_content:
@@ -97,8 +97,8 @@ def update_epg(scheduler):
             channel_id = programme.get("channel") # ID del canal
             title = programme.find("title").text # Título del programa
             description = programme.find("desc").text # Descripción del programa
-            start = utils.convert_epg_time(programme.get("start")) # Fecha y hora de inicio
-            stop = utils.convert_epg_time(programme.get("stop")) # Fecha y hora de finalización
+            start = convert_epg_time(programme.get("start")) # Fecha y hora de inicio
+            stop = convert_epg_time(programme.get("stop")) # Fecha y hora de finalización
 
             # Agregamos la información al diccionario agrupada por canal
             epg_data.setdefault(channel_id, []).append({
