@@ -35,12 +35,12 @@ export const formatEpg = (epg, channels) => {
 
         // Generamos las entradas de la guía EPG
         return programs.map(program => ({
-            id: `${channel.uuid}~${program.start}`,
+            id: `${channel.uuid}~${program.since}`,
             channelUuid: channel.uuid,
             title: program.title,
             description: program.description,
-            since: new Date(program.start).toISOString(),
-            till: new Date(program.stop).toISOString()
+            since: new Date(program.since).toISOString(),
+            till: new Date(program.till).toISOString()
         }));
     });
 };

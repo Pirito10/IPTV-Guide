@@ -102,8 +102,8 @@ def update_epg():
             epg_data.setdefault(channel_id, []).append({
                 "title": title,
                 "description": description,
-                "start": start,
-                "stop": stop
+                "since": start,
+                "till": stop
             })
         
         # Actualizamos la lista M3U
