@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
 from apscheduler.schedulers.background import BackgroundScheduler
-from functools import partial
 from routes import routes
 from services.updater import update_epg
 
@@ -19,7 +18,7 @@ if __name__ == "__main__":
         update_epg(scheduler)
 
         # Programamos las actualizaciones de la guía EPG
-        scheduler.add_job(partial(update_epg, scheduler), "cron", hour="10,14,18,22", minute=0)
+        scheduler.add_job(lambda: update_epg(scheduler), "cron", hour="10,14,18,22", minute=0)
         scheduler.start()
 
         # Iniciamos el servidor Flask
