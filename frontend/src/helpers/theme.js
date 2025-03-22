@@ -17,7 +17,7 @@ export const theme = {
     scrollbar: {
         border: '#FFFFFF',
         thumb: {
-            bg: '#E1E1E1',
+            bg: '#4A5568',
         },
     },
     gradient: {
