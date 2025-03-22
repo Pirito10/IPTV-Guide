@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import { useEpg } from 'planby'
 import { fetchData, getLocalDate } from './helpers'
+import { theme } from './helpers/theme'
 
 export const useApp = () => {
     const [channels, setChannels] = useState([]) // Estado para los canales
@@ -20,6 +21,7 @@ export const useApp = () => {
         height: 900,
         dayWidth: 10000,
         startDate: getLocalDate().split("T")[0] + "T00:00:00", // Día actual a las 00:00
+        theme
     })
 
     // Función para cargar los datos de los canales y la guía EPG
