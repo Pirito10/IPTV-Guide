@@ -7,6 +7,9 @@ from config import cache, config
 # Fecha de la última actualización de la lista M3U
 last_update = None
 
+# Contador de intentos fallidos de descarga de la guía EPG
+retry_count = 0
+
 # Función para leer la lista M3U y extraer los canales
 def update_m3u():
     global last_update
@@ -77,8 +80,7 @@ def update_m3u():
 
 # Función para descargar la guía EPG y almacenarla en caché
 def update_epg(scheduler):
-    # TODO testar esto
-    retry_count = 0 # Contandor de intentos fallidos de descarga de la guía EPG
+    global retry_count
 
     print(f"Intentando descargar la guía EPG (intento {retry_count + 1}/4)...")
 
@@ -92,7 +94,7 @@ def update_epg(scheduler):
             # Programamos el siguiente reintento
             delay = retry_count * 30
             retry_time = datetime.now() + timedelta(minutes=delay)
-            scheduler.add_job(update_epg, "date", run_date=retry_time)
+            scheduler.add_job(lambda: update_epg(scheduler), "date", run_date=retry_time)
             print(f"Programando reintento {retry_count + 1}/4 en {delay} minutos")
         else:
             print("No se pudo descargar la guía EPG tras 4 intentos fallidos")
