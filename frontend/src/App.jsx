@@ -13,7 +13,7 @@ const App = () => {
             <Epg isLoading={isLoading} {...epgProps.getEpgProps()} >
                 <Layout
                     {...epgProps.getLayoutProps()}
-                    renderProgram={(props) => <ProgramItem {...props} />}
+                    renderProgram={(props) => <ProgramItem key={props.program.data.id} {...props} />}
                 />
             </Epg>
         </div>
