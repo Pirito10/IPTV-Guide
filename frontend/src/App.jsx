@@ -1,7 +1,7 @@
 import React from 'react'
 import { Epg, Layout } from 'planby'
 import { useApp } from './useApp'
-import { Timeline, ProgramItem } from './components'
+import { Timeline, ChannelItem, ProgramItem } from './components'
 
 const App = () => {
     // Obtenemos los datos y propiedades de la guía de programación
@@ -14,6 +14,7 @@ const App = () => {
                 <Layout
                     {...epgProps.getLayoutProps()}
                     renderTimeline={(props) => <Timeline {...props} />}
+                    renderChannel={(props) => <ChannelItem key={props.channel.uuid} channel={props.channel} />}
                     renderProgram={(props) => <ProgramItem key={props.program.data.id} {...props} />}
                 />
             </Epg>
