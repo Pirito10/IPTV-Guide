@@ -45,6 +45,30 @@ export function Timeline({
             />
         ));
 
+    // Añadimos un marcador para la hora actual
+    const renderNowIndicator = () => {
+        // Calculamos la hora actual
+        const now = new Date();
+        const currentHour = now.getHours();
+        const currentMinutes = now.getMinutes();
+        const totalHours = currentHour + currentMinutes / 60;
+
+        // Calculamos la posición del marcador en píxeles
+        const left = totalHours * hourWidth;
+
+        return (
+            <div
+                style={{
+                    position: 'absolute',
+                    left: `${left}px`,
+                    bottom: '6px',
+                    height: '14px',
+                    width: '3px',
+                    backgroundColor: '#2C7A7B'
+                }}
+            />
+        );
+    };
 
     return (
         <TimelineWrapper
@@ -53,6 +77,7 @@ export function Timeline({
             isSidebar={isSidebar}
         >
             {time.map((_, index) => renderTime(index))}
+            {renderNowIndicator()}
         </TimelineWrapper>
     );
 }
