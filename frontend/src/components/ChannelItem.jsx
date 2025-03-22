@@ -6,6 +6,7 @@ export const ChannelItem = ({ channel }) => {
         <ChannelBox {...position}>
             <ChannelLogo
                 src={logo}
+                title={channel.name}
                 // Añadimos un efecto de zoom al pasar el ratón
                 style={{
                     transition: 'transform 0.2s ease'
@@ -16,3 +17,5 @@ export const ChannelItem = ({ channel }) => {
         </ChannelBox>
     );
 };
+
+//  TODO manejar errores para imagen de respaldo
