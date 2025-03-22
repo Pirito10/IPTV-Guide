@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
     TimelineWrapper,
     TimelineBox,
@@ -20,6 +21,17 @@ export function Timeline({
         numberOfHoursInDay,
         isBaseTimeFormat
     );
+
+    // Estado para guardar la hora actual y actualizarla automáticamente cada minuto
+    const [now, setNow] = useState(new Date());
+    useEffect(() => {
+        const updateNow = () => setNow(new Date());
+        // Forzamos una actualización al montar el componente
+        updateNow();
+        // Actualizamos cada dos minutos
+        const interval = setInterval(updateNow, 120000);
+        return () => clearInterval(interval);
+    }, []);
 
     const renderTime = (index) => (
         <TimelineBox key={index} width={hourWidth}>
@@ -48,7 +60,6 @@ export function Timeline({
     // Añadimos un marcador para la hora actual
     const renderNowIndicator = () => {
         // Calculamos la hora actual
-        const now = new Date();
         const currentHour = now.getHours();
         const currentMinutes = now.getMinutes();
         const totalHours = currentHour + currentMinutes / 60;
