@@ -26,11 +26,8 @@ export const formatChannels = (channelsData) => {
 // Función para formatear la guía EPG al formato de Planby
 export const formatEpg = (epg, channels) => {
     return channels.flatMap(channel => {
-        // Eliminamos el contador del ID del canal
-        const channelID = channel.uuid.split("#")[0];
-
         // Buscamos los programas asociados a este canal
-        const programs = epg[channelID] || [];
+        const programs = epg[channel.uuid] || [];
 
         // Generamos las entradas de la guía EPG
         return programs.map(program => ({
