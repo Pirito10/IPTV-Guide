@@ -1,6 +1,7 @@
 /* ChannelModal.css */
 
 .channel-modal {
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
     position: fixed;
     top: 50%;
     left: 50%;
