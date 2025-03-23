@@ -9,13 +9,8 @@
     background-color: #1A202C;
     padding: 24px;
     border-radius: 12px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
-    z-index: 1000;
-    color: white;
-    min-width: 400px;
-    max-width: 90%;
-    max-height: 80vh;
-    overflow-y: auto;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.75);
+    z-index: 10;
 }
 
 .channel-modal-close {
