@@ -73,7 +73,7 @@
     padding: 6px 12px;
     font-size: 14px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s;
     margin-right: 8px;
 }
 
@@ -89,7 +89,7 @@
     padding: 6px 12px;
     font-size: 14px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s;
 }
 
 .channel-stream-play-button:hover {
