@@ -56,6 +56,11 @@
     margin-bottom: 12px;
 }
 
+.channel-stream:hover {
+    background-color: #3A4458;
+    transition: background-color 0.2s ease;
+}
+
 .channel-stream-name {
     flex: 1;
     color: #68D391;
