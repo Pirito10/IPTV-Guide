@@ -20,6 +20,11 @@
     font-size: 20px;
     color: white;
     cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.channel-modal-close:hover {
+    transform: scale(1.2);
 }
 
 .channel-modal-header {
