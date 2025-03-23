@@ -30,6 +30,7 @@ def update_m3u():
         return
     
     grouped_data = {} # Diccionario para agrupar los canales por su ID
+    unknown_counter = 0 # Contador para los canales sin ID
 
     # Parseamos y almacenamos el archivo M3U
     lines = m3u_content.splitlines()
@@ -38,7 +39,12 @@ def update_m3u():
         if lines[i].startswith("#EXTINF"):
             # ID del canal
             id_match = re.search(r'tvg-id="(.*?)"', lines[i])
-            id = id_match.group(1) if id_match.group(1) else config.DEFAULT_ID
+            if id_match.group(1):
+                id = id_match.group(1)
+            # Si el canal no tiene ID, le asignamos uno por defecto junto con un contador
+            else:
+                unknown_counter += 1
+                id = f"{config.DEFAULT_ID}#{unknown_counter}"
 
             # URL del logo
             logo_match = re.search(r'tvg-logo="(.*?)"', lines[i]) 
