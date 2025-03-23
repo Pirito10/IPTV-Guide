@@ -29,8 +29,7 @@ def update_m3u():
         print("No se pudo descargar la lista M3U")
         return
     
-    m3u_data = [] # Lista para almacenar los canales
-    id_counter = {} # Diccionario para almacenar un contador para cada ID de canal
+    grouped_data = {} # Diccionario para agrupar los canales por su ID
 
     # Parseamos y almacenamos el archivo M3U
     lines = m3u_content.splitlines()
@@ -40,12 +39,6 @@ def update_m3u():
             # ID del canal
             id_match = re.search(r'tvg-id="(.*?)"', lines[i])
             id = id_match.group(1) if id_match.group(1) else config.DEFAULT_ID
-
-            # Incrementamos el contador para el ID del canal
-            id_counter.setdefault(id, 0)
-            id_counter[id] += 1
-            # Establecemos el ID con formato "ID#N"
-            id = f"{id}#{id_counter[id]}"
 
             # URL del logo
             logo_match = re.search(r'tvg-logo="(.*?)"', lines[i]) 
@@ -61,15 +54,27 @@ def update_m3u():
 
             # Extraemos la URL de la siguiente línea
             url = lines[i + 1].removeprefix("acestream://")
-            
-            # Agregamos el canal al diccionario
-            m3u_data.append({
-                "id": id,
-                "name": name,
-                "group": group,
-                "logo": logo,
-                "url": url
-            })
+
+            # Si el ID no está en el diccionario, agregamos toda la información del canal
+            if id not in grouped_data:
+                grouped_data[id] = {
+                    "id": id,
+                    "logo": logo,
+                    "group": group,
+                    "streams": [{
+                        "name": name,
+                        "url": url
+                    }]
+                }
+            # Si ya existe, agregamos solo la información del stream
+            else:
+                grouped_data[id]["streams"].append({
+                    "name": name,
+                    "url": url
+                })
+
+    # Convertimos el diccionario en una lista
+    m3u_data = list(grouped_data.values())
 
     # Actualizamos la caché
     cache.cached_m3u_data = m3u_data
