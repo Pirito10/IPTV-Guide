@@ -9,15 +9,14 @@ export const formatChannels = (channelsData) => {
     // Recorremos la lista de canales de la API
     channelsData.forEach((channel) => {
         // Obtenemos los datos del canal
-        const { id, logo, group, name, url } = channel
+        const { id, logo, group, streams } = channel
 
         // Añadimos el canal a la lista
         channels.push({
             uuid: id,
             logo: logo || DEFAULT_LOGO,
             group: group || DEFAULT_GROUP,
-            name: name,
-            url: url,
+            streams: streams
         })
     })
 
