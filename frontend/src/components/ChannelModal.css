@@ -5,7 +5,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #1A202C;
-    padding: 24px;
+    padding: 28px;
     border-radius: 12px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.75);
     z-index: 10;
@@ -43,24 +43,22 @@
 }
 
 .channel-modal-title {
-    margin: 0;
-    font-size: 20px;
+    font-size: 24px;
     color: #63B3ED;
 }
 
 .channel-stream {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     background-color: #2D3748;
-    padding: 10px 12px;
+    padding: 10px 20px;
     border-radius: 6px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .channel-stream-name {
     flex: 1;
-    color: #9AE6B4;
+    color: #68D391;
     font-weight: bold;
 }
 
@@ -69,7 +67,7 @@
     color: white;
     border: none;
     border-radius: 6px;
-    padding: 6px 12px;
+    padding: 8px 12px;
     font-size: 14px;
     cursor: pointer;
     transition: background-color 0.2s;
@@ -85,7 +83,7 @@
     color: white;
     border: none;
     border-radius: 6px;
-    padding: 6px 12px;
+    padding: 8px 12px;
     font-size: 14px;
     cursor: pointer;
     transition: background-color 0.2s;
