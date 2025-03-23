@@ -11,11 +11,12 @@ export const ChannelItem = ({ channel, onClick }) => {
             <ChannelLogo
                 src={logo}
                 // Añadimos un efecto de zoom al pasar el ratón
-                style={{
-                    transition: 'transform 0.2s ease'
-                }}
                 onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.3)')}
                 onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+                style={{
+                    transition: 'transform 0.2s',
+                    cursor: 'pointer'
+                }}
             />
         </ChannelBox>
     );
