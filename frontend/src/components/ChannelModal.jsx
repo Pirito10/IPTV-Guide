@@ -17,12 +17,12 @@ export const ChannelModal = ({ channel, onClose }) => {
             {channel.streams?.map((stream, index) => (
                 <div key={index} className="channel-stream">
                     <div className="channel-stream-name">{stream.name}</div>
-                    <button className="channel-stream-copy-button">
-                        <FaRegCopy className="channel-button-icon" />
+                    <button className="channel-stream-button channel-stream-copy-button">
+                        <FaRegCopy className="channel-stream-button-icon" />
                         Copiar ID
                     </button>
-                    <button className="channel-stream-play-button">
-                        <FaPlay className="channel-button-icon" />
+                    <button className="channel-stream-button channel-stream-play-button">
+                        <FaPlay className="channel-stream-button-icon" />
                         Reproducir
                     </button>
                 </div>

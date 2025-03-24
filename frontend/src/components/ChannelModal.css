@@ -68,8 +68,7 @@
     margin-right: 20px;
 }
 
-.channel-stream-copy-button {
-    background-color: #4A5568;
+.channel-stream-button {
     color: white;
     border: none;
     border-radius: 6px;
@@ -77,9 +76,13 @@
     font-size: 14px;
     cursor: pointer;
     transition: background-color 0.2s;
-    margin-right: 8px;
     display: inline-flex;
     align-items: center;
+}
+
+.channel-stream-copy-button {
+    background-color: #4A5568;
+    margin-right: 8px;
 }
 
 .channel-stream-copy-button:hover {
@@ -88,21 +91,12 @@
 
 .channel-stream-play-button {
     background-color: #2C7A7B;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 8px 12px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    display: inline-flex;
-    align-items: center;
 }
 
 .channel-stream-play-button:hover {
     background-color: #285E61;
 }
 
-.channel-button-icon {
+.channel-stream-button-icon {
     margin-right: 6px;
 }
