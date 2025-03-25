@@ -21,5 +21,3 @@ export const ChannelItem = ({ channel, onClick }) => {
         </ChannelBox>
     );
 };
-
-//  TODO manejar errores para imagen de respaldo
