@@ -1,7 +1,22 @@
+import { useEffect } from "react"
 import { FaRegCopy, FaPlay, FaTimes } from "react-icons/fa";
 import "./ChannelModal.css"
 
 export const ChannelModal = ({ channel, onClose }) => {
+    // Listener para la tecla ESC cuando el modal está abierto
+    useEffect(() => {
+        // Creamos una función para manejar el evento "keydown"
+        const handleKeyDown = (e) => {
+            if (e.key === "Escape") {
+                onClose()
+            }
+        }
+        // Añadimos el listener al documento
+        document.addEventListener("keydown", handleKeyDown)
+        // Eliminamos el listener al cerrar el modal
+        return () => document.removeEventListener("keydown", handleKeyDown)
+    })
+
     return (
         <div className="channel-modal">
             <button className="channel-modal-close" onClick={onClose}><FaTimes /></button>
