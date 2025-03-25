@@ -87,8 +87,6 @@ def update_m3u():
     last_update = datetime.now()
     print("Lista M3U actualizada correctamente")
 
-    # TODO si no se descargó la lista de canales, la guía EPG queda vacía (no hay canales por los que filtrar) y hay que esperar al timer para que se intente de nuevo
-
 # Función para descargar la guía EPG y almacenarla en caché
 def update_epg(scheduler):
     global retry_count
