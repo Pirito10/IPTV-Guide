@@ -1,10 +1,10 @@
-import { FaRegCopy, FaPlay } from "react-icons/fa";
+import { FaRegCopy, FaPlay, FaTimes } from "react-icons/fa";
 import "./ChannelModal.css"
 
 export const ChannelModal = ({ channel, onClose }) => {
     return (
         <div className="channel-modal">
-            <button className="channel-modal-close" onClick={onClose}>✖</button>
+            <button className="channel-modal-close" onClick={onClose}><FaTimes /></button>
 
             <div className="channel-modal-header">
                 <img
