@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import { FaRegCopy, FaPlay, FaTimes } from "react-icons/fa";
 import "./ChannelModal.css"
 
+// Componente para mostrar un modal con los streams de un canal
 export const ChannelModal = ({ channel, onClose }) => {
     // Listener para la tecla ESC cuando el modal está abierto
     useEffect(() => {
