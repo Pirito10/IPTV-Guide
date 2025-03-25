@@ -8,7 +8,8 @@
 - [x] Cerrar el modal de canal al hacer click fuera
 - [x] Cerrar el modal de canal al presionar escape
 - [ ] Añadir instrucciones de uso
-- [ ] Añadir filtrado
+- [ ] Añadir filtrado por grupo
+- [ ] Añadir buscador
 
 ## 🧪 Extras
 - [ ] Si un canal no tiene logo o al cargarlo da error, asignarle su correspondiente de la guía EPG
