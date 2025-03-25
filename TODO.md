@@ -5,11 +5,13 @@
 
 ## 🖥️ Frontend
 - [ ] Mostrar tooltip al copiar un ID de stream
-- [ ] Cerrar el modal de canal al hacer click fuera
-- [ ] Cerrar el modal de canal al presionar escape
+- [x] Cerrar el modal de canal al hacer click fuera
+- [x] Cerrar el modal de canal al presionar escape
 - [ ] Añadir instrucciones de uso
-- [ ] 
+- [ ] Añadir filtrado
 
 ## 🧪 Extras
 - [ ] Si un canal no tiene logo o al cargarlo da error, asignarle su correspondiente de la guía EPG
     - [ ] Si es un canal sin ID -> imagen de respaldo
+- [ ] Eliminar puntos y coma
+

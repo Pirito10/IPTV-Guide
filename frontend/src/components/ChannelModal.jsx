@@ -1,10 +1,10 @@
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { FaRegCopy, FaPlay, FaTimes } from "react-icons/fa";
 import "./ChannelModal.css"
 
 // Componente para mostrar un modal con los streams de un canal
 export const ChannelModal = ({ channel, onClose }) => {
-    // Listener para la tecla ESC cuando el modal está abierto
+    // Listener para la tecla ESC
     useEffect(() => {
         // Creamos una función para manejar el evento "keydown"
         const handleKeyDown = (e) => {
@@ -18,8 +18,24 @@ export const ChannelModal = ({ channel, onClose }) => {
         return () => document.removeEventListener("keydown", handleKeyDown)
     })
 
+    const modalRef = useRef(); // Referencia al modal
+
+    // Listener para clicks
+    useEffect(() => {
+        // Creamos una función para manejar el evento "mousedown"
+        const handleClickOutside = (e) => {
+            if (!modalRef.current.contains(e.target)) {
+                onClose();
+            }
+        };
+        // Añadimos el listener al documento
+        document.addEventListener("mousedown", handleClickOutside);
+        // Eliminamos el listener al cerrar el modal
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    });
+
     return (
-        <div className="channel-modal">
+        <div className="channel-modal" ref={modalRef}>
             <button className="channel-modal-close" onClick={onClose}><FaTimes /></button>
 
             <div className="channel-modal-header">
