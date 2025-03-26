@@ -111,12 +111,11 @@ def update_epg(scheduler):
     
     # Parseamos y almacenamos el archivo XML
     try:
-        epg_data = {} # Diccionario para almacenar la guía EPG
         root = ET.fromstring(xml_content) # Nodo raíz
+        epg_data = {} # Diccionario para almacenar la guía EPG
 
-        # Recorremos cada elemento <programme>
+        # Recorremos cada elemento <programme> para extraer la información necesaria
         for programme in root.findall("programme"):
-            # Extraemos la información necesaria
             channel_id = programme.get("channel") # ID del canal
             title = programme.find("title").text # Título del programa
             description = programme.find("desc").text # Descripción del programa
@@ -134,10 +133,25 @@ def update_epg(scheduler):
         # Actualizamos la lista M3U
         update_m3u()
 
-        # Extraemos los IDs de los canales presentes en la lista M3U, sin el contador
-        channel_ids = {channel["id"].split("#")[0] for channel in cache.cached_m3u_data if channel["id"]}
-        # Filtramos la guía EPG para obtener solo los programas de los canales presentes en la lista M3U
-        filtered_epg = {id: programs for id, programs in epg_data.items() if id in channel_ids and programs}
+        # Extraemos los IDs de los canales presentes en la lista M3U
+        channel_ids = {channel["id"] for channel in cache.cached_m3u_data}
+        # Filtramos la guía EPG para obtener solo los programas de los canales presentes en la lista M3U, y evitar canales sin programas
+        filtered_epg = {
+            id: {
+                "programs": programs
+            } 
+            for id, programs in epg_data.items() 
+            if id in channel_ids and programs
+        }
+
+        # Recorremos cada elemento <channel> para extraer su logo
+        for channel in root.findall("channel"):
+            # Obtenemos el atributo ID del elemento <channel>
+            channel_id = channel.get("id")
+            # Si el canal está en la guía EPG filtrada, añadimos su logo
+            if channel_id in filtered_epg:
+                # Obtenemos el atributo src del elemento <icon>
+                filtered_epg[channel_id]["logo"] = channel.find("icon").get("src")
 
         # Actualizamos la caché
         cache.cached_epg_data = filtered_epg
