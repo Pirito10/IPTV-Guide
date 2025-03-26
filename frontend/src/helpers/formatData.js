@@ -27,7 +27,7 @@ export const formatChannels = (channelsData) => {
 export const formatEpg = (epg, channels) => {
     return channels.flatMap(channel => {
         // Buscamos los programas asociados a este canal
-        const programs = epg[channel.uuid] || [];
+        const programs = epg[channel.uuid]?.programs || [];
 
         // Generamos las entradas de la guía EPG
         return programs.map(program => ({
