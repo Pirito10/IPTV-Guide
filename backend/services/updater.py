@@ -47,15 +47,15 @@ def update_m3u():
                 id = f"{config.DEFAULT_ID}#{unknown_counter}"
 
             # URL del logo
-            logo_match = re.search(r'tvg-logo="(.*?)"', lines[i]) 
+            logo_match = re.search(r'tvg-logo="(.*?)"', lines[i])
             logo = logo_match.group(1)
 
             # Grupo del canal
-            group_match = re.search(r'group-title="(.*?)"', lines[i]) 
+            group_match = re.search(r'group-title="(.*?)"', lines[i])
             group = group_match.group(1)
 
             # Nombre del canal
-            name_match = re.search(r', (.+)$', lines[i]) 
+            name_match = re.search(r', (.+)$', lines[i])
             name = name_match.group(1)
 
             # Extraemos la URL de la siguiente línea
@@ -139,8 +139,8 @@ def update_epg(scheduler):
         filtered_epg = {
             id: {
                 "programs": programs
-            } 
-            for id, programs in epg_data.items() 
+            }
+            for id, programs in epg_data.items()
             if id in channel_ids and programs
         }
 
