@@ -19,7 +19,7 @@ if __name__ == "__main__":
         update_epg(scheduler, first_run=True)
 
         # Programamos las actualizaciones de la guía EPG
-        scheduler.add_job(lambda: update_epg(scheduler), "cron", hour="10,14,18,22", minute=0)
+        scheduler.add_job(lambda: (update_m3u(force=True), update_epg(scheduler)), "cron", hour="10,14,18,22", minute=0)
         scheduler.start()
 
         # Iniciamos el servidor Flask
