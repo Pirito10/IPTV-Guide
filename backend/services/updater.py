@@ -11,11 +11,11 @@ last_update = None
 retry_count = 0
 
 # Función para leer la lista M3U y extraer los canales
-def update_m3u():
+def update_m3u(first_run=False, force=False):
     global last_update
 
     # Verificamos si se ha actualizado la lista M3U en el último minuto
-    if last_update and (datetime.now() - last_update).seconds < 60:
+    if not force and last_update and (datetime.now() - last_update).seconds < 60:
         print("La lista M3U se actualizó hace menos de 1 minuto, usando caché...")
         return
 
@@ -88,7 +88,7 @@ def update_m3u():
     print("Lista M3U actualizada correctamente")
 
 # Función para descargar la guía EPG y almacenarla en caché
-def update_epg(scheduler):
+def update_epg(scheduler, first_run=False):
     global retry_count
 
     print(f"Intentando descargar la guía EPG (intento {retry_count + 1}/4)...")
@@ -130,9 +130,6 @@ def update_epg(scheduler):
                 "till": stop
             })
         
-        # Actualizamos la lista M3U
-        update_m3u()
-
         # Extraemos los IDs de los canales presentes en la lista M3U
         channel_ids = {channel["id"] for channel in cache.cached_m3u_data}
         # Filtramos la guía EPG para obtener solo los programas de los canales presentes en la lista M3U, y evitar canales sin programas
@@ -157,6 +154,10 @@ def update_epg(scheduler):
         cache.cached_epg_data = filtered_epg
         retry_count = 0
         print("Guía EPG actualizada correctamente")
+
+        # Si es la primera ejecución, forzamos una actualización de la lista M3U
+        if first_run:
+            update_m3u(force=True)
 
     except ET.ParseError as e:
         print(f"Error al parsear la guía EPG: {e}")

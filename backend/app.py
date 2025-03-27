@@ -2,7 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from apscheduler.schedulers.background import BackgroundScheduler
 from routes import routes
-from services.updater import update_epg
+from services.updater import update_m3u, update_epg
 
 # Servidor Flask
 app = Flask(__name__)
@@ -15,7 +15,8 @@ scheduler = BackgroundScheduler()
 if __name__ == "__main__":
     try:
         # Actualizamos la guía EPG y la lista M3U
-        update_epg(scheduler)
+        update_m3u(first_run=True)
+        update_epg(scheduler, first_run=True)
 
         # Programamos las actualizaciones de la guía EPG
         scheduler.add_job(lambda: update_epg(scheduler), "cron", hour="10,14,18,22", minute=0)
