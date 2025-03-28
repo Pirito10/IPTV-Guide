@@ -40,11 +40,9 @@
     width: 120px;
     height: 120px;
     object-fit: contain;
-    background: transparent;
 }
 
 .channel-modal-title {
-    font-size: 24px;
     color: #63B3ED;
 }
 

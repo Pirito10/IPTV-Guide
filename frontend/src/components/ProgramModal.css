@@ -40,10 +40,15 @@
     width: 120px;
     height: 120px;
     object-fit: contain;
-    background: transparent;
 }
 
 .program-modal-title {
-    font-size: 24px;
     color: #63B3ED;
+}
+
+.program-modal-description {
+    color: white;
+    font-size: 15px;
+    line-height: 1.6;
+    white-space: pre-line;
 }

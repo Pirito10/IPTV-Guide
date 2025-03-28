@@ -45,9 +45,7 @@ export const ProgramModal = ({ program, logo, onClose }) => {
                 <h2 className="program-modal-title">{program.title}</h2>
             </div>
 
-            <div style={{ color: 'white', whiteSpace: 'pre-line', lineHeight: '1.5' }}>
-                {program.description}
-            </div>
+            <div className="program-modal-description">{program.description}</div>
         </div>
     );
 };
