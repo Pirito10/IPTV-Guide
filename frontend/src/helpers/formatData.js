@@ -1,6 +1,4 @@
-// Valores por defecto para los canales
-const DEFAULT_LOGO = "https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM="
-const DEFAULT_GROUP = "OTROS"
+import { FALLBACK_LOGO, DEFAULT_GROUP } from "./constants"
 
 // Función para formatear los canales al formato de Planby
 export const formatChannels = (channelsData) => {
@@ -14,7 +12,7 @@ export const formatChannels = (channelsData) => {
         // Añadimos el canal a la lista
         channels.push({
             uuid: id,
-            logo: logo || DEFAULT_LOGO,
+            logo: logo || FALLBACK_LOGO,
             group: group || DEFAULT_GROUP,
             streams: streams
         })
