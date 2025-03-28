@@ -36,6 +36,13 @@
     gap: 30px;
 }
 
+.program-modal-logo {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    background: transparent;
+}
+
 .program-modal-title {
     font-size: 24px;
     color: #63B3ED;

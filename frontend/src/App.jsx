@@ -18,11 +18,22 @@ const App = () => {
                     {...epgProps.getLayoutProps()}
                     renderTimeline={(props) => <Timeline {...props} />}
                     renderChannel={(props) => <ChannelItem key={props.channel.uuid} channel={props.channel} onClick={() => setSelectedChannel(props.channel)} />}
-                    renderProgram={(props) => <ProgramItem key={props.program.data.id} onClick={() => setSelectedProgram(props.program)} {...props} />}
+                    renderProgram={(props) => <ProgramItem key={props.program.data.id} onClick={() => setSelectedProgram(props.program.data)} {...props} />}
                 />
             </Epg>
             {selectedChannel && <ChannelModal channel={selectedChannel} onClose={() => setSelectedChannel(null)} />}
-            {selectedProgram && <ProgramModal program={selectedProgram} onClose={() => setSelectedProgram(null)} />}
+            {selectedProgram &&
+                <ProgramModal
+                    program={selectedProgram}
+                    // Buscamos el logo del canal correspondiente al programa
+                    logo={
+                        epgProps.getLayoutProps().channels.find(
+                            c => c.uuid === selectedProgram.channelUuid
+                        )?.logo
+                    }
+                    onClose={() => setSelectedProgram(null)}
+                />
+            }
         </div>
     )
 }

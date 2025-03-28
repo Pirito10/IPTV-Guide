@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react"
 import { FaTimes } from "react-icons/fa"
 import "./ProgramModal.css"
 
-export const ProgramModal = ({ program, onClose }) => {
+export const ProgramModal = ({ program, logo, onClose }) => {
     // Listener para la tecla ESC
     useEffect(() => {
         // Creamos una función para manejar el evento "keydown"
@@ -33,18 +33,20 @@ export const ProgramModal = ({ program, onClose }) => {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     });
 
-    console.log(program)
-
     return (
         <div className="program-modal" ref={modalRef}>
             <button className="program-modal-close" onClick={onClose}><FaTimes /></button>
 
             <div className="program-modal-header">
-                <h2 className="program-modal-title">{program.data.title}</h2>
+                <img
+                    src={logo}
+                    className="program-modal-logo"
+                />
+                <h2 className="program-modal-title">{program.title}</h2>
             </div>
 
             <div style={{ color: 'white', whiteSpace: 'pre-line', lineHeight: '1.5' }}>
-                {program.data.description}
+                {program.description}
             </div>
         </div>
     );
