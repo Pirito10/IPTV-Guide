@@ -12,7 +12,7 @@ export const ProgramItem = ({ program, ...rest }) => {
     // Eliminamos la imagen de los programas en directo
     return (
         <ProgramBox width={styles.width} style={styles.position}>
-            <ProgramContent width={styles.width} isLive={isLive}>
+            <ProgramContent width={styles.width} isLive={isLive} style={{ cursor: "pointer" }}>
                 <ProgramFlex>
                     <ProgramStack>
                         <ProgramTitle>{title}</ProgramTitle>
