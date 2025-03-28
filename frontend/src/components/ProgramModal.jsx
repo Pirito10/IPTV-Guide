@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react"
 import { FaTimes } from "react-icons/fa"
+import { FALLBACK_LOGO } from '../helpers/constants';
 import "./ProgramModal.css"
 
 export const ProgramModal = ({ program, logo, onClose }) => {
@@ -39,8 +40,9 @@ export const ProgramModal = ({ program, logo, onClose }) => {
 
             <div className="program-modal-header">
                 <img
-                    src={logo}
                     className="program-modal-logo"
+                    src={logo}
+                    onError={e => e.currentTarget.src = FALLBACK_LOGO}
                 />
                 <h2 className="program-modal-title">{program.title}</h2>
             </div>
