@@ -1,4 +1,4 @@
-import { ProgramBox, ProgramContent, ProgramFlex, ProgramStack, ProgramTitle, ProgramText, useProgram } from 'planby'
+import { ProgramBox, ProgramContent, ProgramStack, ProgramTitle, ProgramText, useProgram } from 'planby'
 
 // Componente para renderizar un programa
 export const ProgramItem = ({ program, ...rest }) => {
@@ -13,14 +13,12 @@ export const ProgramItem = ({ program, ...rest }) => {
     return (
         <ProgramBox width={styles.width} style={styles.position}>
             <ProgramContent width={styles.width} isLive={isLive} style={{ cursor: "pointer" }}>
-                <ProgramFlex>
                     <ProgramStack>
                         <ProgramTitle>{title}</ProgramTitle>
                         <ProgramText>
                             {sinceTime} - {tillTime}
                         </ProgramText>
                     </ProgramStack>
-                </ProgramFlex>
             </ProgramContent>
         </ProgramBox>
     )
