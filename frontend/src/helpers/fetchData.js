@@ -1,12 +1,13 @@
 import { formatChannels, formatEpg } from './formatData'
+import { CHANNELS_URL, EPG_URL } from './constants'
 
 // Función para obtener los datos de los canales y la guía EPG del backend
 export const fetchData = async () => {
     try {
         // Hacemos las peticiones a la API
         const [channelsResponse, epgResponse] = await Promise.all([
-            fetch("http://127.0.0.1:5000/api/channels"),
-            fetch("http://127.0.0.1:5000/api/epg")
+            fetch(CHANNELS_URL),
+            fetch(EPG_URL)
         ])
 
         if (!channelsResponse.ok || !epgResponse.ok) {
