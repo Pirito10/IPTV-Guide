@@ -1,0 +1,42 @@
+.program-modal {
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #1A202C;
+    padding: 28px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.75);
+    z-index: 10;
+}
+
+.program-modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 26px;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s;
+    padding: 0;
+}
+
+.program-modal-close:hover {
+    transform: scale(1.2);
+}
+
+.program-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    gap: 30px;
+}
+
+.program-modal-title {
+    font-size: 24px;
+    color: #63B3ED;
+}

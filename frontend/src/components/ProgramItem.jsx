@@ -2,7 +2,7 @@ import { useState } from "react"
 import { ProgramBox, ProgramContent, ProgramStack, ProgramTitle, ProgramText, useProgram } from 'planby'
 
 // Componente para renderizar un programa
-export const ProgramItem = ({ program, ...rest }) => {
+export const ProgramItem = ({ program, onClick, ...rest }) => {
     const { styles, formatTime, isLive } = useProgram({ program, ...rest })
     const { data } = program
     const { title, since, till } = data
@@ -14,7 +14,11 @@ export const ProgramItem = ({ program, ...rest }) => {
     const [isHovered, setIsHovered] = useState(false)
 
     return (
-        <ProgramBox width={styles.width} style={styles.position}>
+        <ProgramBox
+            width={styles.width}
+            style={styles.position}
+            onClick={onClick}
+        >
             <ProgramContent
                 // Añadimos los eventos para actualizar el hover
                 width={styles.width}
