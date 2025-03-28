@@ -2,11 +2,11 @@ import { ChannelBox, ChannelLogo } from 'planby';
 import { FALLBACK_LOGO } from '../helpers/constants';
 
 export const ChannelItem = ({ channel, onClick }) => {
-    const { position, logo } = channel;
+    const { position, uuid, logo } = channel;
     return (
         <ChannelBox
             {...position}
-            title={channel.name} // Tooltip con el nombre del canal
+            title={uuid} // Tooltip con el nombre del canal
             onClick={onClick} // Mostramos el modal al hacer click
         >
             <ChannelLogo
