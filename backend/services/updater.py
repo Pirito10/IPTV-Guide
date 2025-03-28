@@ -1,7 +1,7 @@
 import re
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta
-from services.utils import fetch_file, convert_epg_time
+from services.utils import fetch_file, convert_epg_time, get_valid_logo
 from config import cache, config
 
 # Fecha de la última actualización de la lista M3U
@@ -65,7 +65,7 @@ def update_m3u(first_run=False, force=False):
             if id not in grouped_data:
                 grouped_data[id] = {
                     "id": id,
-                    "logo": logo,
+                    "logo": get_valid_logo(id, logo) if not first_run else logo,
                     "group": group,
                     "streams": [{
                         "name": name,
