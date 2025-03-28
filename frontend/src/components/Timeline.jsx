@@ -1,26 +1,8 @@
 import { useEffect, useState } from "react";
-import {
-    TimelineWrapper,
-    TimelineBox,
-    TimelineTime,
-    TimelineDivider,
-    TimelineDividers,
-    useTimeline
-} from "planby";
+import { TimelineWrapper, TimelineBox, TimelineTime, TimelineDivider, TimelineDividers, useTimeline } from "planby";
 
-export function Timeline({
-    isBaseTimeFormat,
-    isSidebar,
-    dayWidth,
-    hourWidth,
-    numberOfHoursInDay,
-    offsetStartHoursRange,
-    sidebarWidth
-}) {
-    const { time, dividers, formatTime } = useTimeline(
-        numberOfHoursInDay,
-        isBaseTimeFormat
-    );
+export const Timeline = ({ isBaseTimeFormat, isSidebar, dayWidth, hourWidth, numberOfHoursInDay, offsetStartHoursRange, sidebarWidth }) => {
+    const { time, dividers, formatTime } = useTimeline(numberOfHoursInDay, isBaseTimeFormat);
 
     // Estado para guardar la hora actual y actualizarla automáticamente cada minuto
     const [now, setNow] = useState(new Date());
