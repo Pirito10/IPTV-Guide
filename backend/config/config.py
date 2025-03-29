@@ -8,7 +8,7 @@ DEFAULT_ID = "unknown"
 # Temporizador (en segundos) de espera antes de volver a descargar la lista M3U
 M3U_DOWNLOAD_TIMER = 60
 
-# Cantidad de reintentos de descarga de la lista EPG
+# Cantidad de reintentos de descarga de la guía EPG
 EPG_MAX_RETRIES = 3
 # Cantidad (en minutos) a incrementar al temporizador después de cada reintento
 RETRY_INCREMENT = 30
@@ -16,3 +16,9 @@ RETRY_INCREMENT = 30
 # Timeouts (en segundos) para las descargas de ficheros y logos
 FILE_TIMEOUT = 10
 LOGO_TIMEOUT = 5
+
+# Horas a las que actualizar la guía EPG
+EPG_SCHEDULER_HOURS = "10,14,18,22"
+
+# IP de la interfaz donde escuchará el servidor
+SERVER_IP = "0.0.0.0"
