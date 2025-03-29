@@ -4,3 +4,11 @@ EPG_URL = "https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/guiatv.
 
 # ID por defecto para los canales con ID desconocido
 DEFAULT_ID = "unknown"
+
+# Temporizador (en segundos) de espera antes de volver a descargar la lista M3U
+M3U_DOWNLOAD_TIMER = 60
+
+# Cantidad de reintentos de descarga de la lista EPG
+EPG_MAX_RETRIES = 3
+# Cantidad (en minutos) a incrementar al temporizador después de cada reintento
+RETRY_INCREMENT = 30

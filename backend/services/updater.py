@@ -14,8 +14,8 @@ retry_count = 0
 def update_m3u(first_run=False, force=False):
     global last_update
 
-    # Verificamos si se ha actualizado la lista M3U en el último minuto
-    if not force and last_update and (datetime.now() - last_update).seconds < 60:
+    # Verificamos si se ha actualizado la lista M3U recientemente
+    if not force and last_update and (datetime.now() - last_update).seconds < config.M3U_DOWNLOAD_TIMER:
         print("La lista M3U se actualizó hace menos de 1 minuto, usando caché...")
         return
 
@@ -91,22 +91,22 @@ def update_m3u(first_run=False, force=False):
 def update_epg(scheduler, first_run=False):
     global retry_count
 
-    print(f"Intentando descargar la guía EPG (intento {retry_count + 1}/4)...")
+    print(f"Intentando descargar la guía EPG (intento {retry_count + 1}/{config.EPG_MAX_RETRIES + 1})...")
 
     # Descargamos el archivo con la guía EPG
     xml_content = fetch_file(config.EPG_URL)
 
-    # Si hubo un error, lo reintentamos hasta 3 veces
+    # Si hubo un error, lo reintentamos
     if not xml_content:
-        if (retry_count < 3):
+        if (retry_count < config.EPG_MAX_RETRIES):
             retry_count += 1
             # Programamos el siguiente reintento
-            delay = retry_count * 30
+            delay = retry_count * config.RETRY_INCREMENT
             retry_time = datetime.now() + timedelta(minutes=delay)
             scheduler.add_job(lambda: update_epg(scheduler), "date", run_date=retry_time)
-            print(f"Programando reintento {retry_count + 1}/4 en {delay} minutos")
+            print(f"Programando reintento {retry_count + 1}/{config.EPG_MAX_RETRIES + 1} en {delay} minutos")
         else:
-            print("No se pudo descargar la guía EPG tras 4 intentos fallidos")
+            print(f"No se pudo descargar la guía EPG tras {config.EPG_MAX_RETRIES + 1} intentos fallidos")
         return
     
     # Parseamos y almacenamos el archivo XML
