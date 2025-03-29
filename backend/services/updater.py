@@ -1,7 +1,7 @@
 import re
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta
-from services.utils import fetch_file, save_file, convert_epg_time, get_valid_logo
+from services.utils import fetch_file, save_file, load_file, convert_epg_time, get_valid_logo
 from config import cache, config
 
 # Fecha de la última actualización de la lista M3U
@@ -24,11 +24,16 @@ def update_m3u(first_run=False, force=False, skip_save=False):
     # Descargamos el fichero con la lista M3U
     m3u_content = fetch_file(config.M3U_URL)
 
-    # Si hubo un error, se mantiene la caché
     if not m3u_content:
-        print("No se pudo descargar la lista M3U")
-        return
-    
+        # Si hubo un error pero ya está la lista en la caché, se mantiene
+        if cache.cached_m3u_data:
+            print("No se pudo descargar la lista M3U, usando caché...")
+            return
+        # Si la caché está vacía, se carga la lista del almacenamiento local
+        else:
+            print("No se pudo descargar la lista M3U, obteniendo copia local...")
+            m3u_content = load_file("m3u_backup.m3u")
+
     # Guardamos una copia del fichero
     if not skip_save:
         save_file(m3u_content, "m3u_backup.m3u")
