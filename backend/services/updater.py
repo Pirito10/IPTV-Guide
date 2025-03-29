@@ -104,9 +104,18 @@ def update_epg(scheduler, first_run=False):
 
     # Descargamos el fichero con la guía EPG
     xml_content = fetch_file(config.EPG_URL)
+    downloaded = True # Variable para controlar si los datos son descargados o locales
 
-    # Si hubo un error, lo reintentamos
     if not xml_content:
+        # Marcamos que se usarán datos locales (caché o almacenamiento local)
+        downloaded = False
+
+        # Si hubo un error y la caché está vacía, se carga la lista del almacenamiento local
+        if not cache.cached_epg_data:
+            print("No se pudo descargar la guía EPG, obteniendo copia local...")
+            xml_content = load_file("epg_backup.xml")
+            
+        # Programamos un reintento de descarga
         if (retry_count < config.EPG_MAX_RETRIES):
             retry_count += 1
             # Programamos el siguiente reintento
@@ -116,10 +125,15 @@ def update_epg(scheduler, first_run=False):
             print(f"Programando reintento {retry_count + 1}/{config.EPG_MAX_RETRIES + 1} en {delay} minutos")
         else:
             print(f"No se pudo descargar la guía EPG tras {config.EPG_MAX_RETRIES + 1} intentos fallidos")
-        return
+        
+        # Si hubo un error pero ya está la guía en la caché, se mantiene
+        if not xml_content:
+            print("No se pudo descargar la guía EPG, usando caché...")
+            return
     
-    # Guardamos una copia del fichero
-    save_file(xml_content, "epg_backup.xml")
+    # Guardamos una copia del fichero si los datos son descargados
+    if downloaded:
+        save_file(xml_content, "epg_backup.xml")
     
     # Parseamos y almacenamos el fichero XML
     try:
