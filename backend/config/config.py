@@ -10,6 +10,9 @@ EPG_URL = "https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/guiatv.
 
 # Nombre del directorio donde guardar copias de los ficheros descargados
 BACKUP_DIRECTORY = "data"
+# Nombres de los ficheros
+EPG_BACKUP = "epg_backup.xml"
+M3U_BACKUP = "m3u_backup.m3u"
 
 # ID por defecto para los canales con ID desconocido
 DEFAULT_ID = "unknown"

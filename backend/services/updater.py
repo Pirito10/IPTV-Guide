@@ -32,11 +32,11 @@ def update_m3u(first_run=False, force=False, skip_save=False):
         # Si la caché está vacía, se carga la lista del almacenamiento local
         else:
             print("No se pudo descargar la lista M3U, obteniendo copia local...")
-            m3u_content = load_file("m3u_backup.m3u")
+            m3u_content = load_file(config.M3U_BACKUP)
 
     # Guardamos una copia del fichero
     if not skip_save:
-        save_file(m3u_content, "m3u_backup.m3u")
+        save_file(m3u_content, config.M3U_BACKUP)
     
     grouped_data = {} # Diccionario para agrupar los canales por su ID
     unknown_counter = 0 # Contador para los canales sin ID
@@ -113,7 +113,7 @@ def update_epg(scheduler, first_run=False):
         # Si hubo un error y la caché está vacía, se carga la lista del almacenamiento local
         if not cache.cached_epg_data:
             print("No se pudo descargar la guía EPG, obteniendo copia local...")
-            xml_content = load_file("epg_backup.xml")
+            xml_content = load_file(config.EPG_BACKUP)
             
         # Programamos un reintento de descarga
         if (retry_count < config.EPG_MAX_RETRIES):
@@ -133,7 +133,7 @@ def update_epg(scheduler, first_run=False):
     
     # Guardamos una copia del fichero si los datos son descargados
     if downloaded:
-        save_file(xml_content, "epg_backup.xml")
+        save_file(xml_content, config.EPG_BACKUP)
     
     # Parseamos y almacenamos el fichero XML
     try:
