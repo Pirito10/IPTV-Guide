@@ -12,3 +12,7 @@ M3U_DOWNLOAD_TIMER = 60
 EPG_MAX_RETRIES = 3
 # Cantidad (en minutos) a incrementar al temporizador después de cada reintento
 RETRY_INCREMENT = 30
+
+# Timeouts (en segundos) para las descargas de ficheros y logos
+FILE_TIMEOUT = 10
+LOGO_TIMEOUT = 5

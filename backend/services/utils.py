@@ -1,11 +1,11 @@
 import requests
 from datetime import datetime, timedelta
-from config import cache
+from config import cache, config
 
 # Función para descargar un archivo desde una URL
 def fetch_file(url):
     try:
-        response = requests.get(url, timeout=10)
+        response = requests.get(url, timeout=config.FILE_TIMEOUT)
         # Lanzamos una excepción si hay un error de estado en la respuesta
         response.raise_for_status()
         return response.text
@@ -56,7 +56,7 @@ def get_valid_logo(channel_id, logo_url):
 def is_url_accessible(url):
     # Enviamos una solicitud HEAD a la URL
     try:
-        response = requests.head(url, timeout=5)
+        response = requests.head(url, timeout=config.LOGO_TIMEOUT)
         # Consideramos como respuesta válida un código 200 o 403 (no accesible desde fuera del navegador, pero funcional)
         return response.status_code in (200, 403)
     except requests.exceptions.SSLError:
