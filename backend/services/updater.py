@@ -11,7 +11,7 @@ last_update = None
 retry_count = 0
 
 # Función para leer la lista M3U y extraer los canales
-def update_m3u(first_run=False, force=False):
+def update_m3u(first_run=False, force=False, skip_save=False):
     global last_update
 
     # Verificamos si se ha actualizado la lista M3U recientemente
@@ -30,7 +30,8 @@ def update_m3u(first_run=False, force=False):
         return
     
     # Guardamos una copia del fichero
-    save_file(m3u_content, "m3u_backup.m3u")
+    if not skip_save:
+        save_file(m3u_content, "m3u_backup.m3u")
     
     grouped_data = {} # Diccionario para agrupar los canales por su ID
     unknown_counter = 0 # Contador para los canales sin ID
@@ -163,7 +164,7 @@ def update_epg(scheduler, first_run=False):
 
         # Si es la primera ejecución, forzamos una actualización de la lista M3U
         if first_run:
-            update_m3u(force=True)
+            update_m3u(force=True, skip_save=True)
 
     except ET.ParseError as e:
         print(f"Error al parsear la guía EPG: {e}")
