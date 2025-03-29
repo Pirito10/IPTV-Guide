@@ -14,3 +14,4 @@ dist-ssr
 
 package-lock.json
 __pycache__/
+data/
