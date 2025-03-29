@@ -1,7 +1,7 @@
 import re
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta
-from services.utils import fetch_file, convert_epg_time, get_valid_logo
+from services.utils import fetch_file, save_file, convert_epg_time, get_valid_logo
 from config import cache, config
 
 # Fecha de la última actualización de la lista M3U
@@ -21,7 +21,7 @@ def update_m3u(first_run=False, force=False):
 
     print("Intentando descargar la lista M3U...")
 
-    # Descargamos el archivo con la lista M3U
+    # Descargamos el fichero con la lista M3U
     m3u_content = fetch_file(config.M3U_URL)
 
     # Si hubo un error, se mantiene la caché
@@ -29,10 +29,13 @@ def update_m3u(first_run=False, force=False):
         print("No se pudo descargar la lista M3U")
         return
     
+    # Guardamos una copia del fichero
+    save_file(m3u_content, "m3u_backup.m3u")
+    
     grouped_data = {} # Diccionario para agrupar los canales por su ID
     unknown_counter = 0 # Contador para los canales sin ID
 
-    # Parseamos y almacenamos el archivo M3U
+    # Parseamos y almacenamos el fichero M3U
     lines = m3u_content.splitlines()
     for i in range(len(lines)):
         # Leemos la línea con la información del canal y extraemos los datos con regex
@@ -93,7 +96,7 @@ def update_epg(scheduler, first_run=False):
 
     print(f"Intentando descargar la guía EPG (intento {retry_count + 1}/{config.EPG_MAX_RETRIES + 1})...")
 
-    # Descargamos el archivo con la guía EPG
+    # Descargamos el fichero con la guía EPG
     xml_content = fetch_file(config.EPG_URL)
 
     # Si hubo un error, lo reintentamos
@@ -109,7 +112,10 @@ def update_epg(scheduler, first_run=False):
             print(f"No se pudo descargar la guía EPG tras {config.EPG_MAX_RETRIES + 1} intentos fallidos")
         return
     
-    # Parseamos y almacenamos el archivo XML
+    # Guardamos una copia del fichero
+    save_file(xml_content, "epg_backup.xml")
+    
+    # Parseamos y almacenamos el fichero XML
     try:
         root = ET.fromstring(xml_content) # Nodo raíz
         epg_data = {} # Diccionario para almacenar la guía EPG

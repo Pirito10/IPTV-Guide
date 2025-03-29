@@ -1,3 +1,4 @@
+import os
 import requests
 from datetime import datetime, timedelta
 from config import cache, config
@@ -12,6 +13,25 @@ def fetch_file(url):
     except requests.exceptions.RequestException as e:
         print(f"Error al descargar {url}:\n{e}\n")
         return None
+
+# Función para guardar un contenido en un fichero
+def save_file(content, filename):
+    try:
+        # Obtenemos la ruta absoluta al directorio de este fichero
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        # Subimos un nivel y creamos/entramos al directorio destino
+        data_dir = os.path.join(base_dir, "..", config.BACKUP_DIRECTORY)
+        os.makedirs(data_dir, exist_ok=True)
+
+        # Ruta al fichero
+        path = os.path.join(data_dir, filename)
+
+        # Abrimos el fichero y escribimos el contenido
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(content)
+        print(f"Archivo guardado en {path}")
+    except Exception as e:
+        print(f"No se pudo guardar el archivo en {path}: {e}")
 
 # Función para convertir la fecha y hora de la guía EPG a formato ISO 8601
 def convert_epg_time(epg_time):
