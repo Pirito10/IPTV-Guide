@@ -1,3 +1,9 @@
+# IP de la interfaz donde escuchará el servidor
+SERVER_IP = "0.0.0.0"
+
+# Horas a las que actualizar la guía EPG
+EPG_SCHEDULER_HOURS = "10,14,18,22"
+
 # Enlaces a los archivos de la lista M3U y la guía EPG
 M3U_URL = "http://127.0.0.1:43110/1H3KoazXt2gCJgeD8673eFvQYXG7cbRddU/lista-ace.m3u"
 EPG_URL = "https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/guiatv.xml"
@@ -16,9 +22,3 @@ RETRY_INCREMENT = 30
 # Timeouts (en segundos) para las descargas de ficheros y logos
 FILE_TIMEOUT = 10
 LOGO_TIMEOUT = 5
-
-# Horas a las que actualizar la guía EPG
-EPG_SCHEDULER_HOURS = "10,14,18,22"
-
-# IP de la interfaz donde escuchará el servidor
-SERVER_IP = "0.0.0.0"
