@@ -113,6 +113,9 @@ def update_epg(scheduler, first_run=False):
     try:
         root = ET.fromstring(xml_content) # Nodo raíz
         epg_data = {} # Diccionario para almacenar la guía EPG
+        
+        # Extraemos los IDs de los canales presentes en la lista M3U
+        channel_ids = {channel["id"] for channel in cache.cached_m3u_data}
 
         # Extraemos los IDs de los canales presentes en la lista M3U
         channel_ids = {channel["id"] for channel in cache.cached_m3u_data}
