@@ -33,6 +33,24 @@ def save_file(content, filename):
     except Exception as e:
         print(f"No se pudo guardar el archivo en {path}: {e}")
 
+# Función para cargar el contenido de un fichero
+def load_file(filename):
+    try:
+        # Obtenemos la ruta absoluta al directorio de este fichero
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        # Subimos un nivel y entramos al directorio objetivo
+        data_dir = os.path.join(base_dir, "..", config.BACKUP_DIRECTORY)
+
+        # Ruta al fichero
+        path = os.path.join(data_dir, filename)
+
+        # Abrimos el fichero y leemos el contenido
+        with open(path, "r", encoding="utf-8") as f:
+            return f.read()
+    except Exception as e:
+        print(f"No se pudo leer el archivo {filename}: {e}")
+        return
+
 # Función para convertir la fecha y hora de la guía EPG a formato ISO 8601
 def convert_epg_time(epg_time):
     try:
