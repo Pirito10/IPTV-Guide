@@ -1,11 +1,12 @@
 # ✅ TODO list del proyecto
 
 ## 🔧 Backend
-- [ ] Fix: si no se descargó la lista de canales, la guía EPG se descarga y al filtrar por los canales queda vacía. Aunque entre un usuario y se descargue correctamente la lista de canales, la EPG no se vuelve a descargar hasta su timer, pues no dió error. Añadir caché permanente?
+- [x] Fix: si no se descargó la lista de canales, la guía EPG se descarga y al filtrar por los canales queda vacía. Aunque entre un usuario y se descargue correctamente la lista de canales, la EPG no se vuelve a descargar hasta su timer, pues no dió error. Añadir caché permanente?
 - [x] Añadir logo de cada canal a la guía EPG
 - [ ] Logger
 - [x] Añadir timer de M3U a config.py
-- [ ] No parsear programas si el ID no está en la lista
+- [x] No parsear programas si el ID no está en la lista
+- [ ] Almacenamiento local, varias copias?
 
 ## 🖥️ Frontend
 - [ ] Mostrar tooltip al copiar un ID de stream
