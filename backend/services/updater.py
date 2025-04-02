@@ -1,7 +1,7 @@
-import re
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta
-from services.utils import fetch_file, save_file, load_file, convert_epg_time, get_valid_logo
+from services.parsers import parse_m3u
+from services.utils import fetch_file, save_file, load_file, convert_epg_time
 from config import cache, config
 
 # Fecha de la última actualización de la lista M3U
@@ -37,59 +37,9 @@ def update_m3u(first_run=False, force=False, skip_save=False):
     # Guardamos una copia del fichero
     if not skip_save:
         save_file(m3u_content, config.M3U_BACKUP)
-    
-    grouped_data = {} # Diccionario para agrupar los canales por su ID
-    unknown_counter = 0 # Contador para los canales sin ID
 
-    # Parseamos y almacenamos el fichero M3U
-    lines = m3u_content.splitlines()
-    for i in range(len(lines)):
-        # Leemos la línea con la información del canal y extraemos los datos con regex
-        if lines[i].startswith("#EXTINF"):
-            # ID del canal
-            id_match = re.search(r'tvg-id="(.*?)"', lines[i])
-            if id_match.group(1):
-                id = id_match.group(1)
-            # Si el canal no tiene ID, le asignamos uno por defecto junto con un contador
-            else:
-                unknown_counter += 1
-                id = f"{config.DEFAULT_ID}#{unknown_counter}"
-
-            # URL del logo
-            logo_match = re.search(r'tvg-logo="(.*?)"', lines[i])
-            logo = logo_match.group(1)
-
-            # Grupo del canal
-            group_match = re.search(r'group-title="(.*?)"', lines[i])
-            group = group_match.group(1)
-
-            # Nombre del canal
-            name_match = re.search(r', (.+)$', lines[i])
-            name = name_match.group(1)
-
-            # Extraemos la URL de la siguiente línea
-            url = lines[i + 1].removeprefix("acestream://")
-
-            # Si el ID no está en el diccionario, agregamos toda la información del canal
-            if id not in grouped_data:
-                grouped_data[id] = {
-                    "id": id,
-                    "logo": get_valid_logo(id, logo) if not first_run else logo,
-                    "group": group,
-                    "streams": [{
-                        "name": name,
-                        "url": url
-                    }]
-                }
-            # Si ya existe, agregamos solo la información del stream
-            else:
-                grouped_data[id]["streams"].append({
-                    "name": name,
-                    "url": url
-                })
-
-    # Convertimos el diccionario en una lista
-    m3u_data = list(grouped_data.values())
+    # Parseamos el contenido del fichero
+    m3u_data = parse_m3u(m3u_content, first_run)
 
     # Actualizamos la caché
     cache.cached_m3u_data = m3u_data
