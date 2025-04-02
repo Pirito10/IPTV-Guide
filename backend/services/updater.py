@@ -1,7 +1,6 @@
-import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta
-from services.parsers import parse_m3u
-from services.utils import fetch_file, save_file, load_file, convert_epg_time
+from services.parsers import parse_m3u, parse_epg
+from services.utils import fetch_file, save_file, load_file
 from config import cache, config
 
 # Fecha de la última actualización de la lista M3U
@@ -84,56 +83,15 @@ def update_epg(scheduler, first_run=False):
     # Guardamos una copia del fichero si los datos son descargados
     if downloaded:
         save_file(xml_content, config.EPG_BACKUP)
-    
-    # Parseamos y almacenamos el fichero XML
-    try:
-        root = ET.fromstring(xml_content) # Nodo raíz
-        epg_data = {} # Diccionario para almacenar la guía EPG
-        
-        # Extraemos los IDs de los canales presentes en la lista M3U
-        channel_ids = {channel["id"] for channel in cache.cached_m3u_data}
 
-        # Extraemos los IDs de los canales presentes en la lista M3U
-        channel_ids = {channel["id"] for channel in cache.cached_m3u_data}
+    # Extraemos los IDs de los canales presentes en la lista M3U
+    channel_ids = {channel["id"] for channel in cache.cached_m3u_data}
 
-        # Recorremos cada elemento <programme> para extraer la información necesaria
-        for programme in root.findall("programme"):
-            channel_id = programme.get("channel") # ID del canal
+    # Parseamos el fichero XML y lo guardamos en la caché
+    cache.cached_epg_data = parse_epg(xml_content, channel_ids)
+    retry_count = 0
+    print("Guía EPG actualizada correctamente")
 
-            # Comprobamos que el programa corresponda a un canal presente en la lista M3U
-            if channel_id not in channel_ids:
-                continue
-
-            title = programme.find("title").text # Título del programa
-            description = programme.find("desc").text # Descripción del programa
-            start = convert_epg_time(programme.get("start")) # Fecha y hora de inicio
-            stop = convert_epg_time(programme.get("stop")) # Fecha y hora de finalización
-
-            # Agregamos la información del programa al canal correspondiente
-            epg_data.setdefault(channel_id, {"programs": []})["programs"].append({
-                "title": title,
-                "description": description,
-                "since": start,
-                "till": stop
-            })
-
-        # Recorremos cada elemento <channel> para extraer su logo
-        for channel in root.findall("channel"):
-            # Obtenemos el atributo ID del elemento <channel>
-            channel_id = channel.get("id")
-            # Si el canal está en la guía EPG filtrada, añadimos su logo
-            if channel_id in epg_data:
-                # Obtenemos el atributo src del elemento <icon>
-                epg_data[channel_id]["logo"] = channel.find("icon").get("src")
-
-        # Actualizamos la caché
-        cache.cached_epg_data = epg_data
-        retry_count = 0
-        print("Guía EPG actualizada correctamente")
-
-        # Si es la primera ejecución, forzamos una actualización de la lista M3U
-        if first_run:
-            update_m3u(force=True, skip_save=True)
-
-    except ET.ParseError as e:
-        print(f"Error al parsear la guía EPG: {e}")
+    # Si es la primera ejecución, forzamos una actualización de la lista M3U
+    if first_run:
+        update_m3u(force=True, skip_save=True)
