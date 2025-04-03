@@ -26,6 +26,6 @@
 ## 🧪 Extras
 - [x] Si un canal no tiene logo o al cargarlo da error, asignarle su correspondiente de la guía EPG
 - [x] Si es un canal sin ID -> imagen de respaldo
-- [ ] Eliminar puntos y coma
+- [x] Eliminar puntos y coma
 - [ ] Testear rendimiento de get_valid_logo() en la Raspberry
     - [x] Cachear logos validados
