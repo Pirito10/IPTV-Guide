@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react";
-import { TimelineWrapper, TimelineBox, TimelineTime, TimelineDivider, TimelineDividers, useTimeline } from "planby";
+import { useEffect, useState } from "react"
+import { TimelineWrapper, TimelineBox, TimelineTime, TimelineDivider, TimelineDividers, useTimeline } from "planby"
 
 export const Timeline = ({ isBaseTimeFormat, isSidebar, dayWidth, hourWidth, numberOfHoursInDay, offsetStartHoursRange, sidebarWidth }) => {
-    const { time, dividers, formatTime } = useTimeline(numberOfHoursInDay, isBaseTimeFormat);
+    const { time, dividers, formatTime } = useTimeline(numberOfHoursInDay, isBaseTimeFormat)
 
     // Estado para guardar la hora actual y actualizarla automáticamente cada minuto
-    const [now, setNow] = useState(new Date());
+    const [now, setNow] = useState(new Date())
     useEffect(() => {
-        const updateNow = () => setNow(new Date());
+        const updateNow = () => setNow(new Date())
         // Forzamos una actualización al montar el componente
-        updateNow();
+        updateNow()
         // Actualizamos cada dos minutos
-        const interval = setInterval(updateNow, 120000);
-        return () => clearInterval(interval);
-    }, []);
+        const interval = setInterval(updateNow, 120000)
+        return () => clearInterval(interval)
+    }, [])
 
     const renderTime = (index) => (
         <TimelineBox key={index} width={hourWidth}>
@@ -22,7 +22,7 @@ export const Timeline = ({ isBaseTimeFormat, isSidebar, dayWidth, hourWidth, num
             </TimelineTime>
             <TimelineDividers>{renderDividers()}</TimelineDividers>
         </TimelineBox>
-    );
+    )
 
     const renderDividers = () =>
         dividers.map((_, index) => (
@@ -37,17 +37,17 @@ export const Timeline = ({ isBaseTimeFormat, isSidebar, dayWidth, hourWidth, num
                                 '10%', // Cuarto/tres cuartos de hora
                 }}
             />
-        ));
+        ))
 
     // Añadimos un marcador para la hora actual
     const renderNowIndicator = () => {
         // Calculamos la hora actual
-        const currentHour = now.getHours();
-        const currentMinutes = now.getMinutes();
-        const totalHours = currentHour + currentMinutes / 60;
+        const currentHour = now.getHours()
+        const currentMinutes = now.getMinutes()
+        const totalHours = currentHour + currentMinutes / 60
 
         // Calculamos la posición del marcador en píxeles
-        const left = totalHours * hourWidth;
+        const left = totalHours * hourWidth
 
         return (
             <div
@@ -60,8 +60,8 @@ export const Timeline = ({ isBaseTimeFormat, isSidebar, dayWidth, hourWidth, num
                     backgroundColor: '#2C7A7B'
                 }}
             />
-        );
-    };
+        )
+    }
 
     return (
         <TimelineWrapper
@@ -72,5 +72,5 @@ export const Timeline = ({ isBaseTimeFormat, isSidebar, dayWidth, hourWidth, num
             {time.map((_, index) => renderTime(index))}
             {renderNowIndicator()}
         </TimelineWrapper>
-    );
+    )
 }

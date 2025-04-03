@@ -38,4 +38,4 @@ export const theme = {
             bg: '#718096',
         },
     },
-};
+}

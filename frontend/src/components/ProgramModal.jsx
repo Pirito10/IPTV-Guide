@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react"
 import { FaTimes } from "react-icons/fa"
-import { FALLBACK_LOGO } from '../helpers/constants';
+import { FALLBACK_LOGO } from '../helpers/constants'
 import "./ProgramModal.css"
 
 export const ProgramModal = ({ program, logo, onClose }) => {
@@ -18,21 +18,21 @@ export const ProgramModal = ({ program, logo, onClose }) => {
         return () => document.removeEventListener("keydown", handleKeyDown)
     })
 
-    const modalRef = useRef(); // Referencia al modal
+    const modalRef = useRef() // Referencia al modal
 
     // Listener para clicks
     useEffect(() => {
         // Creamos una función para manejar el evento "mousedown"
         const handleClickOutside = (e) => {
             if (!modalRef.current.contains(e.target)) {
-                onClose();
+                onClose()
             }
-        };
+        }
         // Añadimos el listener al documento
-        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("mousedown", handleClickOutside)
         // Eliminamos el listener al cerrar el modal
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    });
+        return () => document.removeEventListener("mousedown", handleClickOutside)
+    })
 
     return (
         <div className="program-modal" ref={modalRef}>
@@ -49,5 +49,5 @@ export const ProgramModal = ({ program, logo, onClose }) => {
 
             <div className="program-modal-description">{program.description}</div>
         </div>
-    );
-};
+    )
+}

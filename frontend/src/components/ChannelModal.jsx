@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react"
-import { FaRegCopy, FaPlay, FaTimes } from "react-icons/fa";
-import { FALLBACK_LOGO } from '../helpers/constants';
+import { FaRegCopy, FaPlay, FaTimes } from "react-icons/fa"
+import { FALLBACK_LOGO } from '../helpers/constants'
 import "./ChannelModal.css"
 
 // Componente para mostrar un modal con los streams de un canal
@@ -19,21 +19,21 @@ export const ChannelModal = ({ channel, onClose }) => {
         return () => document.removeEventListener("keydown", handleKeyDown)
     })
 
-    const modalRef = useRef(); // Referencia al modal
+    const modalRef = useRef() // Referencia al modal
 
     // Listener para clicks
     useEffect(() => {
         // Creamos una función para manejar el evento "mousedown"
         const handleClickOutside = (e) => {
             if (!modalRef.current.contains(e.target)) {
-                onClose();
+                onClose()
             }
-        };
+        }
         // Añadimos el listener al documento
-        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("mousedown", handleClickOutside)
         // Eliminamos el listener al cerrar el modal
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    });
+        return () => document.removeEventListener("mousedown", handleClickOutside)
+    })
 
     return (
         <div className="channel-modal" ref={modalRef}>
@@ -68,5 +68,5 @@ export const ChannelModal = ({ channel, onClose }) => {
                 </div>
             ))}
         </div>
-    );
-};
+    )
+}
