@@ -92,13 +92,28 @@ def get_valid_logo(channel_id, logo_url):
     
 # Función para comprobar si una URL es accesible
 def is_url_accessible(url):
+    # Comprobamos si la URL está en la caché
+    if url in cache.cached_logos:
+        # Comprobamos si ha expirado
+        if datetime.now() - cache.cached_logos[url] < timedelta(hours=config.LOGO_TTL):
+            return True
+        else:
+            del cache.cached_logos[url]
+        
     # Enviamos una solicitud HEAD a la URL
     try:
         response = requests.head(url, timeout=config.LOGO_TIMEOUT)
         # Consideramos como respuesta válida un código 200 o 403 (no accesible desde fuera del navegador, pero funcional)
-        return response.status_code in (200, 403)
+        is_valid = response.status_code in (200, 403)
     except requests.exceptions.SSLError:
         # Consideramos los errores de certificado SSL como válidos
-        return True
+        is_valid = True
     except requests.RequestException:
-        return False
+        # Consideramos cualquier otro error como inválido
+        is_valid = False
+
+    # Si la URL es válida, la guardamos en caché
+    if is_valid:
+        cache.cached_logos[url] = datetime.now()
+
+    return is_valid
