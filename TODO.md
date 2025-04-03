@@ -7,6 +7,7 @@
 - [x] Añadir timer de M3U a config.py
 - [x] No parsear programas si el ID no está en la lista
 - [ ] Almacenamiento local, varias copias?
+- [ ] Gestión de errores
 
 ## 🖥️ Frontend
 - [ ] Mostrar tooltip al copiar un ID de stream
@@ -27,4 +28,4 @@
 - [x] Si es un canal sin ID -> imagen de respaldo
 - [ ] Eliminar puntos y coma
 - [ ] Testear rendimiento de get_valid_logo() en la Raspberry
-    - [ ] Cachear logos validados
+    - [x] Cachear logos validados
