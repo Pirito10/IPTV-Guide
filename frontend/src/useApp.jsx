@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import { useEpg } from 'planby'
-import { fetchData, getLocalDate } from '@/helpers'
-import { theme } from '@/helpers/theme'
+import { fetchData, getLocalDate } from '@helpers'
+import { theme } from '@helpers/theme'
 
 export const useApp = () => {
     const [channels, setChannels] = useState([]) // Estado para los canales

@@ -1,5 +1,5 @@
-import { formatChannels, formatEpg } from '@/helpers/formatData'
-import { CHANNELS_URL, EPG_URL } from '@/helpers/constants'
+import { formatChannels, formatEpg } from '@helpers/formatData'
+import { CHANNELS_URL, EPG_URL } from '@helpers/constants'
 
 // Función para obtener los datos de los canales y la guía EPG del backend
 export const fetchData = async () => {

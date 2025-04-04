@@ -1,2 +1,2 @@
-export * from '@/helpers/fetchData'
-export * from '@/helpers/localDate'
+export * from '@helpers/fetchData'
+export * from '@helpers/localDate'

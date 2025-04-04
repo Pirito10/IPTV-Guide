@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Epg, Layout } from 'planby'
 import { useApp } from '@/useApp'
-import { Timeline, ChannelItem, ChannelModal, ProgramItem, ProgramModal } from '@/components'
+import { Timeline, ChannelItem, ChannelModal, ProgramItem, ProgramModal } from '@components'
 
 const App = () => {
     // Obtenemos los datos y propiedades de la guía de programación
