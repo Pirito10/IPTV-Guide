@@ -4,8 +4,10 @@ updates:
     directory: "frontend"
     schedule:
       interval: "daily"
+    versioning-strategy: "increase"
 
   - package-ecosystem: "pip"
     directory: "backend"
     schedule:
       interval: "daily"
+    versioning-strategy: "increase"
