@@ -18,9 +18,8 @@
 - [ ] Añadir filtrado por grupo
 - [ ] Añadir buscador
 - [ ] Revisar sincronización de la barra temporal
-- [ ] Mover estilos de los componentes a un .css
+- [x] Mover estilos de los componentes a un .css
 - [x] Modal para cada programa
-- [ ] Icono para programas en directo
 - [x] onError en los modales
 
 ## 🧪 Extras
