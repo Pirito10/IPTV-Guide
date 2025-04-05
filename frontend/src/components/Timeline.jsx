@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { TimelineWrapper, TimelineBox, TimelineTime, TimelineDivider, TimelineDividers, useTimeline } from "planby"
+import "@styles/Timeline.css"
 
 export const Timeline = ({ isBaseTimeFormat, isSidebar, dayWidth, hourWidth, numberOfHoursInDay, offsetStartHoursRange, sidebarWidth }) => {
     const { time, dividers, formatTime } = useTimeline(numberOfHoursInDay, isBaseTimeFormat)
@@ -50,16 +51,7 @@ export const Timeline = ({ isBaseTimeFormat, isSidebar, dayWidth, hourWidth, num
         const left = totalHours * hourWidth
 
         return (
-            <div
-                style={{
-                    position: 'absolute',
-                    left: `${left}px`,
-                    bottom: '6px',
-                    height: '14px',
-                    width: '3px',
-                    backgroundColor: '#2C7A7B'
-                }}
-            />
+            <div className="timeline-now-indicator" style={{ left: `${left}px` }} />
         )
     }
 
