@@ -1,6 +1,6 @@
-import { ChannelBox, ChannelLogo } from 'planby'
-import { FALLBACK_LOGO } from '@helpers/constants'
-import '@styles/ChannelItem.css'
+import { ChannelBox, ChannelLogo } from "planby"
+import { FALLBACK_LOGO } from "@helpers/constants"
+import "@styles/ChannelItem.css"
 
 export const ChannelItem = ({ channel, onClick }) => {
     const { position, uuid, logo } = channel
