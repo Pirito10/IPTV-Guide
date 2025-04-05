@@ -1,0 +1,8 @@
+.program-content:hover .program-stack {
+    transform: scale(1.1);
+}
+
+.program-stack {
+    transition: transform 0.2s;
+    transform-origin: center left
+}
