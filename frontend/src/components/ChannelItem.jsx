@@ -1,5 +1,6 @@
 import { ChannelBox, ChannelLogo } from 'planby'
 import { FALLBACK_LOGO } from '@helpers/constants'
+import '@styles/ChannelItem.css'
 
 export const ChannelItem = ({ channel, onClick }) => {
     const { position, uuid, logo } = channel
@@ -10,16 +11,10 @@ export const ChannelItem = ({ channel, onClick }) => {
             onClick={onClick} // Mostramos el modal al hacer click
         >
             <ChannelLogo
+                className="channel-logo"
                 src={logo}
                 // Ponemos el logo de respaldo si hubo un error al cargar la imagen
                 onError={e => e.currentTarget.src = FALLBACK_LOGO}
-                // Añadimos un efecto de zoom al pasar el ratón
-                onMouseOver={e => e.currentTarget.style.transform = 'scale(1.3)'}
-                onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
-                style={{
-                    transition: 'transform 0.2s',
-                    cursor: 'pointer'
-                }}
             />
         </ChannelBox>
     )

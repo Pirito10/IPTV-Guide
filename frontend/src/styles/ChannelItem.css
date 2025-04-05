@@ -1,0 +1,8 @@
+.channel-logo {
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.channel-logo:hover {
+    transform: scale(1.3);
+}
