@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react"
 import { FaTimes } from "react-icons/fa"
 import { FALLBACK_LOGO } from '@helpers/constants'
+import "@styles/Modal.css"
 import "@styles/ProgramModal.css"
 
 export const ProgramModal = ({ program, logo, onClose }) => {
@@ -35,16 +36,16 @@ export const ProgramModal = ({ program, logo, onClose }) => {
     })
 
     return (
-        <div className="program-modal" ref={modalRef}>
-            <button className="program-modal-close" onClick={onClose}><FaTimes /></button>
+        <div className="modal" ref={modalRef}>
+            <button className="modal-close" onClick={onClose}><FaTimes /></button>
 
-            <div className="program-modal-header">
+            <div className="modal-header">
                 <img
-                    className="program-modal-logo"
+                    className="modal-logo"
                     src={logo}
                     onError={e => e.currentTarget.src = FALLBACK_LOGO}
                 />
-                <h2 className="program-modal-title">{program.title}</h2>
+                <h2 className="modal-title">{program.title}</h2>
             </div>
 
             <div className="program-modal-description">{program.description}</div>

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react"
 import { FaTimes, FaRegCopy, FaPlay } from "react-icons/fa"
 import { FALLBACK_LOGO } from '@helpers/constants'
+import "@styles/Modal.css"
 import "@styles/ChannelModal.css"
 
 // Componente para mostrar un modal con los streams de un canal
@@ -55,16 +56,16 @@ export const ChannelModal = ({ channel, onClose }) => {
     }
 
     return (
-        <div className="channel-modal" ref={modalRef}>
-            <button className="channel-modal-close" onClick={onClose}><FaTimes /></button>
+        <div className="modal" ref={modalRef}>
+            <button className="modal-close" onClick={onClose}><FaTimes /></button>
 
-            <div className="channel-modal-header">
+            <div className="modal-header">
                 <img
-                    className="channel-modal-logo"
+                    className="modal-logo"
                     src={channel.logo}
                     onError={e => e.currentTarget.src = FALLBACK_LOGO}
                 />
-                <h2 className="channel-modal-title">{channel.uuid}</h2>
+                <h2 className="modal-title">{channel.uuid}</h2>
             </div>
 
             {channel.streams?.map((stream, index) => (
