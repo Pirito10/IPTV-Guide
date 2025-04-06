@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react"
-import { FaRegCopy, FaPlay, FaTimes } from "react-icons/fa"
+import { FaTimes, FaRegCopy, FaPlay } from "react-icons/fa"
 import { FALLBACK_LOGO } from '@helpers/constants'
 import "@styles/ChannelModal.css"
 
@@ -35,6 +35,25 @@ export const ChannelModal = ({ channel, onClose }) => {
         return () => document.removeEventListener("mousedown", handleClickOutside)
     })
 
+    // Función para mostrar el toast de ID copiado
+    const showCopiedToast = () => {
+        // Creamos el elemento del toast
+        const toast = document.createElement("div")
+        toast.className = "copied-toast"
+        toast.textContent = "ID copiado al portapapeles"
+        document.body.appendChild(toast)
+
+        // Iniciamos un temporizador para desvanecer el toast
+        setTimeout(() => {
+            toast.classList.add("copied-toast-fade-out")
+        }, 1000)
+
+        // Iniciamos un temporizador para eliminar el toast
+        setTimeout(() => {
+            toast.remove()
+        }, 2000)
+    }
+
     return (
         <div className="channel-modal" ref={modalRef}>
             <button className="channel-modal-close" onClick={onClose}><FaTimes /></button>
@@ -53,7 +72,10 @@ export const ChannelModal = ({ channel, onClose }) => {
                     <div className="channel-stream-name">{stream.name}</div>
                     <button
                         className="channel-stream-button channel-stream-copy-button"
-                        onClick={() => navigator.clipboard.writeText(stream.url)}
+                        onClick={() => {
+                            navigator.clipboard.writeText(stream.url)
+                            showCopiedToast()
+                        }}
                     >
                         <FaRegCopy className="channel-stream-button-icon" />
                         Copiar ID
