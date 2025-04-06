@@ -10,7 +10,7 @@
 - [ ] Gestión de errores
 
 ## 🖥️ Frontend
-- [ ] Mostrar tooltip al copiar un ID de stream
+- [x] Mostrar tooltip al copiar un ID de stream
 - [x] Cerrar el modal de canal al hacer click fuera
 - [x] Cerrar el modal de canal al presionar escape
 - [x] Editar estilo de ProgramItem
