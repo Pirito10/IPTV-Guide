@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Cleanup",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-Command",
+                "Remove-Item -Recurse -Force -ErrorAction SilentlyContinue frontend/node_modules, frontend/package-lock.json, backend/data, backend/__pycache__, backend/config/__pycache__, backend/services/__pycache__; cd frontend; npm install"
+            ],
+            "problemMatcher": []
+        }
+    ]
+}
