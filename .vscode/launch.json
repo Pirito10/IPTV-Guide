@@ -1,0 +1,33 @@
+{
+    "version": "1.0.0",
+    "compounds": [
+        {
+            "name": "App",
+            "configurations": [
+                "Backend",
+                "Frontend"
+            ]
+        }
+    ],
+    "configurations": [
+        {
+            "name": "Backend",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/backend/app.py",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Frontend",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/frontend",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run",
+                "dev"
+            ],
+            "console": "integratedTerminal"
+        }
+    ]
+}
