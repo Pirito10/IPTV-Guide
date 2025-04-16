@@ -78,9 +78,10 @@ def convert_epg_time(epg_time):
 
         return dt.isoformat() + "Z"  # Convertimos a formato ISO 8601
     except Exception as e:
-        print(f"Error al convertir fecha EPG: {epg_time}, {e}")
+        logger.warning(f"Failed to convert EPG time: {e}")
         return None
-    
+
+
 # Función para comprobar si un logo es válido
 def get_valid_logo(channel_id, logo_url):
     # Si el logo es accesible, lo devolvemos
