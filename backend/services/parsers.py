@@ -98,13 +98,13 @@ def parse_epg(xml_content, channel_ids):
             "till": stop
         })
 
-        # Recorremos cada elemento <channel> para extraer su logo
-        for channel in root.findall("channel"):
-            # Obtenemos el atributo ID del elemento <channel>
-            channel_id = channel.get("id")
-            # Si el canal está en la guía EPG filtrada, añadimos su logo
-            if channel_id in epg_data:
-                # Obtenemos el atributo src del elemento <icon>
-                epg_data[channel_id]["logo"] = channel.find("icon").get("src")
+    # Recorremos cada elemento <channel> para extraer su logo
+    for channel in root.findall("channel"):
+        # Obtenemos el atributo ID del elemento <channel>
+        channel_id = channel.get("id")
+        # Si el canal está en la guía EPG filtrada, añadimos su logo
+        if channel_id in epg_data:
+            # Obtenemos el atributo src del elemento <icon>
+            epg_data[channel_id]["logo"] = channel.find("icon").get("src")
 
     return epg_data
