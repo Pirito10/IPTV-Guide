@@ -63,11 +63,6 @@ def update_epg(scheduler, first_run=False):
         # Marcamos que se usarán datos locales (caché o almacenamiento local)
         downloaded = False
 
-        # Si hubo un error y la caché está vacía, se carga la lista del almacenamiento local
-        if not cache.cached_epg_data:
-            logger.warning("Failed to download EPG file, using local backup...")
-            xml_content = load_file(config.EPG_BACKUP)
-            
         # Programamos un reintento de descarga
         if (retry_count < config.EPG_MAX_RETRIES):
             retry_count += 1
@@ -78,11 +73,19 @@ def update_epg(scheduler, first_run=False):
             logger.warning("Retrying EPG update in %d minutes", delay)
         else:
             logger.error("Failed to download EPG file after %d failed attempts", config.EPG_MAX_RETRIES + 1)
-        
+
+        # Si hubo un error y la caché está vacía, se carga la lista del almacenamiento local
+        if not cache.cached_epg_data:
+            logger.warning("Failed to download EPG file, using local backup...")
+            xml_content = load_file(config.EPG_BACKUP)
+
         # Si hubo un error pero ya está la guía en la caché, se mantiene
         if not xml_content:
             logger.warning("Failed to download EPG file, using cache...")
             return
+    else:
+        # Reiniciamos el contador de reintentos si la descarga fue exitosa
+        retry_count = 0
     
     # Guardamos una copia del fichero si los datos son descargados
     if downloaded:
@@ -93,7 +96,6 @@ def update_epg(scheduler, first_run=False):
 
     # Parseamos el fichero XML y lo guardamos en la caché
     cache.cached_epg_data = parse_epg(xml_content, channel_ids)
-    retry_count = 0
 
     logger.info("EPG cache updated")
 
