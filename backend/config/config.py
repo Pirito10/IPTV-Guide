@@ -10,6 +10,8 @@ EPG_URL = "https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/guiatv.
 
 # Nombre del directorio donde guardar los logs
 LOGS_DIRECTORY = "logs"
+# Nivel mínimo de los logs (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+LOGS_LEVEL = "INFO"
 
 # Nombre del directorio donde guardar copias de los ficheros descargados
 BACKUP_DIRECTORY = "data"
@@ -21,7 +23,7 @@ M3U_BACKUP = "m3u_backup.m3u"
 DEFAULT_ID = "unknown"
 
 # Temporizador (en segundos) de espera antes de volver a descargar la lista M3U
-M3U_DOWNLOAD_TIMER = 60
+M3U_DOWNLOAD_TIMER = 1800
 
 # Cantidad de reintentos de descarga de la guía EPG
 EPG_MAX_RETRIES = 3
@@ -33,4 +35,6 @@ FILE_TIMEOUT = 10
 LOGO_TIMEOUT = 5
 
 # Tiempo (en horas) para considerar válida una entrada en la caché de los logos
-LOGO_TTL = 24
+LOGO_TTL = 4
+# Variación aleatoria (en porcentaje) para el TTL de los logos
+LOGO_JITTER = 0.1
