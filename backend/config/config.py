@@ -10,6 +10,8 @@ EPG_URL = "https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/guiatv.
 
 # Nombre del directorio donde guardar los logs
 LOGS_DIRECTORY = "logs"
+# Nivel mínimo de los logs (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+LOGS_LEVEL = "INFO"
 
 # Nombre del directorio donde guardar copias de los ficheros descargados
 BACKUP_DIRECTORY = "data"

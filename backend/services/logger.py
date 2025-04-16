@@ -15,9 +15,12 @@ timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 # Ruta al fichero
 log_file = os.path.join(logs_dir, f'{timestamp}.log')
 
-# Creamos el logger y establecemos el nivel mínimo
+# Creamos el logger
 logger = logging.getLogger("iptv_logger")
-logger.setLevel(logging.DEBUG)
+
+# Establecemos el nivel mínimo
+log_level = getattr(logging, config.LOGS_LEVEL.upper(), logging.INFO)
+logger.setLevel(log_level)
 
 # Creamos el manejador de fichero
 file_handler = logging.FileHandler(log_file, encoding='utf-8')
