@@ -23,8 +23,8 @@ def save_file(content, filename):
         target_dir = os.path.join(base_dir, "..", config.BACKUP_DIRECTORY)
         os.makedirs(target_dir, exist_ok=True)
 
-        # Ruta al fichero
-        path = os.path.join(target_dir, filename)
+        # Ruta absoluta al fichero
+        path = os.path.abspath(os.path.join(target_dir, filename))
 
         # Abrimos el fichero y escribimos el contenido
         with open(path, "w", encoding="utf-8") as f:
@@ -41,8 +41,8 @@ def load_file(filename):
         # Subimos un nivel y entramos al directorio objetivo
         target_dir = os.path.join(base_dir, "..", config.BACKUP_DIRECTORY)
 
-        # Ruta al fichero
-        path = os.path.join(target_dir, filename)
+        # Ruta absoluta al fichero
+        path = os.path.abspath(os.path.join(target_dir, filename))
 
         # Abrimos el fichero y leemos el contenido
         with open(path, "r", encoding="utf-8") as f:
