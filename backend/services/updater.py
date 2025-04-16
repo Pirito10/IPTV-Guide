@@ -23,8 +23,12 @@ def update_m3u(first_run=False, force=False, skip_save=False):
 
     # Descargamos el fichero con la lista M3U
     m3u_content = fetch_file(config.M3U_URL)
+    downloaded = True # Variable para controlar si los datos son descargados o locales
 
     if not m3u_content:
+        # Marcamos que se usarán datos locales (caché o almacenamiento local)
+        downloaded = False
+        
         # Si hubo un error pero ya está la lista en la caché, se mantiene
         if cache.cached_m3u_data:
             logger.warning("Failed to download M3U list file, using cache...")
@@ -34,8 +38,8 @@ def update_m3u(first_run=False, force=False, skip_save=False):
             logger.warning("Failed to download M3U list file, using local backup...")
             m3u_content = load_file(config.M3U_BACKUP)
 
-    # Guardamos una copia del fichero
-    if not skip_save:
+    # Guardamos una copia del fichero si los datos son descargados
+    if downloaded and not skip_save:
         save_file(m3u_content, config.M3U_BACKUP)
 
     # Parseamos el fichero M3U y lo guardamos en la caché
