@@ -38,15 +38,13 @@ def update_m3u(first_run=False, force=False, skip_save=False):
     if not skip_save:
         save_file(m3u_content, config.M3U_BACKUP)
 
-    # Parseamos el contenido del fichero
-    m3u_data = parse_m3u(m3u_content, first_run)
+    # Parseamos el fichero M3U y lo guardamos en la caché
+    cache.cached_m3u_data = parse_m3u(m3u_content, first_run)
+    last_update = datetime.now()
 
     logger.info("M3U list file parsed successfully")
-
-    # Actualizamos la caché
-    cache.cached_m3u_data = m3u_data
-    last_update = datetime.now()
     logger.info("M3U list cache updated")
+
 
 # Función para descargar la guía EPG y almacenarla en caché
 def update_epg(scheduler, first_run=False):
