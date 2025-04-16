@@ -1,5 +1,6 @@
 import os
 import requests
+from random import uniform
 from datetime import datetime, timedelta
 from config import cache, config
 from services.logger import logger
@@ -108,7 +109,8 @@ def is_url_accessible(url):
     # Comprobamos si la URL está en la caché
     if url in cache.cached_logos:
         # Comprobamos si ha expirado
-        if datetime.now() - cache.cached_logos[url] < timedelta(hours=config.LOGO_TTL):
+        expiry_time = cache.cached_logos[url]
+        if datetime.now() < expiry_time:
             logger.debug(f"Logo found in cache")
             return True
         else:
@@ -130,8 +132,11 @@ def is_url_accessible(url):
     # Si la URL es válida, la guardamos en caché
     if is_valid:
         logger.debug(f"Request successful for logo URL: {url}")
-        cache.cached_logos[url] = datetime.now()
-        logger.debug(f"Logo URL cached")
+        # Calculamos el tiempo de expiración aplicando un jitter
+        jittered_hours = config.LOGO_TTL * uniform(1 - config.LOGO_JITTER, 1 + config.LOGO_JITTER)
+        expiry_time = datetime.now() + timedelta(hours=jittered_hours)
+        cache.cached_logos[url] = expiry_time
+        logger.debug(f"Logo URL cached until {expiry_time}")
     else:
         logger.warning(f"Request failed for logo URL: {url}")
 

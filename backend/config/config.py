@@ -35,4 +35,6 @@ FILE_TIMEOUT = 10
 LOGO_TIMEOUT = 5
 
 # Tiempo (en horas) para considerar válida una entrada en la caché de los logos
-LOGO_TTL = 24
+LOGO_TTL = 4
+# Variación aleatoria (en porcentaje) para el TTL de los logos
+LOGO_JITTER = 0.1
