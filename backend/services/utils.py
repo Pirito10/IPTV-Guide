@@ -97,6 +97,7 @@ def get_valid_logo(channel_id, logo_url):
             return epg_logo
 
     # Si no hay logo válido, no devolvemos ninguna URL
+    logger.warning(f"No valid logo found for channel {channel_id}")
     return None
     
 # Función para comprobar si una URL es accesible
@@ -116,9 +117,11 @@ def is_url_accessible(url):
         is_valid = response.status_code in (200, 403)
     except requests.exceptions.SSLError:
         # Consideramos los errores de certificado SSL como válidos
+        logger.warning(f"Request successful with SSL error for logo URL: {url}")
         is_valid = True
     except requests.RequestException:
         # Consideramos cualquier otro error como inválido
+        logger.error(f"Request failed for logo URL: {url}")
         is_valid = False
 
     # Si la URL es válida, la guardamos en caché
