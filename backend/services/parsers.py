@@ -9,7 +9,7 @@ def parse_m3u(m3u_content, first_run=False):
     grouped_data = {} # Diccionario para agrupar los canales por su ID
     unknown_counter = 0 # Contador para los canales sin ID
 
-    logger.info(f"Parsing M3U list content... (first run: {first_run})")
+    logger.info(f"Parsing M3U list content (first run: {first_run})...")
 
     # Parseamos el contenido del fichero M3U
     lines = m3u_content.splitlines()

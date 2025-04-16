@@ -95,5 +95,5 @@ def update_epg(scheduler, first_run=False):
 
     # Si es la primera ejecución, forzamos una actualización de la lista M3U
     if first_run:
-        logger.info("Triggering M3U update after initial EPG load")
+        logger.info("Forcing M3U update after initial EPG load")
         update_m3u(force=True, skip_save=True)
