@@ -20,7 +20,7 @@ logger = logging.getLogger("iptv_logger")
 logger.setLevel(logging.DEBUG)
 
 # Creamos el manejador de fichero
-file_handler = logging.FileHandler(log_file)
+file_handler = logging.FileHandler(log_file, encoding='utf-8')
 file_handler.setFormatter(logging.Formatter(
     '[%(levelname)s] %(asctime)s - %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S'
