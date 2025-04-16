@@ -84,10 +84,12 @@ def convert_epg_time(epg_time):
 
 # Función para comprobar si un logo es válido
 def get_valid_logo(channel_id, logo_url):
+    logger.debug(f"Checking default channel logo...")
     # Si el logo es accesible, lo devolvemos
     if logo_url and is_url_accessible(logo_url):
         return logo_url
 
+    logger.debug(f"Checking EPG channel logo...")
     # Comprobamos si el canal existe en la guía EPG
     if channel_id in cache.cached_epg_data:
         # Obtenemos su logo de la guía EPG
@@ -97,15 +99,17 @@ def get_valid_logo(channel_id, logo_url):
             return epg_logo
 
     # Si no hay logo válido, no devolvemos ninguna URL
-    logger.warning(f"No valid logo found for channel {channel_id}")
+    logger.warning(f"No valid logo found")
     return None
-    
+
+
 # Función para comprobar si una URL es accesible
 def is_url_accessible(url):
     # Comprobamos si la URL está en la caché
     if url in cache.cached_logos:
         # Comprobamos si ha expirado
         if datetime.now() - cache.cached_logos[url] < timedelta(hours=config.LOGO_TTL):
+            logger.debug(f"Logo found in cache")
             return True
         else:
             del cache.cached_logos[url]
@@ -121,11 +125,14 @@ def is_url_accessible(url):
         is_valid = True
     except requests.RequestException:
         # Consideramos cualquier otro error como inválido
-        logger.error(f"Request failed for logo URL: {url}")
         is_valid = False
 
     # Si la URL es válida, la guardamos en caché
     if is_valid:
+        logger.debug(f"Request successful for logo URL: {url}")
         cache.cached_logos[url] = datetime.now()
+        logger.debug(f"Logo URL cached")
+    else:
+        logger.warning(f"Request failed for logo URL: {url}")
 
     return is_valid
