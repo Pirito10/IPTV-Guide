@@ -42,7 +42,6 @@ def update_m3u(first_run=False, force=False, skip_save=False):
     cache.cached_m3u_data = parse_m3u(m3u_content, first_run)
     last_update = datetime.now()
 
-    logger.info("M3U list file parsed successfully")
     logger.info("M3U list cache updated")
 
 

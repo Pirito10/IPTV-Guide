@@ -1,12 +1,15 @@
 import re
 import xml.etree.ElementTree as ET
 from config import config
+from services.logger import logger
 from services.utils import get_valid_logo, convert_epg_time
 
 # Función para parsear el contenido del fichero M3U y devolver la información necesaria en una lista
 def parse_m3u(m3u_content, first_run=False):
     grouped_data = {} # Diccionario para agrupar los canales por su ID
     unknown_counter = 0 # Contador para los canales sin ID
+
+    logger.info(f"Parsing M3U list content. First run: {first_run}")
 
     # Parseamos el contenido del fichero M3U
     lines = m3u_content.splitlines()
@@ -17,25 +20,31 @@ def parse_m3u(m3u_content, first_run=False):
             id_match = re.search(r'tvg-id="(.*?)"', lines[i])
             if id_match.group(1):
                 id = id_match.group(1)
+                logger.debug(f"Channel ID found: {id}")
             # Si el canal no tiene ID, le asignamos uno por defecto junto con un contador
             else:
                 unknown_counter += 1
                 id = f"{config.DEFAULT_ID}#{unknown_counter}"
+                logger.warning(f"Channel without ID found, using default ID: {id}")
 
             # URL del logo
             logo_match = re.search(r'tvg-logo="(.*?)"', lines[i])
             logo = logo_match.group(1)
+            logger.debug(f"Logo: {logo}")
 
             # Grupo del canal
             group_match = re.search(r'group-title="(.*?)"', lines[i])
             group = group_match.group(1)
+            logger.debug(f"Group: {group}")
 
             # Nombre del canal
             name_match = re.search(r', (.+)$', lines[i])
             name = name_match.group(1)
+            logger.debug(f"Name: {name}")
 
             # Extraemos la URL de la siguiente línea
             url = lines[i + 1].removeprefix("acestream://")
+            logger.debug(f"URL: {url}")
 
             # Si el ID no está en el diccionario, agregamos toda la información del canal
             if id not in grouped_data:
@@ -48,15 +57,20 @@ def parse_m3u(m3u_content, first_run=False):
                         "url": url
                     }]
                 }
+                logger.debug(f"New channel added: {grouped_data[id]}")
             # Si ya existe, agregamos solo la información del stream
             else:
                 grouped_data[id]["streams"].append({
                     "name": name,
                     "url": url
                 })
+                logger.debug(f"Channel already exists, added new stream URL: {grouped_data[id]}")
+
+    logger.info(f"M3U list parsed successfully, found {len(grouped_data)} channels")
 
     # Devolvemos el diccionario convertido en una lista
     return list(grouped_data.values())
+
 
 # Función para parsear el contenido del fichero con la guía EPG y devolver la información necesaria en un diccionario
 def parse_epg(xml_content, channel_ids):
