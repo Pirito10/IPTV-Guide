@@ -20,12 +20,12 @@ def parse_m3u(m3u_content, first_run=False):
             id_match = re.search(r'tvg-id="(.*?)"', lines[i])
             if id_match.group(1):
                 id = id_match.group(1)
-                logger.debug(f"Channel ID found: {id}")
+                logger.debug(f"Channel found with ID: {id}")
             # Si el canal no tiene ID, le asignamos uno por defecto junto con un contador
             else:
                 unknown_counter += 1
                 id = f"{config.DEFAULT_ID}#{unknown_counter}"
-                logger.warning(f"Channel without ID found, using default ID: {id}")
+                logger.warning(f"Channel found without ID, using default ID: {id}")
 
             # URL del logo
             logo_match = re.search(r'tvg-logo="(.*?)"', lines[i])
@@ -53,7 +53,7 @@ def parse_m3u(m3u_content, first_run=False):
                         "url": url
                     }]
                 }
-                logger.debug(f"New channel added: {grouped_data[id]}")
+                logger.debug(f"Channel created: {grouped_data[id]}")
 
             # Si ya existe, agregamos solo la información del stream
             else:
@@ -96,7 +96,7 @@ def parse_epg(xml_content, channel_ids):
             "since": start,
             "till": stop
         })
-        logger.debug(f"New program added: {title} ({channel_id})")
+        logger.debug(f"Program added: {title} ({channel_id})")
 
     # Recorremos cada elemento <channel> para extraer su logo
     for channel in root.findall("channel"):
@@ -106,7 +106,7 @@ def parse_epg(xml_content, channel_ids):
         if channel_id in epg_data:
             # Obtenemos el atributo src del elemento <icon>
             epg_data[channel_id]["logo"] = channel.find("icon").get("src")
-            logger.debug(f"New logo added: {epg_data[channel_id]['logo']} ({channel_id})")
+            logger.debug(f"Logo added: {epg_data[channel_id]['logo']} ({channel_id})")
 
     logger.info(f"EPG parsed successfully, found programs for {len(epg_data)} channels")
 
