@@ -20,6 +20,7 @@ def fetch_file(url):
 
 # Función para guardar un contenido en un fichero
 def save_file(content, filename):
+    logger.info(f"Saving file {filename}...")
     try:
         # Obtenemos la ruta absoluta al directorio de este fichero
         base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -33,9 +34,10 @@ def save_file(content, filename):
         # Abrimos el fichero y escribimos el contenido
         with open(path, "w", encoding="utf-8") as f:
             f.write(content)
-        print(f"Archivo guardado en {path}")
+        logger.info(f"File saved successfully to {path}")
     except Exception as e:
-        print(f"No se pudo guardar el archivo en {path}: {e}")
+        logger.error(f"Failed to save file to {path}: {e}")
+
 
 # Función para cargar el contenido de un fichero
 def load_file(filename):
