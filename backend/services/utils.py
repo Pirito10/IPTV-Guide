@@ -41,6 +41,7 @@ def save_file(content, filename):
 
 # Función para cargar el contenido de un fichero
 def load_file(filename):
+    logger.info(f"Loading file {filename}...")
     try:
         # Obtenemos la ruta absoluta al directorio de este fichero
         base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -52,10 +53,11 @@ def load_file(filename):
 
         # Abrimos el fichero y leemos el contenido
         with open(path, "r", encoding="utf-8") as f:
+            logger.info(f"File loaded successfully from {path}")
             return f.read()
     except Exception as e:
-        print(f"No se pudo leer el archivo {filename}: {e}")
-        return
+        logger.error(f"Failed to load file from {path}: {e}")
+
 
 # Función para convertir la fecha y hora de la guía EPG a formato ISO 8601
 def convert_epg_time(epg_time):
