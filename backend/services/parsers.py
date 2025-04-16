@@ -77,6 +77,8 @@ def parse_epg(xml_content, channel_ids):
     root = ET.fromstring(xml_content) # Nodo raíz
     epg_data = {} # Diccionario para almacenar la guía EPG
 
+    logger.info("Parsing EPG content...")
+
     # Recorremos cada elemento <programme> para extraer la información necesaria
     for programme in root.findall("programme"):
         channel_id = programme.get("channel") # ID del canal
@@ -97,6 +99,7 @@ def parse_epg(xml_content, channel_ids):
             "since": start,
             "till": stop
         })
+        logger.debug(f"New program added: {title} ({channel_id})")
 
     # Recorremos cada elemento <channel> para extraer su logo
     for channel in root.findall("channel"):
@@ -106,5 +109,8 @@ def parse_epg(xml_content, channel_ids):
         if channel_id in epg_data:
             # Obtenemos el atributo src del elemento <icon>
             epg_data[channel_id]["logo"] = channel.find("icon").get("src")
+            logger.debug(f"New logo added: {epg_data[channel_id]['logo']} ({channel_id})")
+
+    logger.info(f"EPG parsed successfully, found programs for {len(epg_data)} channels")
 
     return epg_data

@@ -91,7 +91,6 @@ def update_epg(scheduler, first_run=False):
     cache.cached_epg_data = parse_epg(xml_content, channel_ids)
     retry_count = 0
 
-    logger.info("EPG file parsed successfully")
     logger.info("EPG cache updated")
 
     # Si es la primera ejecución, forzamos una actualización de la lista M3U
