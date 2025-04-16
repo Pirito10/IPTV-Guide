@@ -8,6 +8,9 @@ EPG_SCHEDULER_HOURS = "10,14,18,22"
 M3U_URL = "http://127.0.0.1:43110/1H3KoazXt2gCJgeD8673eFvQYXG7cbRddU/lista-ace.m3u"
 EPG_URL = "https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/guiatv.xml"
 
+# Nombre del directorio donde guardar los logs
+LOGS_DIRECTORY = "logs"
+
 # Nombre del directorio donde guardar copias de los ficheros descargados
 BACKUP_DIRECTORY = "data"
 # Nombres de los ficheros
