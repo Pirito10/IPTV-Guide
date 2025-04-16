@@ -23,7 +23,7 @@ M3U_BACKUP = "m3u_backup.m3u"
 DEFAULT_ID = "unknown"
 
 # Temporizador (en segundos) de espera antes de volver a descargar la lista M3U
-M3U_DOWNLOAD_TIMER = 60
+M3U_DOWNLOAD_TIMER = 1800
 
 # Cantidad de reintentos de descarga de la guía EPG
 EPG_MAX_RETRIES = 3
