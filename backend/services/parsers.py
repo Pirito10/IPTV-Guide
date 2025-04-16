@@ -9,7 +9,7 @@ def parse_m3u(m3u_content, first_run=False):
     grouped_data = {} # Diccionario para agrupar los canales por su ID
     unknown_counter = 0 # Contador para los canales sin ID
 
-    logger.info(f"Parsing M3U list content. First run: {first_run}")
+    logger.info(f"Parsing M3U list content... (first run: {first_run})")
 
     # Parseamos el contenido del fichero M3U
     lines = m3u_content.splitlines()
@@ -30,21 +30,17 @@ def parse_m3u(m3u_content, first_run=False):
             # URL del logo
             logo_match = re.search(r'tvg-logo="(.*?)"', lines[i])
             logo = logo_match.group(1)
-            logger.debug(f"Logo: {logo}")
 
             # Grupo del canal
             group_match = re.search(r'group-title="(.*?)"', lines[i])
             group = group_match.group(1)
-            logger.debug(f"Group: {group}")
 
             # Nombre del canal
             name_match = re.search(r', (.+)$', lines[i])
             name = name_match.group(1)
-            logger.debug(f"Name: {name}")
 
             # Extraemos la URL de la siguiente línea
             url = lines[i + 1].removeprefix("acestream://")
-            logger.debug(f"URL: {url}")
 
             # Si el ID no está en el diccionario, agregamos toda la información del canal
             if id not in grouped_data:
@@ -58,6 +54,7 @@ def parse_m3u(m3u_content, first_run=False):
                     }]
                 }
                 logger.debug(f"New channel added: {grouped_data[id]}")
+
             # Si ya existe, agregamos solo la información del stream
             else:
                 grouped_data[id]["streams"].append({
