@@ -2,17 +2,21 @@ import os
 import requests
 from datetime import datetime, timedelta
 from config import cache, config
+from services.logger import logger
 
 # Función para descargar un archivo desde una URL
 def fetch_file(url):
+    logger.info(f"Downloading content from {url}...")
     try:
         response = requests.get(url, timeout=config.FILE_TIMEOUT)
         # Lanzamos una excepción si hay un error de estado en la respuesta
         response.raise_for_status()
+        logger.info(f"Download completed successfully")
         return response.text
     except requests.exceptions.RequestException as e:
-        print(f"Error al descargar {url}:\n{e}\n")
+        logger.error(f"Failed to download content: {e}")
         return None
+
 
 # Función para guardar un contenido en un fichero
 def save_file(content, filename):
