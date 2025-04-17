@@ -14,9 +14,15 @@ def fetch_file(url):
         response.raise_for_status()
         logger.info(f"Download completed successfully")
         return response.text
+    except requests.exceptions.Timeout:
+        logger.error("Failed to download content: connection timed out")
+    except requests.exceptions.HTTPError as e:
+        logger.error(f"Failed to download content: {e.response.status_code} - {e.response.reason}")
+    except requests.exceptions.ConnectionError:
+        logger.error("Failed to download content: connection error")
     except requests.exceptions.RequestException as e:
         logger.error(f"Failed to download content: {e}")
-        return None
+    return None
 
 
 # Función para guardar un contenido en un fichero
