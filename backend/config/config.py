@@ -5,7 +5,7 @@ SERVER_IP = "0.0.0.0"
 EPG_SCHEDULER_HOURS = "10,14,18,22"
 
 # Enlaces a los ficheros de la lista M3U y la guía EPG
-M3U_URL = "http://127.0.0.1:43110/1H3KoazXt2gCJgeD8673eFvQYXG7cbRddU/lista-ace.m3u"
+M3U_URL = "http://127.0.0.1:43110/1JKe3VPvFe35bm1aiHdD4p1xcGCkZKhH3Q/data/listas/lista_fuera_iptv.m3u"
 EPG_URL = "https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/guiatv.xml"
 
 # Nombre del directorio donde guardar los logs
