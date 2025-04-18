@@ -140,7 +140,7 @@ def is_url_accessible(url):
         is_valid = response.status_code in (200, 403)
     except requests.exceptions.SSLError:
         # Consideramos los errores de certificado SSL como válidos
-        logger.warning(f"Request successful with SSL error for logo URL: {url}")
+        logger.warning(f"SSL error for logo URL: {url}")
         is_valid = True
     except requests.RequestException:
         # Consideramos cualquier otro error como inválido
