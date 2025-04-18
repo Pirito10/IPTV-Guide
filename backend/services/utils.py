@@ -27,6 +27,7 @@ def fetch_file(url):
 
 # Función para guardar un contenido en un fichero
 def save_file(content, filename):
+    # Comprobamos si hay contenido
     if content is None:
         logger.error(f"Tried saving file {filename} with empty content")
         return
