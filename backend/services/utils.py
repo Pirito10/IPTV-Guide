@@ -27,6 +27,10 @@ def fetch_file(url):
 
 # Función para guardar un contenido en un fichero
 def save_file(content, filename):
+    if content is None:
+        logger.error(f"Tried saving file {filename} with empty content")
+        return
+
     logger.info(f"Saving file {filename}...")
     try:
         # Obtenemos la ruta absoluta al directorio de este fichero
@@ -41,8 +45,9 @@ def save_file(content, filename):
         # Abrimos el fichero y escribimos el contenido
         with open(path, "w", encoding="utf-8") as f:
             f.write(content)
+
         logger.info(f"File saved successfully to {path}")
-    except Exception as e:
+    except OSError as e:
         logger.error(f"Failed to save file to {path}: {e}")
 
 
