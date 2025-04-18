@@ -63,11 +63,16 @@ def load_file(filename):
         # Ruta absoluta al fichero
         path = os.path.abspath(os.path.join(target_dir, filename))
 
+        # Comprobamos si el fichero existe
+        if not os.path.exists(path):
+            logger.error(f"File not found: {path}")
+            return None
+
         # Abrimos el fichero y leemos el contenido
         with open(path, "r", encoding="utf-8") as f:
             logger.info(f"File loaded successfully from {path}")
             return f.read()
-    except Exception as e:
+    except OSError as e:
         logger.error(f"Failed to load file from {path}: {e}")
 
 
