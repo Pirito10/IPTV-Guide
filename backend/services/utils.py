@@ -137,17 +137,17 @@ def is_url_accessible(url):
     try:
         response = requests.head(url, timeout=config.LOGO_TIMEOUT)
         # Consideramos como respuesta válida un código 200 o 403 (no accesible desde fuera del navegador, pero funcional)
-        is_valid = response.status_code in (200, 403)
+        is_accesible = response.status_code in (200, 403)
     except requests.exceptions.SSLError:
         # Consideramos los errores de certificado SSL como válidos
         logger.warning(f"SSL error for logo URL: {url}")
-        is_valid = True
+        is_accesible = True
     except requests.RequestException:
         # Consideramos cualquier otro error como inválido
-        is_valid = False
+        is_accesible = False
 
     # Si la URL es válida, la guardamos en caché
-    if is_valid:
+    if is_accesible:
         logger.debug(f"Request successful for logo URL: {url}")
         # Calculamos el tiempo de expiración aplicando un jitter
         jittered_hours = config.LOGO_TTL * uniform(1 - config.LOGO_JITTER, 1 + config.LOGO_JITTER)
@@ -157,4 +157,4 @@ def is_url_accessible(url):
     else:
         logger.warning(f"Request failed for logo URL: {url}")
 
-    return is_valid
+    return is_accesible
