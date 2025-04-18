@@ -7,7 +7,7 @@ from services.utils import get_valid_logo, convert_epg_time
 # Función para parsear el contenido del fichero M3U y devolver la información necesaria en una lista
 def parse_m3u(m3u_content, first_run=False):
     grouped_data = {} # Diccionario para agrupar los canales por su ID
-    unknown_counter = 0 # Contador para los canales sin ID
+    unknown_channels = 0 # Contador para los canales sin ID
 
     logger.info(f"Parsing M3U list content (first run: {first_run})...")
 
@@ -23,8 +23,8 @@ def parse_m3u(m3u_content, first_run=False):
                 logger.debug(f"Channel found with ID: {id}")
             # Si el canal no tiene ID, le asignamos uno por defecto junto con un contador
             else:
-                unknown_counter += 1
-                id = f"{config.DEFAULT_ID}#{unknown_counter}"
+                unknown_channels += 1
+                id = f"{config.DEFAULT_ID}#{unknown_channels}"
                 logger.warning(f"Channel found without ID, using default ID: {id}")
 
             # URL del logo
