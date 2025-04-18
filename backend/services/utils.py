@@ -95,7 +95,7 @@ def convert_epg_time(epg_time):
             dt -= timedelta(hours=sign * hours_offset, minutes=sign * minutes_offset) # Restamos el desfase para llevarlo a UTC
 
         return dt.isoformat() + "Z"  # Convertimos a formato ISO 8601
-    except Exception as e:
+    except (ValueError, IndexError) as e:
         logger.warning(f"Failed to convert EPG time: {e}")
         return None
 
