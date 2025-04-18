@@ -89,6 +89,10 @@ def parse_epg(xml_content, channel_ids):
         start = convert_epg_time(programme.get("start")) # Fecha y hora de inicio
         stop = convert_epg_time(programme.get("stop")) # Fecha y hora de finalización
 
+        if not start or not stop:
+            logger.warning(f"Invalid start/stop time for program: {title} ({channel_id})")
+            continue
+
         # Agregamos la información del programa al canal correspondiente
         epg_data.setdefault(channel_id, {"programs": []})["programs"].append({
             "title": title,
