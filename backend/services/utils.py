@@ -75,6 +75,7 @@ def load_file(filename):
             return f.read()
     except OSError as e:
         logger.error(f"Failed to load file from {path}: {e}")
+        return None
 
 
 # Función para convertir la fecha y hora de la guía EPG a formato ISO 8601
