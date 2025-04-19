@@ -5,7 +5,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #1A202C;
-    padding: 28px;
+    padding: 24px;
     border-radius: 12px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.75);
     z-index: 100;
@@ -36,7 +36,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     gap: 30px;
 }
 
