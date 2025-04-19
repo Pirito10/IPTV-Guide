@@ -15,23 +15,6 @@
     flex-direction: column;
 }
 
-.modal-close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: transparent;
-    border: none;
-    font-size: 26px;
-    color: white;
-    cursor: pointer;
-    transition: transform 0.2s;
-    padding: 0;
-}
-
-.modal-close:hover {
-    transform: scale(1.2);
-}
-
 .modal-header {
     display: flex;
     align-items: center;
@@ -48,6 +31,23 @@
 
 .modal-title {
     color: #63B3ED;
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 26px;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s;
+    padding: 0;
+}
+
+.modal-close:hover {
+    transform: scale(1.2);
 }
 
 .modal-body {
