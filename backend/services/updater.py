@@ -64,7 +64,7 @@ def update_epg(scheduler, first_run=False):
 
     if not downloaded:
         # Programamos un reintento de descarga
-        if (retry_count < config.EPG_MAX_RETRIES):
+        if retry_count < config.EPG_MAX_RETRIES:
             retry_count += 1
             # Programamos el siguiente reintento
             delay = retry_count * config.RETRY_INCREMENT
@@ -72,17 +72,22 @@ def update_epg(scheduler, first_run=False):
             scheduler.add_job(lambda: update_epg(scheduler), "date", run_date=retry_time)
             logger.warning("Retrying EPG update in %d minutes", delay)
         else:
-            logger.error("Failed to download EPG file after %d failed attempts", config.EPG_MAX_RETRIES + 1)
-
-        # Si hubo un error y la caché está vacía, se carga la lista del almacenamiento local
-        if not cache.cached_epg_data:
-            logger.warning("Failed to download EPG file, using local backup...")
-            xml_content = load_file(config.EPG_BACKUP)
+            logger.error("Maximum retries to update EPG file reached after %d failed attempts", config.EPG_MAX_RETRIES + 1)
 
         # Si hubo un error pero ya está la guía en la caché, se mantiene
-        if not xml_content:
+        if cache.cached_epg_data:
             logger.warning("Failed to download EPG file, using cache...")
             return
+
+        # Si la caché está vacía, se carga la lista del almacenamiento local
+        logger.warning("Failed to download EPG file, using local backup...")
+        xml_content = load_file(config.EPG_BACKUP)
+
+        # Comprobamos si el almacenamiento local está disponible
+        if not xml_content:
+            logger.critical("Failed to use local backup, EPG is empty")
+            return
+
     else:
         # Reiniciamos el contador de reintentos si la descarga fue exitosa
         retry_count = 0
