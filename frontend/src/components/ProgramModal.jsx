@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react"
 import { FaTimes } from "react-icons/fa"
-import { FALLBACK_LOGO } from '@helpers/constants'
+import { FALLBACK_LOGO } from '@utils/constants'
 import "@styles/Modal.css"
 import "@styles/ProgramModal.css"
 

@@ -1,4 +1,4 @@
-import { FALLBACK_LOGO, DEFAULT_GROUP } from "@helpers/constants"
+import { FALLBACK_LOGO, DEFAULT_GROUP } from "@utils/constants"
 
 // Función para formatear los canales al formato de Planby
 export const formatChannels = (channelsData) => {
