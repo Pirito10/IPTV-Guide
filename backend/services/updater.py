@@ -17,7 +17,8 @@ def update_m3u(first_run=False, force=False, skip_save=False):
     logger.info("Starting M3U list update...")
 
     # Verificamos si se ha actualizado la lista M3U recientemente
-    if not force and last_update and (datetime.now() - last_update).seconds < config.M3U_DOWNLOAD_TIMER:
+    recently_updated = last_update and (datetime.now() - last_update).seconds < config.M3U_DOWNLOAD_TIMER
+    if not force and recently_updated:
         logger.info("M3U list recently updated, skipping update")
         return
 
