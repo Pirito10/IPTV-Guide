@@ -7,9 +7,10 @@
 - [x] Añadir timer de M3U a config.py
 - [x] No parsear programas si el ID no está en la lista
 - [x] Almacenamiento local, varias copias?
-- [ ] Gestión de errores
+- [x] Gestión de errores
 - [ ] Loguear requests
 - [x] Añadir jitter a la caché de los logos
+- [ ] Tests
 
 ## 🖥️ Frontend
 - [x] Mostrar tooltip al copiar un ID de stream
