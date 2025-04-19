@@ -17,8 +17,6 @@ export const useApp = () => {
     const epgProps = useEpg({
         channels: channelsData,
         epg: epgData,
-        width: 1850,
-        height: 900,
         dayWidth: 10000,
         startDate: getLocalDate().split("T")[0] + "T00:00:00", // Día actual a las 00:00
         theme
