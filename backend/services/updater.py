@@ -27,17 +27,17 @@ def update_m3u(first_run=False, force=False, skip_save=False):
     downloaded = True # Variable para controlar si los datos son descargados o locales
 
     if not m3u_content:
-        # Marcamos que se usarán datos locales (caché o almacenamiento local)
-        downloaded = False
-        
         # Si hubo un error pero ya está la lista en la caché, se mantiene
         if cache.cached_m3u_data:
             logger.warning("Failed to download M3U list file, using cache...")
             return
+        
         # Si la caché está vacía, se carga la lista del almacenamiento local
-        else:
-            logger.warning("Failed to download M3U list file, using local backup...")
-            m3u_content = load_file(config.M3U_BACKUP)
+        logger.warning("Failed to download M3U list file, using local backup...")
+        m3u_content = load_file(config.M3U_BACKUP)
+
+        # Marcamos que se usarán datos locales
+        downloaded = False
 
     # Guardamos una copia del fichero si los datos son descargados
     if downloaded and not skip_save:
