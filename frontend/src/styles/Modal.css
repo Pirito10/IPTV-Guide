@@ -9,6 +9,10 @@
     border-radius: 12px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.75);
     z-index: 100;
+    max-height: 80vh;
+    max-width: 90vw;
+    display: flex;
+    flex-direction: column;
 }
 
 .modal-close {
@@ -44,4 +48,8 @@
 
 .modal-title {
     color: #63B3ED;
+}
+
+.modal-body {
+    overflow-y: auto;
 }
