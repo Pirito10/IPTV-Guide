@@ -11,7 +11,7 @@
 
 .channel-stream:hover {
     background-color: #3A4458;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s;
 }
 
 .channel-stream-name {
