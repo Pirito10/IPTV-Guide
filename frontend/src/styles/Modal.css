@@ -10,7 +10,7 @@
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.75);
     z-index: 100;
     max-height: 80vh;
-    max-width: 90vw;
+    max-width: 70vw;
     display: flex;
     flex-direction: column;
 }
