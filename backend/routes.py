@@ -16,6 +16,10 @@ def channels():
     except Exception as e:
         logger.error(f"Unexpected error while updating M3U list: {e}")
 
+    # Si no hay datos de canales, devolvemos un error
+    if not cache.cached_m3u_data:
+        return jsonify({"error": "No channels available"}), 500
+
     # Devolvemos la lista de canales almacenada en caché
     return jsonify(cache.cached_m3u_data)
 
@@ -24,5 +28,10 @@ def channels():
 @routes.route("/api/epg")
 def epg():
     logger.info("Request to /api/epg received")
+
+    # Si no hay guía EPG, devolvemos un error
+    if not cache.cached_epg_data:
+        return jsonify({"error": "No EPG available"}), 500
+
     # Devolvemos la guía almacenada en caché
     return jsonify(cache.cached_epg_data)
