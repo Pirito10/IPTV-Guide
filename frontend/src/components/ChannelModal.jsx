@@ -57,8 +57,6 @@ export const ChannelModal = ({ channel, onClose }) => {
 
     return (
         <div className="modal" ref={modalRef}>
-            <button className="modal-close" onClick={onClose}><FaTimes /></button>
-
             <div className="modal-header">
                 <img
                     className="modal-logo"
@@ -66,6 +64,7 @@ export const ChannelModal = ({ channel, onClose }) => {
                     onError={e => e.currentTarget.src = FALLBACK_LOGO}
                 />
                 <h2 className="modal-title">{channel.uuid}</h2>
+                <button className="modal-close" onClick={onClose}><FaTimes /></button>
             </div>
 
             {channel.streams?.map((stream, index) => (

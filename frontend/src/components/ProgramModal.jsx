@@ -37,8 +37,6 @@ export const ProgramModal = ({ program, logo, onClose }) => {
 
     return (
         <div className="modal" ref={modalRef}>
-            <button className="modal-close" onClick={onClose}><FaTimes /></button>
-
             <div className="modal-header">
                 <img
                     className="modal-logo"
@@ -46,6 +44,7 @@ export const ProgramModal = ({ program, logo, onClose }) => {
                     onError={e => e.currentTarget.src = FALLBACK_LOGO}
                 />
                 <h2 className="modal-title">{program.title}</h2>
+                <button className="modal-close" onClick={onClose}><FaTimes /></button>
             </div>
 
             <div className="program-modal-description">{program.description}</div>
