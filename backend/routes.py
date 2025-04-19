@@ -9,11 +9,16 @@ routes = Blueprint("routes", __name__)
 @routes.route("/api/channels")
 def channels():
     logger.info("Request to /api/channels received")
+
     # Intentamos actualizar la lista M3U
-    update_m3u()
+    try:
+        update_m3u()
+    except Exception as e:
+        logger.error(f"Unexpected error while updating M3U list: {e}")
 
     # Devolvemos la lista de canales almacenada en caché
     return jsonify(cache.cached_m3u_data)
+
 
 # Ruta a la API para obtener la guía EPG
 @routes.route("/api/epg")
