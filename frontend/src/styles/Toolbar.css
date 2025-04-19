@@ -1,5 +1,5 @@
 .toolbar {
-    height: 60px;
+    height: var(--toolbar-height);
     background-color: #2D3748;
     display: flex;
     align-items: center;

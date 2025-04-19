@@ -12,3 +12,7 @@ body {
     height: 100%;
     width: 100%;
 }
+
+:root {
+    --toolbar-height: 60px;
+}
