@@ -24,9 +24,9 @@ def update_m3u(first_run=False, force=False, skip_save=False):
 
     # Descargamos el fichero con la lista M3U
     m3u_content = fetch_file(config.M3U_URL)
-    downloaded = True # Variable para controlar si los datos son descargados o locales
+    downloaded = m3u_content is not None # Variable para controlar si los datos son descargados o locales
 
-    if not m3u_content:
+    if not downloaded:
         # Si hubo un error pero ya está la lista en la caché, se mantiene
         if cache.cached_m3u_data:
             logger.warning("Failed to download M3U list file, using cache...")
@@ -40,9 +40,6 @@ def update_m3u(first_run=False, force=False, skip_save=False):
         if not m3u_content:
             logger.critical("Failed to use local backup, M3U list is empty")
             return
-
-        # Marcamos que se usarán datos locales
-        downloaded = False
 
     # Guardamos una copia del fichero si los datos son descargados
     if downloaded and not skip_save:
@@ -63,12 +60,9 @@ def update_epg(scheduler, first_run=False):
 
     # Descargamos el fichero con la guía EPG
     xml_content = fetch_file(config.EPG_URL)
-    downloaded = True # Variable para controlar si los datos son descargados o locales
+    downloaded = xml_content is not None # Variable para controlar si los datos son descargados o locales
 
-    if not xml_content:
-        # Marcamos que se usarán datos locales (caché o almacenamiento local)
-        downloaded = False
-
+    if not downloaded:
         # Programamos un reintento de descarga
         if (retry_count < config.EPG_MAX_RETRIES):
             retry_count += 1
