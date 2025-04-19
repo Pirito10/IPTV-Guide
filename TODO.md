@@ -11,6 +11,8 @@
 - [ ] Loguear requests
 - [x] Añadir jitter a la caché de los logos
 - [ ] Tests
+- [x] Exclusión mutua para update_m3u
+- [ ] Cachear logos inválidos si hay problemas de rendimiento para evitar esperar al timeout por cada logo inválido
 
 ## 🖥️ Frontend
 - [x] Mostrar tooltip al copiar un ID de stream
@@ -31,3 +33,4 @@
 - [x] Eliminar puntos y coma
 - [ ] Testear rendimiento de get_valid_logo() en la Raspberry
     - [x] Cachear logos validados
+- [ ] Testear botón de copiar ID sobre HTTPS
