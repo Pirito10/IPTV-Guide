@@ -36,6 +36,11 @@ def update_m3u(first_run=False, force=False, skip_save=False):
         logger.warning("Failed to download M3U list file, using local backup...")
         m3u_content = load_file(config.M3U_BACKUP)
 
+        # Comprobamos si el almacenamiento local está disponible
+        if not m3u_content:
+            logger.critical("Failed to use local backup, M3U list is empty")
+            return
+
         # Marcamos que se usarán datos locales
         downloaded = False
 
