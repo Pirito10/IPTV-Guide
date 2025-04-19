@@ -1,0 +1,41 @@
+.toolbar {
+    height: 60px;
+    background-color: #2D3748;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    gap: 20px;
+}
+
+.toolbar-search {
+    background-color: #2D3748;
+    color: white;
+    width: 100%;
+    max-width: 400px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #4A5568;
+    font-size: 14px;
+    outline: none;
+}
+
+.toolbar-search:focus {
+    outline: 2px solid #63B3ED;
+}
+
+.toolbar-button {
+    background-color: #319795;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.toolbar-button:hover {
+    background-color: #2C7A7B;
+}
