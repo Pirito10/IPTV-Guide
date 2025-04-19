@@ -32,6 +32,7 @@
 
 .modal-title {
     color: #63B3ED;
+    word-break: break-word;
 }
 
 .modal-close {
