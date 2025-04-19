@@ -17,9 +17,12 @@ CORS(app)
 scheduler = BackgroundScheduler()
 
 # Actualizamos la guía EPG y la lista M3U
-logger.info("Running initial M3U list and EPG update...")
-update_m3u(first_run=True)
-update_epg(scheduler, first_run=True)
+try:
+    logger.info("Running initial M3U list and EPG update...")
+    update_m3u(first_run=True)
+    update_epg(scheduler, first_run=True)
+except Exception as e:
+    logger.critical(f"Unexpected error during initial data loading: {e}")
 
 # Programamos las actualizaciones de la guía EPG
 scheduler.add_job(lambda: (update_m3u(force=True), update_epg(scheduler)), "cron", hour=config.EPG_SCHEDULER_HOURS, minute=0)
