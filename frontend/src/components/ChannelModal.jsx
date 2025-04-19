@@ -67,28 +67,30 @@ export const ChannelModal = ({ channel, onClose }) => {
                 <button className="modal-close" onClick={onClose}><FaTimes /></button>
             </div>
 
-            {channel.streams?.map((stream, index) => (
-                <div key={index} className="channel-stream">
-                    <div className="channel-stream-name">{stream.name}</div>
-                    <button
-                        className="channel-stream-button channel-stream-copy-button"
-                        onClick={() => {
-                            navigator.clipboard.writeText(stream.url)
-                            showCopiedToast()
-                        }}
-                    >
-                        <FaRegCopy className="channel-stream-button-icon" />
-                        Copiar ID
-                    </button>
-                    <button
-                        className="channel-stream-button channel-stream-play-button"
-                        onClick={() => window.open(`acestream://${stream.url}`)}
-                    >
-                        <FaPlay className="channel-stream-button-icon" />
-                        Reproducir
-                    </button>
-                </div>
-            ))}
+            <div className="modal-body">
+                {channel.streams?.map((stream, index) => (
+                    <div key={index} className="channel-stream">
+                        <div className="channel-stream-name">{stream.name}</div>
+                        <button
+                            className="channel-stream-button channel-stream-copy-button"
+                            onClick={() => {
+                                navigator.clipboard.writeText(stream.url)
+                                showCopiedToast()
+                            }}
+                        >
+                            <FaRegCopy className="channel-stream-button-icon" />
+                            Copiar ID
+                        </button>
+                        <button
+                            className="channel-stream-button channel-stream-play-button"
+                            onClick={() => window.open(`acestream://${stream.url}`)}
+                        >
+                            <FaPlay className="channel-stream-button-icon" />
+                            Reproducir
+                        </button>
+                    </div>
+                ))}
+            </div >
         </div>
     )
 }
