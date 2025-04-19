@@ -31,16 +31,7 @@ logger.info(f"EPG update scheduled at hours: {config.EPG_SCHEDULER_HOURS}")
 
 logger.info("Server started successfully")
 
+# Iniciamos el servidor de desarrollo de Flask
 if __name__ == "__main__":
-    try:
-        # Iniciamos el servidor Flask
-        logger.info(f"Server running at http://{config.SERVER_IP}:5000")
-        app.run(config.SERVER_IP)
-
-    except (KeyboardInterrupt, SystemExit):
-        logger.warning("Server shutting down")
-        scheduler.shutdown()
-        
-    except Exception as e:
-        logger.exception(f"Server shutting down due to unexpected error: {e}")
-        scheduler.shutdown()
+    logger.info(f"Server running at http://{config.SERVER_IP}:5000")
+    app.run(config.SERVER_IP)
