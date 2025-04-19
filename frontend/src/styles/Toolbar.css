@@ -5,23 +5,33 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
-    gap: 20px;
 }
 
 .toolbar-search {
-    background-color: #2D3748;
-    color: white;
     width: 100%;
     max-width: 400px;
-    padding: 8px 12px;
-    border-radius: 6px;
+    background-color: #2D3748;
+    color: white;
     border: 1px solid #4A5568;
+    border-radius: 6px;
+    padding: 8px 16px;
     font-size: 14px;
+    font-weight: bold;
+    text-align: center;
     outline: none;
+    transition: box-shadow 0.2s;
+}
+
+.toolbar-search::placeholder {
+    color: #A0AEC0;
+}
+
+.toolbar-search:hover {
+    box-shadow: 0 0 6px #63B3ED;
 }
 
 .toolbar-search:focus {
-    outline: 2px solid #63B3ED;
+    box-shadow: 0 0 0 2px #63B3ED;
 }
 
 .toolbar-button {
@@ -29,13 +39,15 @@
     color: white;
     border: none;
     border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
     padding: 8px 16px;
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, transform 0.2s;
 }
 
 .toolbar-button:hover {
     background-color: #2C7A7B;
+    transform: scale(1.15);
 }
