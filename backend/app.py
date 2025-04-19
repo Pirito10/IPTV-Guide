@@ -29,6 +29,8 @@ scheduler.add_job(lambda: (update_m3u(force=True), update_epg(scheduler)), "cron
 scheduler.start()
 logger.info(f"EPG update scheduled at hours: {config.EPG_SCHEDULER_HOURS}")
 
+logger.info("Server started successfully")
+
 if __name__ == "__main__":
     try:
         # Iniciamos el servidor Flask
