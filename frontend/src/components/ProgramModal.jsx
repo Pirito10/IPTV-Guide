@@ -47,7 +47,9 @@ export const ProgramModal = ({ program, logo, onClose }) => {
                 <button className="modal-close" onClick={onClose}><FaTimes /></button>
             </div>
 
-            <div className="program-modal-description">{program.description}</div>
+            <div className="modal-body">
+                <div className="program-modal-description">{program.description}</div>
+            </div>
         </div>
     )
 }
