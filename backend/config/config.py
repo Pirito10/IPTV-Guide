@@ -32,7 +32,7 @@ RETRY_INCREMENT = 30
 
 # Timeouts (en segundos) para las descargas de ficheros y logos
 FILE_TIMEOUT = 10
-LOGO_TIMEOUT = 5
+LOGO_TIMEOUT = 2
 
 # Tiempo (en horas) para considerar válida una entrada en la caché de los logos
 LOGO_TTL = 4
