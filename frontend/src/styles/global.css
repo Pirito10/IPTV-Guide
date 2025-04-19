@@ -7,3 +7,8 @@ body,
 body {
     margin: 0;
 }
+
+#epg-root {
+    height: 100%;
+    width: 100%;
+}
