@@ -3,7 +3,7 @@ import { FilterModal } from '@components'
 import '@styles/Toolbar.css'
 
 // Componente para mostrar la barra de herramientas
-export const Toolbar = () => {
+export const Toolbar = ({ groups, onGroupChange }) => {
     const [showFilterModal, setShowFilterModal] = useState(false) // Estado para el modal de filtrado
 
     return (
