@@ -1,8 +1,8 @@
-import { useEffect, useRef } from "react"
-import { FaTimes } from "react-icons/fa"
+import { useEffect, useRef } from 'react'
+import { FaTimes } from 'react-icons/fa'
 import { FALLBACK_LOGO } from '@utils/constants'
-import "@styles/Modal.css"
-import "@styles/ProgramModal.css"
+import '@styles/Modal.css'
+import '@styles/ProgramModal.css'
 
 export const ProgramModal = ({ program, logo, onClose }) => {
     // Listener para la tecla ESC

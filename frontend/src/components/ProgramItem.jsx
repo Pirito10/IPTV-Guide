@@ -1,5 +1,5 @@
 import { ProgramBox, ProgramContent, ProgramStack, ProgramTitle, ProgramText, useProgram } from 'planby'
-import "@styles/ProgramItem.css"
+import '@styles/ProgramItem.css'
 
 // Componente para renderizar un programa
 export const ProgramItem = ({ program, onClick, ...rest }) => {

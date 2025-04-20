@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react"
-import { TimelineWrapper, TimelineBox, TimelineTime, TimelineDivider, TimelineDividers, useTimeline } from "planby"
-import "@styles/Timeline.css"
+import { useEffect, useState } from 'react'
+import { TimelineWrapper, TimelineBox, TimelineTime, TimelineDivider, TimelineDividers, useTimeline } from 'planby'
+import '@styles/Timeline.css'
 
 export const Timeline = ({ isBaseTimeFormat, isSidebar, dayWidth, hourWidth, numberOfHoursInDay, offsetStartHoursRange, sidebarWidth }) => {
     const { time, dividers, formatTime } = useTimeline(numberOfHoursInDay, isBaseTimeFormat)

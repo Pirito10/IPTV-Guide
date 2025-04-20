@@ -1,8 +1,8 @@
-import { useEffect, useRef } from "react"
-import { FaTimes, FaRegCopy, FaPlay } from "react-icons/fa"
+import { useEffect, useRef } from 'react'
+import { FaTimes, FaRegCopy, FaPlay } from 'react-icons/fa'
 import { FALLBACK_LOGO } from '@utils/constants'
-import "@styles/Modal.css"
-import "@styles/ChannelModal.css"
+import '@styles/Modal.css'
+import '@styles/ChannelModal.css'
 
 // Componente para mostrar un modal con los streams de un canal
 export const ChannelModal = ({ channel, onClose }) => {

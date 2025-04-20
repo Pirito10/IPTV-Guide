@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react"
-import { FaTimes } from "react-icons/fa"
+import { useEffect, useRef } from 'react'
+import { FaTimes } from 'react-icons/fa'
 import '@styles/Modal.css'
 
 // Componente para mostrar un modal con los grupos para filtrar
