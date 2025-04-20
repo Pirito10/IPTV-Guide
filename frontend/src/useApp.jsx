@@ -3,7 +3,7 @@ import { useEpg } from 'planby'
 import { fetchData, getLocalDate } from '@utils'
 import { theme } from '@utils/theme'
 
-export const useApp = (selectedGroup) => {
+export const useApp = (selectedGroups) => {
     const [rawChannels, setRawChannels] = useState([]) // Estado para los canales
     const [rawEpg, setRawEpg] = useState([]) // Estado para la guía EPG
     const [isLoading, setIsLoading] = useState(true) // Estado de carga
@@ -12,9 +12,9 @@ export const useApp = (selectedGroup) => {
     // Variable para los datos de los canales
     const channels = useMemo(() => {
         // Filtramos los canales según el grupo seleccionado
-        if (!selectedGroup) return rawChannels
-        return rawChannels.filter(c => c.group === selectedGroup)
-    }, [rawChannels, selectedGroup])
+        if (!selectedGroups) return rawChannels
+        return rawChannels.filter(c => selectedGroups.includes(c.group))
+    }, [rawChannels, selectedGroups])
 
     // Variable para los datos de la guía EPG
     const epg = rawEpg

@@ -7,10 +7,10 @@ import '@styles/global.css'
 const App = () => {
     const [selectedChannel, setSelectedChannel] = useState(null) // Estado para el canal seleccionado
     const [selectedProgram, setSelectedProgram] = useState(null) // Estado para el programa seleccionado
-    const [selectedGroup, setSelectedGroup] = useState(null) // Estado para el grupo seleccionado
+    const [selectedGroups, setSelectedGroups] = useState(null) // Estado para el grupo seleccionado
 
     // Obtenemos los datos y propiedades de la guía de programación
-    const { epgProps, isLoading } = useApp(selectedGroup)
+    const { epgProps, isLoading } = useApp(selectedGroups)
 
     // Obtenemos la altura de la barra de herramientas
     const toolbarHeight = getComputedStyle(document.documentElement).getPropertyValue('--toolbar-height')
