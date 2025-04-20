@@ -1,6 +1,6 @@
 .toolbar {
     height: var(--toolbar-height);
-    background-color: #2D3748;
+    background: linear-gradient(to bottom, #2D3748, #1F2937);
     display: flex;
     align-items: center;
     justify-content: space-between;
