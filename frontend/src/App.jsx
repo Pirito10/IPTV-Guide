@@ -18,7 +18,7 @@ const App = () => {
     // Renderizamos el HTML de la guía de programación
     return (
         <div id="epg-root">
-            <Toolbar groups={selectedGroups} onGroupChange={setSelectedGroups} />
+            <Toolbar groups={groups} selectedGroups={selectedGroups} onGroupChange={setSelectedGroups} />
             <div style={{ height: `calc(100% - ${toolbarHeight})` }}>
                 <Epg isLoading={isLoading} {...epgProps.getEpgProps()} style={{ padding: 0 }} >
                     <Layout
