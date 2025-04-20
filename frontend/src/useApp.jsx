@@ -3,14 +3,20 @@ import { useEpg } from 'planby'
 import { fetchData, getLocalDate } from '@utils'
 import { theme } from '@utils/theme'
 
-export const useApp = () => {
+export const useApp = (selectedGroup) => {
     const [channels, setChannels] = useState([]) // Estado para los canales
     const [epg, setEpg] = useState([]) // Estado para la guía EPG
     const [isLoading, setIsLoading] = useState(true) // Estado de carga
     const [hasScrolled, setHasScrolled] = useState(false) // Estado para controlar el scroll a la hora actual
 
-    // Variables para los datos de los canales y la guía EPG en formato de Planby
-    const channelsData = useMemo(() => channels, [channels])
+    // Variable para los datos de los canales
+    const channelsData = useMemo(() => {
+        // Filtramos los canales según el grupo seleccionado
+        if (!selectedGroup) return channels
+        return channels.filter(c => c.group === selectedGroup)
+    }, [channels, selectedGroup])
+
+    // Variable para la guía EPG
     const epgData = useMemo(() => epg, [epg])
 
     // Configuración de la guía de programación
