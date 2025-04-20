@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Epg, Layout } from 'planby'
 import { useApp } from '@/useApp'
 import { Toolbar, Timeline, ChannelItem, ChannelModal, ProgramItem, ProgramModal } from '@components'
@@ -11,6 +11,13 @@ const App = () => {
 
     // Obtenemos los datos y propiedades de la guía de programación
     const { epgProps, isLoading, groups } = useApp(selectedGroups)
+
+    // Establecemos todos los grupos como seleccionados por defecto
+    useEffect(() => {
+        if (groups.length > 0) {
+            setSelectedGroups(groups)
+        }
+    }, [groups])
 
     // Obtenemos la altura de la barra de herramientas
     const toolbarHeight = getComputedStyle(document.documentElement).getPropertyValue('--toolbar-height')
