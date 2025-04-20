@@ -19,6 +19,11 @@ export const useApp = (selectedGroups) => {
     // Variable para los datos de la guía EPG
     const epg = rawEpg
 
+    // Lista con los grupos de los canales
+    const groups = useMemo(() => {
+        return [...new Set(rawChannels.map(c => c.group))]
+    }, [rawChannels])
+
     // Configuración de la guía de programación
     const epgProps = useEpg({
         channels: channels,
@@ -50,5 +55,5 @@ export const useApp = (selectedGroups) => {
         }
     }, [hasScrolled, epgProps])
 
-    return { epgProps, isLoading }
+    return { epgProps, isLoading, groups }
 }

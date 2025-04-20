@@ -10,7 +10,7 @@ const App = () => {
     const [selectedGroups, setSelectedGroups] = useState(null) // Estado para el grupo seleccionado
 
     // Obtenemos los datos y propiedades de la guía de programación
-    const { epgProps, isLoading } = useApp(selectedGroups)
+    const { epgProps, isLoading, groups } = useApp(selectedGroups)
 
     // Obtenemos la altura de la barra de herramientas
     const toolbarHeight = getComputedStyle(document.documentElement).getPropertyValue('--toolbar-height')
