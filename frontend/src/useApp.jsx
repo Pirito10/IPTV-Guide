@@ -4,43 +4,43 @@ import { fetchData, getLocalDate } from '@utils'
 import { theme } from '@utils/theme'
 
 export const useApp = (selectedGroup) => {
-    const [channels, setChannels] = useState([]) // Estado para los canales
-    const [epg, setEpg] = useState([]) // Estado para la guía EPG
+    const [rawChannels, setRawChannels] = useState([]) // Estado para los canales
+    const [rawEpg, setRawEpg] = useState([]) // Estado para la guía EPG
     const [isLoading, setIsLoading] = useState(true) // Estado de carga
     const [hasScrolled, setHasScrolled] = useState(false) // Estado para controlar el scroll a la hora actual
 
     // Variable para los datos de los canales
-    const channelsData = useMemo(() => {
+    const channels = useMemo(() => {
         // Filtramos los canales según el grupo seleccionado
-        if (!selectedGroup) return channels
-        return channels.filter(c => c.group === selectedGroup)
-    }, [channels, selectedGroup])
+        if (!selectedGroup) return rawChannels
+        return rawChannels.filter(c => c.group === selectedGroup)
+    }, [rawChannels, selectedGroup])
 
-    // Variable para la guía EPG
-    const epgData = useMemo(() => epg, [epg])
+    // Variable para los datos de la guía EPG
+    const epg = rawEpg
 
     // Configuración de la guía de programación
     const epgProps = useEpg({
-        channels: channelsData,
-        epg: epgData,
+        channels: channels,
+        epg: epg,
         dayWidth: 10000,
         startDate: getLocalDate().split("T")[0] + "T00:00:00", // Día actual a las 00:00
         theme
     })
 
-    // Función para cargar los datos de los canales y la guía EPG
-    const handleFetchResources = useCallback(async () => {
+    // Función para cargar los datos de los canales y la guía EPG en el primer renderizado
+    const loadInitialData = useCallback(async () => {
         setIsLoading(true)
-        const { channels, epg } = await fetchData()
-        setChannels(channels)
-        setEpg(epg)
+        const { channels: rawChannels, epg: rawEpg } = await fetchData()
+        setRawChannels(rawChannels)
+        setRawEpg(rawEpg)
         setIsLoading(false)
     }, [])
 
     // Ejecutamos la carga de datos al montar el componente
     useEffect(() => {
-        handleFetchResources()
-    }, [handleFetchResources])
+        loadInitialData()
+    }, [])
 
     // Ejecutamos un scroll a la hora actual
     useEffect(() => {
