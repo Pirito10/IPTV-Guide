@@ -3,7 +3,7 @@ import { FilterModal } from '@components'
 import '@styles/Toolbar.css'
 
 // Componente para mostrar la barra de herramientas
-export const Toolbar = ({ groups, onGroupChange }) => {
+export const Toolbar = ({ groups, selectedGroups, onGroupChange }) => {
     const [showFilterModal, setShowFilterModal] = useState(false) // Estado para el modal de filtrado
 
     return (
@@ -12,7 +12,7 @@ export const Toolbar = ({ groups, onGroupChange }) => {
             <input className="toolbar-search" type="text" placeholder="Buscar canales..." />
             <button className="toolbar-button">Info</button>
 
-            {showFilterModal && <FilterModal selectedGroups={selectedGroups} onChange={onGroupChange} onClose={() => setShowFilterModal(false)} />}
+            {showFilterModal && <FilterModal groups={groups} selectedGroups={selectedGroups} onChange={onGroupChange} onClose={() => setShowFilterModal(false)} />}
         </div>
     )
 }
