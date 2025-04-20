@@ -26,6 +26,7 @@
 - [x] Mover estilos de los componentes a un .css
 - [x] Modal para cada programa
 - [x] onError en los modales
+- [ ] Animaciones "active" para los botones
 
 ## 🧪 Extras
 - [x] Si un canal no tiene logo o al cargarlo da error, asignarle su correspondiente de la guía EPG
