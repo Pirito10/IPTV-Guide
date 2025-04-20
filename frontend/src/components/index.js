@@ -1,4 +1,5 @@
 export * from '@components/Toolbar'
+export * from '@components/FilterModal'
 export * from '@components/Timeline'
 export * from '@components/ChannelItem'
 export * from '@components/ChannelModal'
