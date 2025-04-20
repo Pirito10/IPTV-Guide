@@ -3,7 +3,7 @@ import { FaTimes } from 'react-icons/fa'
 import '@styles/Modal.css'
 
 // Componente para mostrar un modal con los grupos para filtrar
-export const FilterModal = ({ onClose }) => {
+export const FilterModal = ({ selectedGroups, onChange, onClose }) => {
     // Listener para la tecla ESC
     useEffect(() => {
         // Creamos una función para manejar el evento "keydown"

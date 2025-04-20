@@ -12,7 +12,7 @@ export const Toolbar = ({ groups, onGroupChange }) => {
             <input className="toolbar-search" type="text" placeholder="Buscar canales..." />
             <button className="toolbar-button">Info</button>
 
-            {showFilterModal && <FilterModal onClose={() => setShowFilterModal(false)} />}
+            {showFilterModal && <FilterModal selectedGroups={selectedGroups} onChange={onGroupChange} onClose={() => setShowFilterModal(false)} />}
         </div>
     )
 }
