@@ -20,13 +20,14 @@
 - [x] Cerrar el modal de canal al presionar escape
 - [x] Editar estilo de ProgramItem
 - [ ] Añadir instrucciones de uso
-- [ ] Añadir filtrado por grupo
+- [x] Añadir filtrado por grupo
 - [ ] Añadir buscador
 - [ ] Revisar sincronización de la barra temporal
 - [x] Mover estilos de los componentes a un .css
 - [x] Modal para cada programa
 - [x] onError en los modales
 - [ ] Animaciones "active" para los botones
+- [ ] Revisar handlers para click fuera de modal
 
 ## 🧪 Extras
 - [x] Si un canal no tiene logo o al cargarlo da error, asignarle su correspondiente de la guía EPG
