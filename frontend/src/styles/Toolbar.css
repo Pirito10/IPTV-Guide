@@ -46,9 +46,15 @@
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.2s, transform 0.2s;
+    display: inline-flex;
+    align-items: center;
 }
 
 .toolbar-button:hover {
     background-color: #2C7A7B;
     transform: scale(1.15);
+}
+
+.toolbar-button-icon {
+    margin-right: 6px;
 }
