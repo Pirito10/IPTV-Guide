@@ -1,5 +1,4 @@
 import { Modal } from '@components/Modal'
-import '@styles/Modal.css'
 import '@styles/FilterModal.css'
 
 // Componente para mostrar un modal con los grupos para filtrar
