@@ -1,0 +1,24 @@
+.groups-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.group {
+    display: flex;
+    align-items: center;
+    background-color: #2D3748;
+    color: white;
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #4A5568;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.group:hover {
+    background-color: #4A5568;
+}

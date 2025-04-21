@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { FaTimes } from 'react-icons/fa'
 import '@styles/Modal.css'
+import '@styles/FilterModal.css'
 
 // Componente para mostrar un modal con los grupos para filtrar
 export const FilterModal = ({ groups, selectedGroups, onChange, onClose }) => {
@@ -49,9 +50,9 @@ export const FilterModal = ({ groups, selectedGroups, onChange, onClose }) => {
                 <button className="modal-close" onClick={onClose}><FaTimes /></button>
             </div>
 
-            <div className="modal-body">
+            <div className="modal-body groups-container">
                 {groups.map((group) => (
-                    <label key={group}>
+                    <label key={group} className="group">
                         <input
                             type="checkbox"
                             checked={selectedGroups.includes(group)}
