@@ -52,7 +52,11 @@
 
 .toolbar-button:hover {
     background-color: #2C7A7B;
-    transform: scale(1.15);
+    transform: scale(1.05);
+}
+
+.toolbar-button:active {
+    transform: scale(0.9);
 }
 
 .toolbar-button-icon {

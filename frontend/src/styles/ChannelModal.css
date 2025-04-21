@@ -28,9 +28,17 @@
     padding: 8px 12px;
     font-size: 14px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, transform 0.1s;
     display: inline-flex;
     align-items: center;
+}
+
+.channel-stream-button:hover {
+    transform: scale(1.05);
+}
+
+.channel-stream-button:active {
+    transform: scale(0.9);
 }
 
 .channel-stream-copy-button {
