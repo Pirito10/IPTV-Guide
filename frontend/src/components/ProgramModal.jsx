@@ -9,14 +9,12 @@ export const ProgramModal = ({ program, logo, onClose }) => {
     useEffect(() => {
         // Creamos una función para manejar el evento "keydown"
         const handleKeyDown = (e) => {
-            if (e.key === "Escape") {
-                onClose()
-            }
+            if (e.key === 'Escape') onClose()
         }
         // Añadimos el listener al documento
-        document.addEventListener("keydown", handleKeyDown)
+        window.addEventListener('keydown', handleKeyDown)
         // Eliminamos el listener al cerrar el modal
-        return () => document.removeEventListener("keydown", handleKeyDown)
+        return () => window.removeEventListener('keydown', handleKeyDown)
     })
 
     return (

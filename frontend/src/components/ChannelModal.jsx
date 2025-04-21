@@ -10,14 +10,12 @@ export const ChannelModal = ({ channel, onClose }) => {
     useEffect(() => {
         // Creamos una función para manejar el evento "keydown"
         const handleKeyDown = (e) => {
-            if (e.key === "Escape") {
-                onClose()
-            }
+            if (e.key === 'Escape') onClose()
         }
         // Añadimos el listener al documento
-        document.addEventListener("keydown", handleKeyDown)
+        window.addEventListener('keydown', handleKeyDown)
         // Eliminamos el listener al cerrar el modal
-        return () => document.removeEventListener("keydown", handleKeyDown)
+        return () => window.removeEventListener('keydown', handleKeyDown)
     })
 
     // Función para mostrar el toast de ID copiado
