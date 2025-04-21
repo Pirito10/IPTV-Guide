@@ -11,7 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "planby": "^1.1.7",
+    "planby": "^2.0.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-icons": "^5.5.0"
