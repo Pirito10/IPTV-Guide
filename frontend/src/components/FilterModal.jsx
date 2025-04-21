@@ -45,6 +45,7 @@ export const FilterModal = ({ groups, selectedGroups, onChange, onClose }) => {
     return (
         <div className="modal" ref={modalRef}>
             <div className="modal-header">
+                <h2 className="modal-title">Grupos de canales</h2>
                 <button className="modal-close" onClick={onClose}><FaTimes /></button>
             </div>
 
