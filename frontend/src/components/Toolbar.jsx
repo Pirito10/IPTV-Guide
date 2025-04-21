@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FaFilter } from 'react-icons/fa'
+import { FaFilter, FaInfoCircle } from 'react-icons/fa'
 import { FilterModal, InfoModal } from '@components'
 import '@styles/Toolbar.css'
 
@@ -16,6 +16,7 @@ export const Toolbar = ({ groups, selectedGroups, onGroupChange }) => {
             </button>
             <input className="toolbar-search" type="text" placeholder="Buscar canales..." />
             <button className="toolbar-button" onClick={() => setShowInfoModal(true)}>
+                <FaInfoCircle className="toolbar-button-icon" />
                 Info
             </button>
 
