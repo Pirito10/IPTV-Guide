@@ -3,6 +3,7 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 12px;
+    padding: 20px;
 }
 
 .group {
@@ -16,9 +17,10 @@
     border: 1px solid #4A5568;
     gap: 8px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, transform 0.2s;
 }
 
 .group:hover {
     background-color: #4A5568;
+    transform: scale(1.05);
 }
