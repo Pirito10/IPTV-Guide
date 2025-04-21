@@ -34,6 +34,14 @@ export const FilterModal = ({ groups, selectedGroups, onChange, onClose }) => {
         return () => document.removeEventListener("mousedown", handleClickOutside)
     })
 
+    // Función para cambiar la selección de un grupo
+    const toggleGroup = (group) => {
+        // Añadimos o eliminamos el grupo de la selección de grupos
+        const updatedSelection = selectedGroups.includes(group) ? selectedGroups.filter(g => g !== group) : [...selectedGroups, group]
+        // Actualizamos los grupos seleccionados con la nueva selección
+        onChange(updatedSelection)
+    }
+
     return (
         <div className="modal" ref={modalRef}>
             <div className="modal-header">
@@ -41,7 +49,16 @@ export const FilterModal = ({ groups, selectedGroups, onChange, onClose }) => {
             </div>
 
             <div className="modal-body">
-
+                {groups.map((group) => (
+                    <label key={group}>
+                        <input
+                            type="checkbox"
+                            checked={selectedGroups.includes(group)}
+                            onChange={() => { toggleGroup(group) }}
+                        />
+                        {group}
+                    </label>
+                ))}
             </div>
         </div>
     )
