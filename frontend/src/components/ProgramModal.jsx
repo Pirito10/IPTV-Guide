@@ -1,39 +1,27 @@
-import { useEffect } from 'react'
-import { FaTimes } from 'react-icons/fa'
+import { Modal } from '@components/Modal'
 import { FALLBACK_LOGO } from '@utils/constants'
-import '@styles/Modal.css'
 import '@styles/ProgramModal.css'
 
+// Componente para mostrar un modal con la información de un programa
 export const ProgramModal = ({ program, logo, onClose }) => {
-    // Listener para la tecla ESC
-    useEffect(() => {
-        // Creamos una función para manejar el evento "keydown"
-        const handleKeyDown = (e) => {
-            if (e.key === 'Escape') onClose()
-        }
-        // Añadimos el listener al documento
-        window.addEventListener('keydown', handleKeyDown)
-        // Eliminamos el listener al cerrar el modal
-        return () => window.removeEventListener('keydown', handleKeyDown)
-    })
+    // Creamos la cabecera del modal
+    const header = (
+        <>
+            <img
+                className="modal-logo"
+                src={logo}
+                onError={e => e.currentTarget.src = FALLBACK_LOGO}
+            />
+            <h2 className="modal-title">{program.title}</h2>
+        </>
+    )
+
+    // Creamos el cuerpo del modal
+    const body = (
+        <div className="program-modal-description">{program.description}</div>
+    )
 
     return (
-        <div className="modal-backdrop" onClick={onClose}>
-            <div className="modal" onClick={(e) => { e.stopPropagation() }}>
-                <div className="modal-header">
-                    <img
-                        className="modal-logo"
-                        src={logo}
-                        onError={e => e.currentTarget.src = FALLBACK_LOGO}
-                    />
-                    <h2 className="modal-title">{program.title}</h2>
-                    <button className="modal-close" onClick={onClose}><FaTimes /></button>
-                </div>
-
-                <div className="modal-body">
-                    <div className="program-modal-description">{program.description}</div>
-                </div>
-            </div>
-        </div>
+        <Modal header={header} body={body} onClose={onClose} />
     )
 }
