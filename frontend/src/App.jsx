@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Epg, Layout } from 'planby'
 import { useApp } from '@/useApp'
 import { Toolbar, Timeline, ChannelItem, ChannelModal, ProgramItem, ProgramModal } from '@components'
-import '@styles/global.css'
 
 const App = () => {
     const [selectedChannel, setSelectedChannel] = useState(null) // Estado para el canal seleccionado
