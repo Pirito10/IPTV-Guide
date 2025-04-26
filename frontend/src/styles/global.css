@@ -3,6 +3,7 @@ body,
 #root {
     height: 100%;
     margin: 0;
+    background-color: #171923;
     font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 
