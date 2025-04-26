@@ -1,4 +1,4 @@
-import { formatChannels, formatEpg } from '@utils/formatData'
+import { formatChannels, formatEpg } from '@utils'
 import { CHANNELS_URL, EPG_URL } from '@utils/constants'
 
 // Función para obtener los datos de los canales y la guía EPG del backend
