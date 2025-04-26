@@ -8,6 +8,18 @@
     z-index: 100;
 }
 
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 0%) scale(0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
 .modal {
     display: flex;
     flex-direction: column;
@@ -22,6 +34,7 @@
     z-index: 100;
     max-height: 75vh;
     max-width: 75vw;
+    animation: modalFadeIn 0.25s ease-out;
 }
 
 @media (max-width: 768px) {
