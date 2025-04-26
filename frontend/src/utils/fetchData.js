@@ -30,7 +30,7 @@ export const fetchData = async () => {
 
         return { channels, epg }
     } catch (error) {
-        console.error("Error obteniendo los datos:", error)
+        console.error("Error obteniendo los datos del servidor:", error.message)
         return { channels: [], epg: [] }
     }
 }
