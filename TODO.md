@@ -6,13 +6,14 @@
 - [x] Logger
 - [x] Añadir timer de M3U a config.py
 - [x] No parsear programas si el ID no está en la lista
+- [x] Cachear logos validados
 - [x] Almacenamiento local, varias copias?
 - [x] Gestión de errores
-- [ ] Loguear requests
 - [x] Añadir jitter a la caché de los logos
 - [ ] Tests
 - [x] Exclusión mutua para update_m3u
 - [ ] Cachear logos inválidos si hay problemas de rendimiento para evitar esperar al timeout por cada logo inválido
+- [ ] Loguear requests (probar en producción sobre el servidor nginx)
 
 ## 🖥️ Frontend
 - [x] Mostrar tooltip al copiar un ID de stream
@@ -30,10 +31,11 @@
 - [x] Revisar handlers para click fuera de modal
 - [x] Animaciones para los modales
 
-## 🧪 Extras
+## ✨ Extras
 - [x] Si un canal no tiene logo o al cargarlo da error, asignarle su correspondiente de la guía EPG
 - [x] Si es un canal sin ID -> imagen de respaldo
 - [x] Eliminar puntos y coma
+
+## 🧪 Testing
 - [ ] Testear rendimiento de get_valid_logo() en la Raspberry
-    - [x] Cachear logos validados
 - [ ] Testear botón de copiar ID sobre HTTPS
