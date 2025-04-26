@@ -1,7 +1,7 @@
 import { FaRegCopy, FaPlay } from 'react-icons/fa'
-import { Modal } from '@components/Modal'
+import { Modal } from '@components'
 import { FALLBACK_LOGO } from '@utils/constants'
-import '@styles/ChannelModal.css'
+import '@styles/Modal/ChannelModal.css'
 
 // Componente para mostrar un modal con los streams de un canal
 export const ChannelModal = ({ channel, onClose }) => {

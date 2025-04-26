@@ -1,5 +1,5 @@
-import { Modal } from '@components/Modal'
-import '@styles/InfoModal.css'
+import { Modal } from '@components'
+import '@styles/Modal/InfoModal.css'
 
 // Componente para mostrar un modal con información general
 export const InfoModal = ({ onClose }) => {

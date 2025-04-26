@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { FaTimes } from 'react-icons/fa'
-import '@styles/Modal.css'
+import '@styles/Modal/Modal.css'
 
 // Componente para mostrar un modal genérico
 export const Modal = ({ header, body, onClose }) => {

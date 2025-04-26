@@ -1,5 +1,5 @@
-import { Modal } from '@components/Modal'
-import '@styles/FilterModal.css'
+import { Modal } from '@components'
+import '@styles/Modal/FilterModal.css'
 
 // Componente para mostrar un modal con los grupos para filtrar
 export const FilterModal = ({ groups, selectedGroups, onChange, onClose }) => {

@@ -1,6 +1,6 @@
-import { Modal } from '@components/Modal'
+import { Modal } from '@components'
 import { FALLBACK_LOGO } from '@utils/constants'
-import '@styles/ProgramModal.css'
+import '@styles/Modal/ProgramModal.css'
 
 // Componente para mostrar un modal con la información de un programa
 export const ProgramModal = ({ program, logo, onClose }) => {
