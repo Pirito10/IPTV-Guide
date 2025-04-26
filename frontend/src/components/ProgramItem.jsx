@@ -11,8 +11,12 @@ export const ProgramItem = ({ program, onClick, ...rest }) => {
     const tillTime = formatTime(till)
 
     return (
-        <ProgramBox style={styles.position} onClick={onClick}>
-            <ProgramContent className="program-content" width={styles.width} isLive={isLive}>
+        <ProgramBox
+            style={styles.position}
+            title={title} // Tooltip con el nombre del programa
+            onClick={onClick} // Mostramos el modal al hacer click
+        >
+            <ProgramContent className="program-content" isLive={isLive}>
                 <ProgramStack className="program-stack">
                     <ProgramTitle>{title}</ProgramTitle>
                     <ProgramText>{sinceTime} - {tillTime}</ProgramText>
