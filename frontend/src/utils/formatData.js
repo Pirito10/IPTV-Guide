@@ -24,7 +24,7 @@ export const formatEpg = (epg, channels) =>
             channelUuid: channel.uuid,
             title: program.title,
             description: program.description,
-            since: new Date(program.since).toISOString(),
-            till: new Date(program.till).toISOString()
+            since: new Date(program.since),
+            till: new Date(program.till)
         }))
     })
