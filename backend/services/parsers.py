@@ -108,9 +108,14 @@ def parse_epg(xml_content, channel_ids):
         channel_id = channel.get("id")
         # Si el canal está en la guía EPG filtrada, añadimos su logo
         if channel_id in epg_data:
-            # Obtenemos el atributo src del elemento <icon>
-            epg_data[channel_id]["logo"] = channel.find("icon").get("src")
-            logger.debug(f"Logo added: {epg_data[channel_id]['logo']} ({channel_id})")
+            # Buscamos el elemento <icon> dentro del canal
+            icon = channel.find("icon")
+            if icon is not None:
+                # Obtenemos el atributo src del elemento <icon>
+                epg_data[channel_id]["logo"] = icon.get("src")
+                logger.debug(f"Logo added: {epg_data[channel_id]['logo']} ({channel_id})")
+            else:
+                logger.debug(f"No logo found ({channel_id})")
 
     logger.info(f"EPG parsed successfully, found programs for {len(epg_data)} channels")
 
