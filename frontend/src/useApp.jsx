@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import { useEpg } from 'planby'
-import { fetchData, getLocalDate } from '@utils'
+import { fetchData, getTodayStart } from '@utils'
 import { theme } from '@utils/theme'
 
 export const useApp = (selectedGroups) => {
@@ -29,7 +29,7 @@ export const useApp = (selectedGroups) => {
         channels: channels,
         epg: epg,
         dayWidth: 10000,
-        startDate: getLocalDate().split("T")[0] + "T00:00:00", // Día actual a las 00:00
+        startDate: getTodayStart(),
         theme
     })
 
