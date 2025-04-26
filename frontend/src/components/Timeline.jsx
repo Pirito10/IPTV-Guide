@@ -2,15 +2,14 @@ import { useEffect, useState } from 'react'
 import { TimelineWrapper, TimelineBox, TimelineTime, TimelineDivider, TimelineDividers, useTimeline } from 'planby'
 import '@styles/Timeline.css'
 
-export const Timeline = ({ isBaseTimeFormat, isSidebar, dayWidth, hourWidth, numberOfHoursInDay, offsetStartHoursRange, sidebarWidth }) => {
+export const Timeline = ({ isBaseTimeFormat, dayWidth, hourWidth, numberOfHoursInDay, offsetStartHoursRange, sidebarWidth }) => {
     const { time, dividers, formatTime } = useTimeline(numberOfHoursInDay, isBaseTimeFormat)
 
-    // Estado para guardar la hora actual y actualizarla automáticamente cada minuto
-    const [now, setNow] = useState(new Date())
+    const [now, setNow] = useState(new Date()) // Estado para la hora actual
+
+    // Función para actualizar la hora cada dos minutos
     useEffect(() => {
         const updateNow = () => setNow(new Date())
-        // Forzamos una actualización al montar el componente
-        updateNow()
         // Actualizamos cada dos minutos
         const interval = setInterval(updateNow, 120000)
         return () => clearInterval(interval)
@@ -56,11 +55,7 @@ export const Timeline = ({ isBaseTimeFormat, isSidebar, dayWidth, hourWidth, num
     }
 
     return (
-        <TimelineWrapper
-            dayWidth={dayWidth}
-            sidebarWidth={sidebarWidth}
-            isSidebar={isSidebar}
-        >
+        <TimelineWrapper dayWidth={dayWidth} sidebarWidth={sidebarWidth}>
             {time.map((_, index) => renderTime(index))}
             {renderNowIndicator()}
         </TimelineWrapper>
