@@ -1,16 +1,16 @@
 .info-modal-content {
     display: flex;
     flex-direction: column;
+    gap: 20px;
     color: white;
     font-size: 14px;
     line-height: 1.4;
-    gap: 20px;
 }
 
 .info-modal-content a {
     color: #63B3ED;
-    text-decoration: none;
     font-weight: bold;
+    text-decoration: none;
 }
 
 .info-modal-content a:hover {
@@ -18,10 +18,10 @@
 }
 
 .info-section {
-    background-color: #2D3748;
+    padding: 8px 16px;
     border: 1px solid #4A5568;
     border-radius: 8px;
-    padding: 8px 16px;
+    background-color: #2D3748;
 }
 
 .info-section h3 {
@@ -45,16 +45,16 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 40px;
     margin-bottom: 20px;
+    gap: 40px;
 }
 
 .info-footer-credits {
     display: flex;
     justify-content: center;
+    gap: 30px;
     color: #A0AEC0;
     font-size: 12px;
-    gap: 30px;
 }
 
 .info-footer-credits a {
