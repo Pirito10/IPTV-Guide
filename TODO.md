@@ -19,7 +19,7 @@
 - [x] Cerrar el modal de canal al hacer click fuera
 - [x] Cerrar el modal de canal al presionar escape
 - [x] Editar estilo de ProgramItem
-- [ ] Añadir instrucciones de uso
+- [x] Añadir instrucciones de uso
 - [x] Añadir filtrado por grupo
 - [ ] Añadir buscador
 - [ ] Revisar sincronización de la barra temporal
