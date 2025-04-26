@@ -1,25 +1,25 @@
 .toolbar {
-    height: var(--toolbar-height);
-    background: linear-gradient(to bottom, #2D3748, #1F2937);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: var(--toolbar-height);
     padding: 0 20px;
     gap: 20px;
+    background: linear-gradient(to bottom, #2D3748, #1F2937);
 }
 
 .toolbar-search {
     width: 100%;
     max-width: 400px;
-    background-color: #2D3748;
-    color: white;
+    padding: 8px 16px;
     border: 1px solid #4A5568;
     border-radius: 6px;
-    padding: 8px 16px;
+    background-color: #2D3748;
+    color: white;
+    outline: none;
     font-size: 14px;
     font-weight: bold;
     text-align: center;
-    outline: none;
     transition: box-shadow 0.2s;
 }
 
@@ -36,18 +36,18 @@
 }
 
 .toolbar-button {
-    background-color: #319795;
-    color: white;
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
     border: none;
     border-radius: 6px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-    padding: 8px 16px;
+    background-color: #319795;
+    color: white;
     font-size: 14px;
     font-weight: bold;
-    cursor: pointer;
     transition: background-color 0.2s, transform 0.2s;
-    display: inline-flex;
-    align-items: center;
+    cursor: pointer;
 }
 
 .toolbar-button:hover {
