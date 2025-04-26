@@ -2,22 +2,22 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 12px;
     padding: 20px;
+    gap: 12px;
 }
 
 .group {
     display: flex;
     align-items: center;
+    padding: 6px 12px;
+    gap: 8px;
+    border: 1px solid #4A5568;
+    border-radius: 6px;
     background-color: #2D3748;
     color: white;
     font-size: 14px;
-    padding: 6px 12px;
-    border-radius: 6px;
-    border: 1px solid #4A5568;
-    gap: 8px;
-    cursor: pointer;
     transition: background-color 0.2s, transform 0.2s;
+    cursor: pointer;
 }
 
 .group:hover {
