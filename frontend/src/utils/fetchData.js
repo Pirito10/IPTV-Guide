@@ -10,8 +10,12 @@ export const fetchData = async () => {
             fetch(EPG_URL)
         ])
 
-        if (!channelsResponse.ok || !epgResponse.ok) {
-            throw new Error(`Error en la carga de datos: ${channelsResponse.status}, ${epgResponse.status}`)
+        if (!channelsResponse.ok) {
+            throw new Error(`\nNo se han podido descargar los canales: ${channelsResponse.status} - ${channelsResponse.statusText}`)
+        }
+
+        if (!epgResponse.ok) {
+            throw new Error(`\nNo se ha podido descargar la EPG: ${epgResponse.status} - ${epgResponse.statusText}`)
         }
 
         // Convertimos los datos a formato JSON
