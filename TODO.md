@@ -28,7 +28,7 @@
 - [x] onError en los modales
 - [x] Animaciones "active" para los botones
 - [x] Revisar handlers para click fuera de modal
-- [ ] Animaciones para los modales
+- [x] Animaciones para los modales
 
 ## 🧪 Extras
 - [x] Si un canal no tiene logo o al cargarlo da error, asignarle su correspondiente de la guía EPG
