@@ -4,6 +4,12 @@ import '@styles/ChannelItem.css'
 
 export const ChannelItem = ({ channel, onClick }) => {
     const { position, uuid, logo } = channel
+
+    // Función para poner el logo de respaldo
+    const handleImageError = e => {
+        e.currentTarget.src = FALLBACK_LOGO
+    }
+
     return (
         <ChannelBox
             {...position}
@@ -13,8 +19,7 @@ export const ChannelItem = ({ channel, onClick }) => {
             <ChannelLogo
                 className="channel-logo"
                 src={logo}
-                // Ponemos el logo de respaldo si hubo un error al cargar la imagen
-                onError={e => e.currentTarget.src = FALLBACK_LOGO}
+                onError={handleImageError} // Ponemos el logo de respaldo si hubo un error al cargar la imagen
             />
         </ChannelBox>
     )
