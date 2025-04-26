@@ -8,20 +8,31 @@ export const Toolbar = ({ groups, selectedGroups, onGroupChange }) => {
     const [showFilterModal, setShowFilterModal] = useState(false) // Estado para el modal de filtrado
     const [showInfoModal, setShowInfoModal] = useState(false) // Estado para el modal de información
 
+    // Funciones para abrir y cerrar los modales
+    const openFilterModal = () => setShowFilterModal(true)
+    const closeFilterModal = () => setShowFilterModal(false)
+    const openInfoModal = () => setShowInfoModal(true)
+    const closeInfoModal = () => setShowInfoModal(false)
+
     return (
         <div className="toolbar">
-            <button className="toolbar-button" onClick={() => setShowFilterModal(true)}>
+            <button className="toolbar-button" onClick={openFilterModal}>
                 <FaFilter className="toolbar-button-icon" />
                 Filtrar
             </button>
             <input className="toolbar-search" type="text" placeholder="Buscar canales..." />
-            <button className="toolbar-button" onClick={() => setShowInfoModal(true)}>
+            <button className="toolbar-button" onClick={openInfoModal}>
                 <FaInfoCircle className="toolbar-button-icon" />
                 Info
             </button>
 
-            {showFilterModal && <FilterModal groups={groups} selectedGroups={selectedGroups} onChange={onGroupChange} onClose={() => setShowFilterModal(false)} />}
-            {showInfoModal && <InfoModal onClose={() => setShowInfoModal(false)} />}
+            {showFilterModal && <FilterModal
+                groups={groups}
+                selectedGroups={selectedGroups}
+                onChange={onGroupChange}
+                onClose={closeFilterModal}
+            />}
+            {showInfoModal && <InfoModal onClose={closeInfoModal} />}
         </div>
     )
 }
