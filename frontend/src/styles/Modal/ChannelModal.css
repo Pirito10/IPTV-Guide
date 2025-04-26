@@ -1,36 +1,36 @@
 .channel-stream {
     display: flex;
     align-items: center;
-    background-color: #2D3748;
-    padding: 10px 20px;
-    border-radius: 6px;
     margin-bottom: 12px;
+    padding: 10px 20px;
     overflow-x: auto;
+    border-radius: 6px;
+    background-color: #2D3748;
     white-space: nowrap;
+    transition: background-color 0.2s;
 }
 
 .channel-stream:hover {
     background-color: #3A4458;
-    transition: background-color 0.2s;
 }
 
 .channel-stream-name {
     flex: 1;
+    margin-right: 20px;
     color: #68D391;
     font-weight: bold;
-    margin-right: 20px;
 }
 
 .channel-stream-button {
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 8px 12px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
     display: inline-flex;
     align-items: center;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+    transition: background-color 0.2s, transform 0.1s;
+    cursor: pointer;
 }
 
 .channel-stream-button:hover {
@@ -42,8 +42,8 @@
 }
 
 .channel-stream-copy-button {
-    background-color: #4A5568;
     margin-right: 8px;
+    background-color: #4A5568;
 }
 
 .channel-stream-copy-button:hover {
@@ -66,13 +66,13 @@
     position: fixed;
     bottom: 2%;
     right: 2%;
-    background-color: #2C7A7B;
-    color: white;
+    z-index: 102;
     padding: 20px 24px;
     border-radius: 6px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.75);
+    background-color: #2C7A7B;
+    color: white;
     font-size: 16px;
-    z-index: 102;
     transition: opacity 1s;
 }
 
