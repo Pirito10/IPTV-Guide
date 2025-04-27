@@ -2,7 +2,7 @@ import os
 import logging
 from datetime import datetime
 
-from config import config
+from backend.config import config
 
 # Ruta absoluta al directorio de este fichero
 base_dir = os.path.dirname(os.path.abspath(__file__))

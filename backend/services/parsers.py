@@ -1,9 +1,9 @@
 import re
 import xml.etree.ElementTree as ET
 
-from config import config
-from services.logger import logger
-from services.utils import get_valid_logo, convert_epg_time
+from backend.config import config
+from backend.services.logger import logger
+from backend.services.utils import get_valid_logo, convert_epg_time
 
 # Función para parsear el contenido del fichero M3U y devolver la información necesaria en una lista
 def parse_m3u(m3u_content, first_run=False):

@@ -3,8 +3,8 @@ import requests
 from random import uniform
 from datetime import datetime, timedelta
 
-from config import cache, config
-from services.logger import logger
+from backend.config import cache, config
+from backend.services.logger import logger
 
 # Función para descargar un archivo desde una URL
 def fetch_file(url):

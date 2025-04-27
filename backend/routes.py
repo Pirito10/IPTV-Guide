@@ -1,9 +1,9 @@
 import threading
 from flask import jsonify, Blueprint
 
-from config import cache
-from services.logger import logger
-from services.updater import update_m3u
+from backend.config import cache
+from backend.services.logger import logger
+from backend.services.updater import update_m3u
 
 routes = Blueprint("routes", __name__)
 

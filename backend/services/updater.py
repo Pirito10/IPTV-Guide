@@ -1,9 +1,9 @@
 from datetime import datetime, timedelta
 
-from config import cache, config
-from services.logger import logger
-from services.parsers import parse_m3u, parse_epg
-from services.utils import fetch_file, save_file, load_file
+from backend.config import cache, config
+from backend.services.logger import logger
+from backend.services.parsers import parse_m3u, parse_epg
+from backend.services.utils import fetch_file, save_file, load_file
 
 # Fecha de la última actualización de la lista M3U
 last_update = None

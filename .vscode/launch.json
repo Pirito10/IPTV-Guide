@@ -14,7 +14,7 @@
             "name": "Backend",
             "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/backend/app.py",
+            "module": "backend.app",
             "console": "integratedTerminal"
         },
         {
