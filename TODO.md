@@ -23,7 +23,7 @@
 - [x] Añadir instrucciones de uso
 - [x] Añadir filtrado por grupo
 - [ ] Añadir buscador
-- [ ] Revisar sincronización de la barra temporal
+- [x] Revisar sincronización de la barra temporal
 - [x] Mover estilos de los componentes a un .css
 - [x] Modal para cada programa
 - [x] onError en los modales
