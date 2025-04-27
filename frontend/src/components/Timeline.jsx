@@ -4,6 +4,13 @@ import '@styles/Timeline.css'
 export const Timeline = ({ isBaseTimeFormat, dayWidth, hourWidth, numberOfHoursInDay, offsetStartHoursRange, sidebarWidth }) => {
     const { time, dividers, formatTime } = useTimeline(numberOfHoursInDay, isBaseTimeFormat)
 
+    // Función para calcular la clase de los divisores
+    const getDividerClass = index => {
+        if (index % 4 === 0) return "divider-full-hour" // En punto
+        if (index % 2 === 0) return "divider-half-hour" // Media hora
+        return "divider-quarter-hour" // Cuarto/tres cuartos de hora
+    }
+
     const renderTime = (index) => (
         <TimelineBox key={index} width={hourWidth}>
             <TimelineTime>
@@ -18,13 +25,7 @@ export const Timeline = ({ isBaseTimeFormat, dayWidth, hourWidth, numberOfHoursI
             <TimelineDivider
                 key={index}
                 width={hourWidth}
-                // Modificamos la altura de los divisores en función de la hora
-                style={{
-                    height:
-                        index % 4 === 0 ? '25%' : // En punto
-                            index % 2 === 0 ? '18%' : // Media hora
-                                '10%', // Cuarto/tres cuartos de hora
-                }}
+                className={`${getDividerClass(index)}`} // Modificamos la altura de los divisores en función de la hora
             />
         ))
 
