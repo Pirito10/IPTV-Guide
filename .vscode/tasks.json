@@ -7,7 +7,7 @@
             "command": "powershell",
             "args": [
                 "-Command",
-                "Remove-Item -Recurse -Force -ErrorAction SilentlyContinue frontend/node_modules, frontend/package-lock.json, backend/data, backend/logs, backend/__pycache__, backend/config/__pycache__, backend/services/__pycache__, backend/tests/__pycache__, backend/.pytest_cache; cd backend; pip install -r requirements.txt; pre-commit install; cd ../frontend; npm install"
+                "Remove-Item -Recurse -Force -ErrorAction SilentlyContinue .pytest_cache, backend/data, backend/logs, backend/__pycache__, backend/config/__pycache__, backend/services/__pycache__, backend/tests/__pycache__, frontend/node_modules, frontend/package-lock.json; cd backend; pip install -r requirements.txt; pre-commit install; cd ../frontend; npm install"
             ],
             "problemMatcher": []
         }
