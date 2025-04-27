@@ -12,7 +12,7 @@
 - [x] Añadir jitter a la caché de los logos
 - [ ] Tests
 - [x] Exclusión mutua para update_m3u
-- [ ] Cachear logos inválidos si hay problemas de rendimiento para evitar esperar al timeout por cada logo inválido
+- [x] Cachear logos inválidos si hay problemas de rendimiento para evitar esperar al timeout por cada logo inválido
 - [ ] Loguear requests (probar en producción sobre el servidor nginx)
 
 ## 🖥️ Frontend
