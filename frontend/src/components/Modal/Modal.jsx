@@ -4,21 +4,21 @@ import '@styles/Modal/Modal.css'
 
 // Componente para mostrar un modal genérico
 export const Modal = ({ header, body, onClose }) => {
-    // Listener para la tecla ESC
+    // Función para cerrar el modal al presionar la tecla "Escape"
     useEffect(() => {
         // Creamos una función para manejar el evento "keydown"
-        const handleKeyDown = (e) => {
+        const handleKeyDown = e => {
             if (e.key === 'Escape') onClose()
         }
-        // Añadimos el listener al documento
+        // Añadimos el listener de "keydown" a la ventana
         window.addEventListener('keydown', handleKeyDown)
         // Eliminamos el listener al cerrar el modal
         return () => window.removeEventListener('keydown', handleKeyDown)
-    })
+    }, [])
 
     return (
         <div className="modal-backdrop" onClick={onClose}>
-            <div className="modal" onClick={(e) => { e.stopPropagation() }}>
+            <div className="modal" onClick={e => { e.stopPropagation() }}>
                 <div className="modal-header">
                     <button className="modal-close" onClick={onClose}><FaTimes /></button>
                     {header}
