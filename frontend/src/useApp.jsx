@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useEpg } from 'planby'
 import { fetchData, getTodayStart } from '@utils'
 import { theme } from '@utils/theme'
@@ -33,14 +33,14 @@ export const useApp = (selectedGroups) => {
         theme
     })
 
-    // Función para cargar los datos de los canales y la guía EPG en el primer renderizado
-    const loadInitialData = useCallback(async () => {
+    // Función para cargar los datos de los canales y la guía EPG
+    const loadInitialData = async () => {
         setIsLoading(true)
         const { channels: rawChannels, epg: rawEpg } = await fetchData()
         setRawChannels(rawChannels)
         setRawEpg(rawEpg)
         setIsLoading(false)
-    }, [])
+    }
 
     // Ejecutamos la carga de datos al montar el componente
     useEffect(() => {
