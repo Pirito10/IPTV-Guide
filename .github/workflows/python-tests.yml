@@ -7,11 +7,31 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
+  detect-changes:
     runs-on: ubuntu-latest
 
+    outputs:
+      python: ${{ steps.filter.outputs.python }}
+
     steps:
-    - name: Checkout repo
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check if Python files changed
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            python:
+              - '**/*.py'
+              - 'backend/requirements.txt'
+  test:
+    needs: detect-changes
+    runs-on: ubuntu-latest
+    if: needs.detect-changes.outputs.python == 'true'
+
+    steps:
+    - name: Checkout repository
       uses: actions/checkout@v4
 
     - name: Set up Python
@@ -19,9 +39,20 @@ jobs:
       with:
         python-version: '3.13'
 
+    - name: Cache pip
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('backend/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Upgrade pip
+      run: python -m pip install --upgrade pip
+
     - name: Install dependencies
       run: |
         pip install -r backend/requirements.txt
 
     - name: Run tests
-      run: pytest
+      run: pytest -v
