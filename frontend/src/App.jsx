@@ -39,17 +39,16 @@ const App = () => {
         })
     }
 
-    // Renderizamos el HTML de la guía de programación
     return (
         <div id="epg-root">
             <Toolbar groups={groups} selectedGroups={selectedGroups} onGroupChange={handleGroupChange} />
             <div style={{ height: `calc(100% - ${toolbarHeight})` }}>
-                <Epg isLoading={isLoading || isFiltering} {...epgProps.getEpgProps()} style={{ padding: 0 }} >
+                <Epg style={{ padding: 0 }} isLoading={isLoading || isFiltering} {...epgProps.getEpgProps()}  >
                     <Layout
                         {...epgProps.getLayoutProps()}
-                        renderTimeline={(props) => <Timeline {...props} />}
-                        renderChannel={(props) => <ChannelItem key={props.channel.uuid} channel={props.channel} onClick={() => setSelectedChannel(props.channel)} />}
-                        renderProgram={(props) => <ProgramItem key={props.program.data.id} onClick={() => setSelectedProgram(props.program.data)} {...props} />}
+                        renderTimeline={props => <Timeline {...props} />}
+                        renderChannel={props => <ChannelItem key={props.channel.uuid} channel={props.channel} onClick={() => setSelectedChannel(props.channel)} />}
+                        renderProgram={props => <ProgramItem key={props.program.data.id} program={props.program} onClick={() => setSelectedProgram(props.program.data)} />}
                     />
                 </Epg>
             </div>
