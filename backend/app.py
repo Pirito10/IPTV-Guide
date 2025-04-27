@@ -1,10 +1,11 @@
 from flask import Flask
 from flask_cors import CORS
 from apscheduler.schedulers.background import BackgroundScheduler
+
 from routes import routes
-from services.updater import update_m3u, update_epg
 from config import config
 from services.logger import logger
+from services.updater import update_m3u, update_epg
 
 logger.info("Starting IPTV-Guide server...")
 

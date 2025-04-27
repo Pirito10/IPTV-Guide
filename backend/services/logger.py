@@ -1,6 +1,7 @@
 import os
 import logging
 from datetime import datetime
+
 from config import config
 
 # Ruta absoluta al directorio de este fichero
