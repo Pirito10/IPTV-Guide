@@ -30,7 +30,7 @@ export const useApp = (selectedGroups) => {
         epg: epg,
         dayWidth: 10000,
         startDate: getTodayStart(),
-        theme
+        theme: theme
     })
 
     // Función para cargar los datos de los canales y la guía EPG
