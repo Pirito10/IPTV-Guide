@@ -1,19 +1,8 @@
-import { useEffect, useState } from 'react'
 import { TimelineWrapper, TimelineBox, TimelineTime, TimelineDivider, TimelineDividers, useTimeline } from 'planby'
 import '@styles/Timeline.css'
 
 export const Timeline = ({ isBaseTimeFormat, dayWidth, hourWidth, numberOfHoursInDay, offsetStartHoursRange, sidebarWidth }) => {
     const { time, dividers, formatTime } = useTimeline(numberOfHoursInDay, isBaseTimeFormat)
-
-    const [now, setNow] = useState(new Date()) // Estado para la hora actual
-
-    // Función para actualizar la hora cada dos minutos
-    useEffect(() => {
-        const updateNow = () => setNow(new Date())
-        // Actualizamos cada dos minutos
-        const interval = setInterval(updateNow, 120000)
-        return () => clearInterval(interval)
-    }, [])
 
     const renderTime = (index) => (
         <TimelineBox key={index} width={hourWidth}>
@@ -39,25 +28,9 @@ export const Timeline = ({ isBaseTimeFormat, dayWidth, hourWidth, numberOfHoursI
             />
         ))
 
-    // Añadimos un marcador para la hora actual
-    const renderNowIndicator = () => {
-        // Calculamos la hora actual
-        const currentHour = now.getHours()
-        const currentMinutes = now.getMinutes()
-        const totalHours = currentHour + currentMinutes / 60
-
-        // Calculamos la posición del marcador en píxeles
-        const left = totalHours * hourWidth
-
-        return (
-            <div className="timeline-now-indicator" style={{ left: `${left}px` }} />
-        )
-    }
-
     return (
         <TimelineWrapper dayWidth={dayWidth} sidebarWidth={sidebarWidth}>
             {time.map((_, index) => renderTime(index))}
-            {renderNowIndicator()}
         </TimelineWrapper>
     )
 }
