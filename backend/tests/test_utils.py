@@ -3,8 +3,8 @@ import requests
 from unittest.mock import patch
 from datetime import datetime, timedelta
 
-from config import cache
-from services.utils import fetch_file, convert_epg_time, is_url_accessible, get_valid_logo
+from backend.config import cache
+from backend.services.utils import fetch_file, convert_epg_time, is_url_accessible, get_valid_logo
 
 # Tests para la función fetch_file
 class TestFetchFile:
@@ -15,7 +15,7 @@ class TestFetchFile:
         (requests.exceptions.ConnectionError, None),
         (requests.exceptions.RequestException, None)
     ])
-    @patch('services.utils.requests.get')
+    @patch('backend.services.utils.requests.get')
     def test_fetch(self, mock_get, side_effect, expected):
         url = "http://example.com/test.txt"
 
@@ -48,14 +48,14 @@ class TestConvertEpgTime:
 
 # Tests para la función get_valid_logo
 class TestGetValidLogo:
-    @patch('services.utils.is_url_accessible', return_value=True)
+    @patch('backend.services.utils.is_url_accessible', return_value=True)
     def test_direct_ok(self, _):
         channel_id = "channel1"
         logo_url = "http://example.com/logo.png"
 
         assert get_valid_logo(channel_id, logo_url) == logo_url
 
-    @patch('services.utils.is_url_accessible', side_effect=[False, True])
+    @patch('backend.services.utils.is_url_accessible', side_effect=[False, True])
     def test_fallback_epg(self, _, monkeypatch):
         channel_id = "channel1"
         logo_url = "http://example.com/bad_logo.png"
@@ -65,7 +65,7 @@ class TestGetValidLogo:
         assert get_valid_logo(channel_id, logo_url) == epg_logo_url
 
 
-    @patch('services.utils.is_url_accessible', side_effect=[False, False])
+    @patch('backend.services.utils.is_url_accessible', side_effect=[False, False])
     def test_none(self, _, monkeypatch):
         channel_id = "channel1"
         logo_url = "http://example.com/bad_logo.png"
@@ -75,27 +75,27 @@ class TestGetValidLogo:
 
 # Tests para la función is_url_accessible
 class TestIsUrlAccessible:
-    @patch('services.utils.requests.head')
+    @patch('backend.services.utils.requests.head')
     def test_status_ok(self, mock_head):
         url = "http://example.com/logo.png"
         mock_head.return_value.status_code = 200
 
         assert is_url_accessible(url) is True
 
-    @patch('services.utils.requests.head')
+    @patch('backend.services.utils.requests.head')
     def test_status_forbidden(self, mock_head):
         url = "http://example.com/logo.png"
         mock_head.return_value.status_code = 403
 
         assert is_url_accessible(url) is True
 
-    @patch('services.utils.requests.head', side_effect=requests.exceptions.SSLError)
+    @patch('backend.services.utils.requests.head', side_effect=requests.exceptions.SSLError)
     def test_ssl_error(self, _):
         url = "http://example.com/bad_ssl.png"
 
         assert is_url_accessible(url) is True
 
-    @patch('services.utils.requests.head', side_effect=requests.exceptions.RequestException)
+    @patch('backend.services.utils.requests.head', side_effect=requests.exceptions.RequestException)
     def test_exception(self, _):
         url = "http://example.com/error.png"
 
@@ -115,7 +115,7 @@ class TestIsUrlAccessible:
 
         assert is_url_accessible(url) is False
 
-    @patch('services.utils.requests.head')
+    @patch('backend.services.utils.requests.head')
     def test_expired_cache(self, mock_head, monkeypatch):
         url = "http://example.com/logo.png"
         mock_head.return_value.status_code = 200
