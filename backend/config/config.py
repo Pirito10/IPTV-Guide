@@ -36,5 +36,7 @@ LOGO_TIMEOUT = 2
 
 # Tiempo (en horas) para considerar válida una entrada en la caché de los logos
 LOGO_TTL = 4
+# Tiempo (en minutos) para considerar inválida una entrada en la caché de los logos
+INVALID_LOGO_TTL = 1
 # Variación aleatoria (en porcentaje) para el TTL de los logos
 LOGO_JITTER = 0.1

@@ -12,7 +12,7 @@ def fetch_file(url):
         response = requests.get(url, timeout=config.FILE_TIMEOUT)
         # Lanzamos una excepción si hay un error de estado en la respuesta
         response.raise_for_status()
-        logger.info(f"Download completed successfully")
+        logger.info("Download completed successfully")
         return response.text
     except requests.exceptions.Timeout:
         logger.error("Failed to download content: connection timed out")
@@ -103,12 +103,12 @@ def convert_epg_time(epg_time):
 
 # Función para comprobar si un logo es válido
 def get_valid_logo(channel_id, logo_url):
-    logger.debug(f"Checking default channel logo...")
+    logger.debug("Checking default channel logo...")
     # Si el logo es accesible, lo devolvemos
     if logo_url and is_url_accessible(logo_url):
         return logo_url
 
-    logger.debug(f"Checking EPG channel logo...")
+    logger.debug("Checking EPG channel logo...")
     # Comprobamos si el canal existe en la guía EPG
     if channel_id in cache.cached_epg_data:
         # Obtenemos su logo de la guía EPG
@@ -118,7 +118,7 @@ def get_valid_logo(channel_id, logo_url):
             return epg_logo
 
     # Si no hay logo válido, no devolvemos ninguna URL
-    logger.warning(f"No valid logo found")
+    logger.warning("No valid logo found")
     return None
 
 
@@ -127,10 +127,13 @@ def is_url_accessible(url):
     # Comprobamos si la URL está en la caché
     if url in cache.cached_logos:
         # Comprobamos si ha expirado
-        expiry_time = cache.cached_logos[url]
+        expiry_time, was_succesful = cache.cached_logos[url]
         if datetime.now() < expiry_time:
-            logger.debug(f"Logo found in cache")
-            return True
+            if was_succesful:
+                logger.debug("Logo found in cache")
+            else:
+                logger.warning("Logo found in cache but not accessible")
+            return was_succesful
         else:
             del cache.cached_logos[url]
         
@@ -147,15 +150,17 @@ def is_url_accessible(url):
         # Consideramos cualquier otro error como inválido
         is_accessible = False
 
-    # Si la URL es válida, la guardamos en caché
+    # Guardamos el resultado en caché
     if is_accessible:
         logger.debug(f"Request successful for logo URL: {url}")
         # Calculamos el tiempo de expiración aplicando un jitter
         jittered_hours = config.LOGO_TTL * uniform(1 - config.LOGO_JITTER, 1 + config.LOGO_JITTER)
         expiry_time = datetime.now() + timedelta(hours=jittered_hours)
-        cache.cached_logos[url] = expiry_time
-        logger.debug(f"Logo URL cached until {expiry_time}")
     else:
         logger.warning(f"Request failed for logo URL: {url}")
+        expiry_time = datetime.now() + timedelta(minutes=config.INVALID_LOGO_TTL)
+
+    cache.cached_logos[url] = (expiry_time, is_accessible)
+    logger.debug(f"Logo URL cached until {expiry_time}")
 
     return is_accessible
