@@ -12,7 +12,7 @@ export const useApp = (selectedGroups) => {
     // Variable para los datos de los canales
     const channels = useMemo(() => {
         // Filtramos los canales según el grupo seleccionado
-        if (!selectedGroups) return rawChannels
+        if (!selectedGroups || selectedGroups.length === 0) return rawChannels
         return rawChannels.filter(c => selectedGroups.includes(c.group))
     }, [rawChannels, selectedGroups])
 
