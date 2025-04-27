@@ -6,7 +6,7 @@ import { Toolbar, Timeline, ChannelItem, ChannelModal, ProgramItem, ProgramModal
 const App = () => {
     const [selectedChannel, setSelectedChannel] = useState(null) // Estado para el canal seleccionado
     const [selectedProgram, setSelectedProgram] = useState(null) // Estado para el programa seleccionado
-    const [selectedGroups, setSelectedGroups] = useState(null) // Estado para el grupo seleccionado
+    const [selectedGroups, setSelectedGroups] = useState([]) // Estado para los grupos seleccionados
     const [isFiltering, setIsFiltering] = useState(false) // Estado de carga por filtrado
 
     // Obtenemos los datos y propiedades de la guía de programación
@@ -14,13 +14,6 @@ const App = () => {
 
     // Obtenemos la altura de la barra de herramientas
     const toolbarHeight = getComputedStyle(document.documentElement).getPropertyValue('--toolbar-height')
-
-    // Establecemos todos los grupos como seleccionados por defecto
-    useEffect(() => {
-        if (groups.length > 0) {
-            setSelectedGroups(groups)
-        }
-    }, [groups])
 
     // Función para manejar el cambio de grupo seleccionado
     const handleGroupChange = (newGroups) => {
