@@ -49,11 +49,11 @@ export const useApp = (selectedGroups) => {
 
     // Ejecutamos un scroll a la hora actual
     useEffect(() => {
-        if (!hasScrolled && epgProps.onScrollToNow) {
+        if (!hasScrolled) {
             epgProps.onScrollToNow()
             setHasScrolled(true)
         }
-    }, [hasScrolled, epgProps])
+    }, [hasScrolled])
 
     return { epgProps, isLoading, groups }
 }
