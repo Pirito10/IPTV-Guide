@@ -160,7 +160,7 @@ def is_url_accessible(url):
         logger.warning(f"Request failed for logo URL: {url}")
         expiry_time = datetime.now() + timedelta(minutes=config.INVALID_LOGO_TTL)
 
-    cache.cached_logos[url] = (expiry_time, is_accessible)
+    cache.cached_logos[url] = expiry_time, is_accessible
     logger.debug(f"Logo URL cached until {expiry_time}")
 
     return is_accessible
