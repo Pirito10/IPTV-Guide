@@ -47,7 +47,7 @@ export const InfoModal = ({ onClose }) => {
                 </div>
                 <div className="info-footer-credits">
                     <span>👨🏻‍💻 Desarrollado por <a href="https://github.com/Pirito10" target="_blank">Pirito10</a></span>
-                    <span>🧪 Versión: 1.0.0</span>
+                    <span>🧪 Versión: {__APP_VERSION__}</span>
                 </div>
             </div>
         </div>
