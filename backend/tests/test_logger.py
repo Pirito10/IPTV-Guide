@@ -6,7 +6,7 @@ from backend.services import logger as logger_module
 
 # Test para la configuración del logger
 class TestLogger:
-    def test_logger_configuration(self):
+    def test_configuration(self):
         logger = logger_module.logger
 
         assert logger.name == "iptv_logger"
