@@ -36,7 +36,10 @@
 - [x] Si un canal no tiene logo o al cargarlo da error, asignarle su correspondiente de la guía EPG
 - [x] Si es un canal sin ID -> imagen de respaldo
 - [x] Eliminar puntos y coma
+- [ ] Añadir protección "Require status checks to pass" a main
+- [ ] (Intentar) Desplegar frontend en GitHub Pages
+- [ ] README
 
 ## 🧪 Testing
-- [ ] Testear rendimiento de get_valid_logo() en la Raspberry
-- [ ] Testear botón de copiar ID sobre HTTPS
+- [ ] Testear rendimiento en la Raspberry (en especial get_valid_logo())
+- [ ] Testear botón de copiar ID sobre HTTPS en móvil
