@@ -5,7 +5,7 @@ from backend.services.parsers import parse_m3u, parse_epg
 
 # Tests para la función parse_m3u
 class TestParseM3U:
-    def test_parse_m3u_single_channel(self):
+    def test_single_channel(self):
         m3u_content = '''
 #EXTINF:-1 tvg-logo="http://test_logo.png" tvg-id="test_id"  group-title="Test Group", Test Channel
 acestream://test-url
@@ -20,7 +20,7 @@ acestream://test-url
         assert channel["group"] == "Test Group"
         assert channel["streams"] == [{"name": "Test Channel", "url": "test-url"}]
 
-    def test_parse_m3u_channel_without_id(self):
+    def test_channel_without_id(self):
         m3u_content = '''
 #EXTINF:-1 tvg-logo="http://test_logo.png" tvg-id=""  group-title="Test Group", Test Channel
 acestream://test-url
@@ -36,7 +36,7 @@ acestream://test-url
         assert channel["streams"] == [{"name": "Test Channel", "url": "test-url"}]
 
     @patch('backend.services.parsers.get_valid_logo', return_value="http://valid_logo.png")
-    def test_parse_m3u_calls_get_valid_logo(self, _):
+    def test_check_valid_logo(self, _):
         m3u_content = '''
 #EXTINF:-1 tvg-logo="http://original_logo.png" tvg-id="test_id"  group-title="Test Group", Test Channel
 acestream://test-url
@@ -48,7 +48,7 @@ acestream://test-url
         channel = result[0]
         assert channel["logo"] == "http://valid_logo.png"
 
-    def test_parse_m3u_duplicate_ids(self):
+    def test_duplicate_ids(self):
         m3u_content = '''
 #EXTINF:-1 tvg-logo="http://test_logo.png" tvg-id="test_id"  group-title="Test Group", Test Channel 1
 acestream://test-url-1
@@ -74,7 +74,7 @@ acestream://test-url-2
 # Tests para la función parse_epg
 class TestParseEPG:
     @patch('backend.services.parsers.convert_epg_time', return_value="dummy_time")
-    def test_parse_epg_valid_program(self, _):
+    def test_valid_program(self, _):
         xml_content = '''
 <tv>
   <channel id="test_channel">
@@ -98,7 +98,7 @@ class TestParseEPG:
         assert result["test_channel"]["logo"] == "http://test_channel_logo.png"
 
     @patch('backend.services.parsers.convert_epg_time', return_value="dummy_time")
-    def test_parse_epg_ignores_programs_not_in_channel_ids(self, _):
+    def test_program_not_in_channel_list(self, _):
         xml_content = '''
 <tv>
   <channel id="channel_not_in_list">
@@ -114,7 +114,7 @@ class TestParseEPG:
         assert parse_epg(xml_content, ["other_channel"]) == {}
 
     @patch('backend.services.parsers.convert_epg_time', return_value=None)
-    def test_parse_epg_ignores_program_with_invalid_time(self, _):
+    def test_program_with_invalid_time(self, _):
         xml_content = '''
 <tv>
   <channel id="test_channel">
@@ -130,7 +130,7 @@ class TestParseEPG:
         assert parse_epg(xml_content, ["test_channel"]) == {}
 
     @patch('backend.services.parsers.convert_epg_time', return_value="dummy_time")
-    def test_parse_epg_channel_with_icon(self, _):
+    def test_channel_with_icon(self, _):
         xml_content = '''
 <tv>
   <channel id="test_channel">
@@ -148,7 +148,7 @@ class TestParseEPG:
         assert result["test_channel"]["logo"] == "http://test_channel_logo.png"
 
     @patch('backend.services.parsers.convert_epg_time', return_value="dummy_time")
-    def test_parse_epg_channel_without_icon(self, _):
+    def test_channel_without_icon(self, _):
         xml_content = '''
 <tv>
 <channel id="test_channel"></channel>
