@@ -1,4 +1,4 @@
-name: Run Python Tests
+name: Python Backend Tests
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
 
 jobs:
   detect-changes:
+    name: Detect Python Changes
     runs-on: ubuntu-latest
 
     outputs:
@@ -26,6 +27,7 @@ jobs:
               - '**/*.py'
               - 'backend/requirements.txt'
   test:
+    name: Run Python Tests
     needs: detect-changes
     runs-on: ubuntu-latest
     if: needs.detect-changes.outputs.python == 'true'
