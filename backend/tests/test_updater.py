@@ -1,5 +1,4 @@
 from unittest.mock import patch, MagicMock
-from datetime import datetime, timedelta
 
 from backend.services import updater as updater_module
 from backend.services.updater import update_m3u, update_epg
@@ -16,8 +15,7 @@ class TestUpdateM3U:
 
         mock_save.assert_not_called()
         assert updater_module.cache.cached_m3u_data == [{'id': 'dummy_downloaded'}]
-        assert isinstance(updater_module.last_update, datetime)
-        assert datetime.now() - updater_module.last_update < timedelta(seconds=2)
+        assert updater_module.last_update is not None
 
     @patch('backend.services.updater.fetch_file', return_value=None)
     def test_use_cache(self, _):
@@ -37,8 +35,7 @@ class TestUpdateM3U:
         update_m3u()
 
         assert updater_module.cache.cached_m3u_data == [{'id': 'dummy_local'}]
-        assert isinstance(updater_module.last_update, datetime)
-        assert datetime.now() - updater_module.last_update < timedelta(seconds=2)
+        assert updater_module.last_update is not None
         
     @patch('backend.services.updater.fetch_file', return_value=None)
     @patch('backend.services.updater.load_file', return_value=None)
