@@ -114,3 +114,13 @@ class TestUpdateEPG:
 
         mock_parse.assert_not_called()
         assert updater_module.cache.cached_epg_data is None
+
+    @patch('backend.services.updater.fetch_file')
+    @patch('backend.services.updater.save_file')
+    @patch('backend.services.updater.parse_epg')
+    @patch('backend.services.updater.update_m3u')
+    def test_first_run(self, mock_m3u, *_):
+        scheduler = MagicMock()
+        update_epg(scheduler, first_run=True)
+
+        mock_m3u.assert_called_once()
