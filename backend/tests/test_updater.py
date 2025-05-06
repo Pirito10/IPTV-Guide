@@ -1,7 +1,8 @@
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 from datetime import datetime, timedelta
 
 from backend.services import updater as updater_module
+from backend.services.updater import update_m3u, update_epg
 
 # Tests para la función update_m3u
 class TestUpdateM3U:
@@ -10,7 +11,7 @@ class TestUpdateM3U:
     def test_success(self, *_):
         updater_module.last_update = None
         updater_module.cache.cached_m3u_data = None
-        updater_module.update_m3u(skip_save=True)
+        update_m3u(skip_save=True)
 
         assert updater_module.cache.cached_m3u_data == [{'id': 'dummy_downloaded'}]
         assert isinstance(updater_module.last_update, datetime)
@@ -20,7 +21,7 @@ class TestUpdateM3U:
     def test_use_cache(self, _):
         updater_module.last_update = None
         updater_module.cache.cached_m3u_data = [{'id': 'dummy_cached'}]
-        updater_module.update_m3u()
+        update_m3u()
 
         assert updater_module.cache.cached_m3u_data == [{'id': 'dummy_cached'}]
         assert updater_module.last_update is None
@@ -31,7 +32,7 @@ class TestUpdateM3U:
     def test_use_local_backup(self, *_):
         updater_module.last_update = None
         updater_module.cache.cached_m3u_data = None
-        updater_module.update_m3u()
+        update_m3u()
 
         assert updater_module.cache.cached_m3u_data == [{'id': 'dummy_local'}]
         assert isinstance(updater_module.last_update, datetime)
@@ -43,7 +44,66 @@ class TestUpdateM3U:
     def test_fail(self, *_):
         updater_module.last_update = None
         updater_module.cache.cached_m3u_data = None
-        updater_module.update_m3u()
+        update_m3u()
 
         assert updater_module.cache.cached_m3u_data is None
         assert updater_module.last_update is None
+
+
+# Tests para la función update_epg
+class TestUpdateEPG:
+    @patch('backend.services.updater.fetch_file')
+    @patch('backend.services.updater.save_file')
+    @patch('backend.services.updater.parse_epg', return_value={'test_channel': 'test_channel_program'})
+    def test_success(self, *_):
+        updater_module.retry_count = 2
+        updater_module.cache.cached_m3u_data = [{'id': 'test_channel'}]
+        updater_module.cache.cached_epg_data = None
+        scheduler = MagicMock()
+        update_epg(scheduler)
+
+        assert updater_module.cache.cached_epg_data == {'test_channel': 'test_channel_program'}
+        assert updater_module.retry_count == 0
+
+    @patch('backend.services.updater.fetch_file', return_value=None)
+    def test_retry(self, _):
+        updater_module.retry_count = 0
+        updater_module.cache.cached_epg_data = {'test_channel': 'test_channel_program'}
+        scheduler = MagicMock()
+        update_epg(scheduler)
+
+        assert updater_module.retry_count == 1
+        scheduler.add_job.assert_called_once()
+
+    @patch('backend.services.updater.fetch_file', return_value=None)
+    def test_max_retries(self, _):
+        updater_module.retry_count = updater_module.config.EPG_MAX_RETRIES
+        updater_module.cache.cached_epg_data = {'test_channel': 'test_channel_program'}
+        scheduler = MagicMock()
+        update_epg(scheduler)
+
+        assert updater_module.cache.cached_epg_data == {'test_channel': 'test_channel_program'}
+        scheduler.add_job.assert_not_called()
+
+    @patch('backend.services.updater.fetch_file', return_value=None)
+    @patch('backend.services.updater.load_file')
+    @patch('backend.services.updater.parse_epg', return_value={'test_channel': 'test_channel_program'})
+    def test_use_local_backup(self, *_):
+        updater_module.retry_count = 0
+        updater_module.cache.cached_m3u_data = [{'id': 'test_channel'}]
+        updater_module.cache.cached_epg_data = None
+        scheduler = MagicMock()
+        update_epg(scheduler)
+
+        assert updater_module.cache.cached_epg_data == {'test_channel': 'test_channel_program'}
+
+    @patch('backend.services.updater.fetch_file', return_value=None)
+    @patch('backend.services.updater.load_file', return_value=None)
+    @patch('backend.services.updater.parse_epg')
+    def test_fail(self, *_):
+        updater_module.retry_count = 0
+        updater_module.cache.cached_epg_data = None
+        scheduler = MagicMock()
+        update_epg(scheduler)
+
+        assert updater_module.cache.cached_epg_data is None
