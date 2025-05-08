@@ -1,15 +1,11 @@
-# Logs
+# Backend
+data/
 logs/
-*.log
-
-node_modules
-dist
-dist-ssr
-*.local
-
-package-lock.json
 __pycache__/
 .pytest_cache/
-data/
-
 .coverage
+htmlcov/
+
+# Frontend
+node_modules
+package-lock.json
