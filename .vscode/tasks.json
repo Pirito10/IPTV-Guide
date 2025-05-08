@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Cleanup",
+            "label": "Setup Project",
             "type": "shell",
             "command": "powershell",
             "args": [
