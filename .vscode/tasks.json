@@ -17,7 +17,7 @@
             "command": "powershell",
             "args": [
                 "-Command",
-                "cd backend; pip install -r requirements.txt; pre-commit install; cd ../frontend; npm install"
+                "cd backend; pip install -r requirements-dev.txt; pre-commit install; cd ../frontend; npm install"
             ],
             "problemMatcher": []
         },
