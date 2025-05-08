@@ -25,3 +25,10 @@ def test_channels_success(_, client):
 
     assert response.status_code == 200
     assert response.json == [{'id': 'test_channel', 'name': 'Test Channel'}]
+
+def test_epg_no_data(client):
+    routes_module.cache.cached_epg_data = None
+    response = client.get('/api/epg')
+
+    assert response.status_code == 500
+    assert response.json == {"error": "No EPG available"}
