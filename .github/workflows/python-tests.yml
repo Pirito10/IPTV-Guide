@@ -60,6 +60,7 @@ jobs:
       run: |
         coverage run -m pytest
         coverage report --fail-under=90
+        coverage html
 
     - name: Save coverage report
       if: always()
