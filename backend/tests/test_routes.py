@@ -4,6 +4,7 @@ from unittest.mock import patch
 from backend.app import app
 from backend import routes as routes_module
 
+# Cliente de prueba de Flask
 @pytest.fixture
 def client():
     app.testing = True
