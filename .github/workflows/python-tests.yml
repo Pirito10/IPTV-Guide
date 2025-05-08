@@ -57,4 +57,13 @@ jobs:
         pip install -r backend/requirements.txt
 
     - name: Run tests
-      run: pytest -v
+      run: |
+        coverage run -m pytest
+        coverage report --fail-under=90
+
+    - name: Save coverage report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-html
+        path: htmlcov/
