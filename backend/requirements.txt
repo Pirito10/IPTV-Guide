@@ -2,6 +2,3 @@ Flask
 flask-cors
 requests
 APScheduler
-pytest
-coverage
-pre-commit
