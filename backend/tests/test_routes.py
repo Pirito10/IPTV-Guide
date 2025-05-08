@@ -32,3 +32,20 @@ def test_epg_no_data(client):
 
     assert response.status_code == 500
     assert response.json == {"error": "No EPG available"}
+
+def test_epg_success(client):
+    routes_module.cache.cached_epg_data = [{
+            "title": "Program Title",
+            "description": "Program description",
+            "since": "Start Time",
+            "till": "Stop Time",
+        }]
+    response = client.get('/api/epg')
+
+    assert response.status_code == 200
+    assert response.json == [{
+            "title": "Program Title",
+            "description": "Program description",
+            "since": "Start Time",
+            "till": "Stop Time",
+        }]
