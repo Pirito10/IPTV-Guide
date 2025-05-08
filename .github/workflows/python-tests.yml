@@ -26,6 +26,7 @@ jobs:
             python:
               - '**/*.py'
               - 'backend/requirements.txt'
+              - 'backend/requirements-dev.txt'
   test:
     name: Run Python Tests
     needs: detect-changes
@@ -45,7 +46,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('backend/requirements.txt') }}
+        key: ${{ runner.os }}-pip-${{ hashFiles('backend/requirements.txt', 'backend/requirements-dev.txt') }}
         restore-keys: |
           ${{ runner.os }}-pip-
 
@@ -54,7 +55,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install -r backend/requirements.txt
+        pip install -r backend/requirements-dev.txt
 
     - name: Run tests
       run: |
