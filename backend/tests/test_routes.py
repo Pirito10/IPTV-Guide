@@ -17,3 +17,11 @@ def test_channels_no_data(_, client):
 
     assert response.status_code == 500
     assert response.json == {"error": "No channels available"}
+
+@patch('backend.routes.update_m3u')
+def test_channels_success(_, client):
+    routes_module.cache.cached_m3u_data = [{'id': 'test_channel', 'name': 'Test Channel'}]
+    response = client.get('/api/channels')
+
+    assert response.status_code == 200
+    assert response.json == [{'id': 'test_channel', 'name': 'Test Channel'}]
