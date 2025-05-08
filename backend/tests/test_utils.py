@@ -3,7 +3,7 @@ import requests
 from unittest.mock import patch
 from datetime import datetime, timedelta
 
-from backend.config import cache
+from backend.services import utils as utils_module
 from backend.services.utils import fetch_file, convert_epg_time, is_url_accessible, get_valid_logo
 
 # Tests para la función fetch_file
@@ -56,20 +56,20 @@ class TestGetValidLogo:
         assert get_valid_logo(channel_id, logo_url) == logo_url
 
     @patch('backend.services.utils.is_url_accessible', side_effect=[False, True])
-    def test_fallback_epg(self, _, monkeypatch):
+    def test_fallback_epg(self, _):
         channel_id = "channel1"
         logo_url = "http://example.com/bad_logo.png"
         epg_logo_url = "http://example.com/epg_logo.png"
-        monkeypatch.setitem(cache.cached_epg_data, channel_id, {"logo": epg_logo_url})
+        utils_module.cache.cached_epg_data = {channel_id: {"logo": epg_logo_url}}
 
         assert get_valid_logo(channel_id, logo_url) == epg_logo_url
 
 
     @patch('backend.services.utils.is_url_accessible', side_effect=[False, False])
-    def test_none(self, _, monkeypatch):
+    def test_none(self, _):
         channel_id = "channel1"
         logo_url = "http://example.com/bad_logo.png"
-        monkeypatch.setitem(cache.cached_epg_data, channel_id, {})
+        utils_module.cache.cached_epg_data = {channel_id: {}}
 
         assert get_valid_logo(channel_id, logo_url) is None
 
@@ -101,25 +101,25 @@ class TestIsUrlAccessible:
 
         assert is_url_accessible(url) is False
 
-    def test_cached_valid(self, monkeypatch):
+    def test_cached_valid(self):
         url = "http://example.com/logo.png"
         expiry_time = datetime.now() + timedelta(minutes=5)
-        monkeypatch.setitem(cache.cached_logos, url, (expiry_time, True))
+        utils_module.cache.cached_logos[url] = (expiry_time, True)
 
         assert is_url_accessible(url) is True
 
-    def test_cached_invalid(self, monkeypatch):
+    def test_cached_invalid(self):
         url = "http://example.com/logo.png"
         expiry_time = datetime.now() + timedelta(minutes=5)
-        monkeypatch.setitem(cache.cached_logos, url, (expiry_time, False))
+        utils_module.cache.cached_logos[url] = (expiry_time, False)
 
         assert is_url_accessible(url) is False
 
     @patch('backend.services.utils.requests.head')
-    def test_expired_cache(self, mock_head, monkeypatch):
+    def test_expired_cache(self, mock_head):
         url = "http://example.com/logo.png"
         mock_head.return_value.status_code = 200
         expiry_time = datetime.now() - timedelta(minutes=5)
-        monkeypatch.setitem(cache.cached_logos, url, (expiry_time, True))
+        utils_module.cache.cached_logos[url] = (expiry_time, True)
 
         assert is_url_accessible(url) is True
