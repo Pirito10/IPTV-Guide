@@ -20,16 +20,19 @@ class TestFetchFile:
         url = "http://example.com/test.txt"
 
         if side_effect is None:
-            mock_response = mock_get.return_value
-            mock_response.raise_for_status.return_value = None
-            mock_response.text = "test content"
+            response = mock_get.return_value
+            response.raise_for_status.return_value = None
+            response.text = "test content"
         elif side_effect == requests.exceptions.HTTPError:
-            mock_response = mock_get.return_value
-            mock_response.raise_for_status.side_effect = requests.exceptions.HTTPError(response=mock_response)
+            response = mock_get.return_value
+            response.raise_for_status.side_effect = side_effect(response=response)
         else:
             mock_get.side_effect = side_effect
         
-        assert fetch_file(url) == expected
+        result = fetch_file(url)
+
+        mock_get.assert_called_once_with(url, timeout=utils_module.config.FILE_TIMEOUT)
+        assert result == expected
 
 
 # Tests para la función convert_epg_time
