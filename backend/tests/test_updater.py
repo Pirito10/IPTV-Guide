@@ -29,11 +29,13 @@ class TestUpdateM3U:
     @patch('backend.services.updater.fetch_file', return_value=None)
     @patch('backend.services.updater.load_file')
     @patch('backend.services.updater.parse_m3u', return_value=[{'id': 'dummy_local'}])
-    def test_use_local_backup(self, *_):
+    @patch('backend.services.updater.save_file')
+    def test_use_local_backup(self, mock_save, *_):
         updater_module.last_update = None
         updater_module.cache.cached_m3u_data = None
         update_m3u()
 
+        mock_save.assert_not_called()
         assert updater_module.cache.cached_m3u_data == [{'id': 'dummy_local'}]
         assert updater_module.last_update is not None
         
@@ -74,9 +76,9 @@ class TestUpdateEPG:
         scheduler = MagicMock()
         update_epg(scheduler)
 
+        scheduler.add_job.assert_called_once()
         assert updater_module.cache.cached_epg_data == {'test_channel': 'test_channel_program'}
         assert updater_module.retry_count == 1
-        scheduler.add_job.assert_called_once()
 
     @patch('backend.services.updater.fetch_file', return_value=None)
     def test_max_retries(self, _):
@@ -85,19 +87,21 @@ class TestUpdateEPG:
         scheduler = MagicMock()
         update_epg(scheduler)
 
-        assert updater_module.cache.cached_epg_data == {'test_channel': 'test_channel_program'}
         scheduler.add_job.assert_not_called()
+        assert updater_module.cache.cached_epg_data == {'test_channel': 'test_channel_program'}
 
     @patch('backend.services.updater.fetch_file', return_value=None)
     @patch('backend.services.updater.load_file')
     @patch('backend.services.updater.parse_epg', return_value={'test_channel': 'test_channel_program'})
-    def test_use_local_backup(self, *_):
+    @patch('backend.services.updater.save_file')
+    def test_use_local_backup(self, mock_save, *_):
         updater_module.retry_count = 0
         updater_module.cache.cached_m3u_data = [{'id': 'test_channel'}]
         updater_module.cache.cached_epg_data = None
         scheduler = MagicMock()
         update_epg(scheduler)
 
+        mock_save.assert_not_called()
         assert updater_module.cache.cached_epg_data == {'test_channel': 'test_channel_program'}
 
     @patch('backend.services.updater.fetch_file', return_value=None)
@@ -120,4 +124,4 @@ class TestUpdateEPG:
         scheduler = MagicMock()
         update_epg(scheduler, first_run=True)
 
-        mock_m3u.assert_called_once()
+        mock_m3u.assert_called_once_with(force=True, skip_save=True)

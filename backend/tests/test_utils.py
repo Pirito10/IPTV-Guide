@@ -20,30 +20,30 @@ class TestFetchFile:
         url = "http://example.com/test.txt"
 
         if side_effect is None:
-            mock_response = mock_get.return_value
-            mock_response.raise_for_status.return_value = None
-            mock_response.text = "test content"
+            response = mock_get.return_value
+            response.raise_for_status.return_value = None
+            response.text = "test content"
         elif side_effect == requests.exceptions.HTTPError:
-            mock_response = mock_get.return_value
-            mock_response.raise_for_status.side_effect = requests.exceptions.HTTPError(response=mock_response)
+            response = mock_get.return_value
+            response.raise_for_status.side_effect = side_effect(response=response)
         else:
             mock_get.side_effect = side_effect
         
-        assert fetch_file(url) == expected
+        result = fetch_file(url)
+
+        mock_get.assert_called_once_with(url, timeout=utils_module.config.FILE_TIMEOUT)
+        assert result == expected
 
 
 # Tests para la función convert_epg_time
 class TestConvertEpgTime:
-    def test_valid(self):
-        input_time = "20250427180000 +0200"
-        expected_iso = "2025-04-27T16:00:00Z"
-
-        assert convert_epg_time(input_time) == expected_iso
-
-    def test_invalid(self):
-        input_time = "invalid_string"
-
-        assert convert_epg_time(input_time) is None
+    @pytest.mark.parametrize("input_str, expected", [
+        ("20250427180000 +0200", "2025-04-27T16:00:00Z"),
+        ("20251231235959 -0500", "2026-01-01T04:59:59Z"),
+        ("invalid", None)
+    ])
+    def test_convert(self, input_str, expected):
+        assert convert_epg_time(input_str) == expected
 
 
 # Tests para la función get_valid_logo
