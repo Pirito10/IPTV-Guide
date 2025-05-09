@@ -28,13 +28,14 @@ class TestParseM3U:
         assert channel["streams"] == expected_streams
 
     @patch('backend.services.parsers.get_valid_logo', return_value="http://valid_logo.png")
-    def test_check_valid_logo(self, _):
+    def test_check_valid_logo(self, mock_logo):
         m3u_content = textwrap.dedent('''
             #EXTINF:-1 tvg-logo="http://original_logo.png" tvg-id="test_id"  group-title="Test Group", Test Channel
             acestream://test-url
             ''')
 
         result = parse_m3u(m3u_content, False)
+        mock_logo.assert_called_once_with("test_id", "http://original_logo.png")
         assert len(result) == 1
 
         channel = result[0]
