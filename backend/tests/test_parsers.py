@@ -1,40 +1,31 @@
+import pytest
 import textwrap
 from unittest.mock import patch
 
-from backend.config import config
+from backend.services import parsers as parsers_module
 from backend.services.parsers import parse_m3u, parse_epg
 
 # Tests para la función parse_m3u
 class TestParseM3U:
-    def test_single_channel(self):
-        m3u_content = textwrap.dedent('''
+    @pytest.mark.parametrize("m3u_content, expected_id, expected_logo, expected_group, expected_streams", [
+        (textwrap.dedent('''
             #EXTINF:-1 tvg-logo="http://test_logo.png" tvg-id="test_id"  group-title="Test Group", Test Channel
             acestream://test-url
-            ''')
-        
-        result = parse_m3u(m3u_content, True)
-        assert len(result) == 1
-
-        channel = result[0]
-        assert channel["id"] == "test_id"
-        assert channel["logo"] == "http://test_logo.png"
-        assert channel["group"] == "Test Group"
-        assert channel["streams"] == [{"name": "Test Channel", "url": "test-url"}]
-
-    def test_channel_without_id(self):
-        m3u_content = textwrap.dedent('''
+            '''), "test_id", "http://test_logo.png", "Test Group", [{"name": "Test Channel", "url": "test-url"}]),
+        (textwrap.dedent('''
             #EXTINF:-1 tvg-logo="http://test_logo.png" tvg-id=""  group-title="Test Group", Test Channel
             acestream://test-url
-            ''')
-        
+            '''), f"{parsers_module.config.DEFAULT_ID}#1", "http://test_logo.png", "Test Group", [{"name": "Test Channel", "url": "test-url"}]),
+    ])
+    def test_basic(self, m3u_content, expected_id, expected_logo, expected_group, expected_streams):
         result = parse_m3u(m3u_content, True)
         assert len(result) == 1
-        
+
         channel = result[0]
-        assert channel["id"] == f"{config.DEFAULT_ID}#1"
-        assert channel["logo"] == "http://test_logo.png"
-        assert channel["group"] == "Test Group"
-        assert channel["streams"] == [{"name": "Test Channel", "url": "test-url"}]
+        assert channel["id"] == expected_id
+        assert channel["logo"] == expected_logo
+        assert channel["group"] == expected_group
+        assert channel["streams"] == expected_streams
 
     @patch('backend.services.parsers.get_valid_logo', return_value="http://valid_logo.png")
     def test_check_valid_logo(self, _):
