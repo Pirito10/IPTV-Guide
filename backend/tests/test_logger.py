@@ -8,9 +8,7 @@ from backend.services import logger as logger_module
 class TestLogger:
     def test_configuration(self):
         logger = logger_module.logger
-
         assert logger.name == "iptv_logger"
-
         assert logger.level == getattr(logging, logger_module.config.LOGS_LEVEL.upper(), logging.INFO)
 
         handlers = [h for h in logger.handlers if isinstance(h, logging.FileHandler)]
