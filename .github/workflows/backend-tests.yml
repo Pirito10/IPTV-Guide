@@ -3,35 +3,19 @@ name: Backend Python Tests
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend-tests.yml'
   pull_request:
     branches: [ main ]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend-tests.yml'
 
 jobs:
-  detect-changes:
-    name: Detect Python Changes
-    runs-on: ubuntu-latest
-
-    outputs:
-      python: ${{ steps.filter.outputs.python }}
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Check if Python files changed
-        uses: dorny/paths-filter@v3
-        id: filter
-        with:
-          filters: |
-            python:
-              - '**/*.py'
-              - 'backend/requirements.txt'
-              - 'backend/requirements-dev.txt'
   test:
     name: Run Python Tests
-    needs: detect-changes
     runs-on: ubuntu-latest
-    if: needs.detect-changes.outputs.python == 'true'
 
     steps:
     - name: Checkout repository
