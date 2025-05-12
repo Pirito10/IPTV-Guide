@@ -5,6 +5,7 @@ import packageJson from './package.json'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/IPTV-Guide/',
   plugins: [react()],
   resolve: {
     alias: {
