@@ -10,7 +10,7 @@
 - [x] Almacenamiento local, varias copias?
 - [x] Gestión de errores
 - [x] Añadir jitter a la caché de los logos
-- [ ] Tests
+- [x] Tests
 - [x] Exclusión mutua para update_m3u
 - [x] Cachear logos inválidos si hay problemas de rendimiento para evitar esperar al timeout por cada logo inválido
 - [ ] Loguear requests (probar en producción sobre el servidor nginx)
@@ -36,8 +36,9 @@
 - [x] Si un canal no tiene logo o al cargarlo da error, asignarle su correspondiente de la guía EPG
 - [x] Si es un canal sin ID -> imagen de respaldo
 - [x] Eliminar puntos y coma
-- [ ] Añadir protección "Require status checks to pass" a main
-- [ ] (Intentar) Desplegar frontend en GitHub Pages
+- [x] Añadir protección "Require status checks to pass" a main
+- [x] Desplegar frontend en GitHub Pages
+- [ ] Desplegar informe de cobertura de código en GitHub Pages
 - [ ] README
 
 ## 🧪 Testing
