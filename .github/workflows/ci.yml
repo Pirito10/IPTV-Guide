@@ -1,0 +1,136 @@
+name: Test Backend & Deploy Frontend
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
+jobs:
+  # Detectamos los cambios en el backend/frontend por separado
+  detect-changes:
+    name: 🔎 Detect file changes
+    runs-on: ubuntu-latest
+    outputs:
+      backend: ${{ steps.filter.outputs.backend }}
+      frontend: ${{ steps.filter.outputs.frontend }}
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🔎 Filter paths
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            backend:
+              - 'backend/**'
+              - '.github/workflows/**'
+            frontend:
+              - 'frontend/**'
+              - '.github/workflows/**'
+
+  # Ejecutamos los tests del backend si ha sufrido cambios
+  backend-tests:
+    name: 🧪 Run Python Backend tests
+    needs: detect-changes
+    if: needs.detect-changes.outputs.backend == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📥 Checkout repository
+      uses: actions/checkout@v4
+
+    - name: 🐍 Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+
+    - name: 🗃️ Cache pip
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('backend/requirements.txt', 'backend/requirements-dev.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: ⬆️ Upgrade pip
+      run: python -m pip install --upgrade pip
+
+    - name: 📦 Install dependencies
+      run: |
+        pip install -r backend/requirements-dev.txt
+
+    - name: 🧪 Run tests
+      run: |
+        coverage run -m pytest
+        coverage report --fail-under=90
+        coverage html
+
+    - name: 💾 Save coverage report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-report
+        path: htmlcov/
+
+  # Construimos el frontend si ha sufrido cambios
+  build-frontend:
+    name: 🛠️ Build Frontend
+    needs: detect-changes
+    if: needs.detect-changes.outputs.frontend == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🗃️ Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('frontend/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+
+      - name: 📦 Install dependencies
+        run: npm install
+        working-directory: frontend
+
+      - name: ⚙️ Build project
+        run: npm run build
+        working-directory: frontend
+
+      - name: 📤 Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: frontend/dist
+
+  # Desplegamos el frontend si se ha construído correctamente, y solo si es un push a main
+  deploy-frontend:
+    name: 🚀 Deploy to GitHub Pages
+    needs: build-frontend
+    if: github.ref == 'refs/heads/main' && needs.build-frontend.result == 'success'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: 🚀 Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
