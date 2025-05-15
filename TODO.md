@@ -38,7 +38,6 @@
 - [x] Eliminar puntos y coma
 - [x] Añadir protección "Require status checks to pass" a main
 - [x] Desplegar frontend en GitHub Pages
-- [ ] Desplegar informe de cobertura de código en GitHub Pages
 - [ ] README
 
 ## 🧪 Testing
