@@ -76,11 +76,12 @@ jobs:
         coverage report --fail-under=90
         coverage html
 
-    - name: 📁 Move coverage report into frontend build folder
-      if: success()
-      run: |
-        mkdir -p frontend/dist/coverage
-        cp -r htmlcov/* frontend/dist/coverage/
+    - name: 💾 Save coverage report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-report
+        path: htmlcov/
 
   # Construimos el frontend si ha sufrido cambios
   build-frontend:
