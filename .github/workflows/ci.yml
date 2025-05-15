@@ -131,7 +131,7 @@ jobs:
         if: ${{ hashFiles('htmlcov/index.html') != '' }}
         run: |
           mkdir -p frontend/dist/coverage
-          cp -r htmlcov/* frontend/dist/coverage/
+          cp -r htmlcov/. frontend/dist/coverage/
 
   # Desplegamos el frontend si se ha construído correctamente, y solo si es un push a main
   deploy-frontend:
