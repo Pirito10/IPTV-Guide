@@ -120,6 +120,19 @@ jobs:
         with:
           path: frontend/dist
 
+      - name: 📥 Download coverage artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-report
+          path: htmlcov
+        continue-on-error: true
+
+      - name: 📁 Move coverage report into frontend build
+        if: ${{ hashFiles('htmlcov/index.html') != '' }}
+        run: |
+          mkdir -p frontend/dist/coverage
+          cp -r htmlcov/* frontend/dist/coverage/
+
   # Desplegamos el frontend si se ha construído correctamente, y solo si es un push a main
   deploy-frontend:
     name: 🚀 Deploy to GitHub Pages
