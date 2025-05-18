@@ -41,5 +41,5 @@
 - [ ] README
 
 ## 🧪 Testing
-- [ ] Testear rendimiento en la Raspberry (en especial get_valid_logo())
-- [ ] Testear botón de copiar ID sobre HTTPS en móvil
+- [x] Testear rendimiento en la Raspberry (en especial get_valid_logo())
+- [x] Testear botón de copiar ID sobre HTTPS en móvil
