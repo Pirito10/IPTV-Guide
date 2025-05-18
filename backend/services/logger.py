@@ -23,6 +23,9 @@ logger = logging.getLogger("iptv_logger")
 log_level = getattr(logging, config.LOGS_LEVEL.upper(), logging.INFO)
 logger.setLevel(log_level)
 
+# Desactivamos la propagación al logger raíz
+logger.propagate = False
+
 # Creamos el manejador de fichero
 file_handler = logging.FileHandler(log_file, encoding='utf-8')
 file_handler.setFormatter(logging.Formatter(
