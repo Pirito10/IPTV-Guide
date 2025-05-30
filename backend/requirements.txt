@@ -1,4 +1,4 @@
-Flask
-flask-cors
-requests
-APScheduler
+Flask==3.1.0
+flask-cors==5.0.1
+requests==2.32.3
+APScheduler==3.11.0
