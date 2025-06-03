@@ -11,7 +11,7 @@ const App = () => {
     const [isFiltering, setIsFiltering] = useState(false) // Estado de carga por filtrado
 
     // Obtenemos los datos y propiedades de la guía de programación
-    const { epgProps, isLoading, groups } = useApp(selectedGroups)
+    const { epgProps, isLoading, groups } = useApp(selectedGroups, searchQuery)
 
     // Obtenemos la altura de la barra de herramientas
     const toolbarHeight = getComputedStyle(document.documentElement).getPropertyValue('--toolbar-height')
