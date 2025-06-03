@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { FaFilter, FaInfoCircle } from 'react-icons/fa'
 import { FilterModal, InfoModal } from '@components'
 import '@styles/Toolbar.css'
 
 // Componente para mostrar la barra de herramientas
-export const Toolbar = ({ groups, selectedGroups, onGroupChange }) => {
+export const Toolbar = ({ groups, selectedGroups, onGroupChange, searchQuery, onQueryChange }) => {
     const [showFilterModal, setShowFilterModal] = useState(false) // Estado para el modal de filtrado
     const [showInfoModal, setShowInfoModal] = useState(false) // Estado para el modal de información
 
@@ -20,7 +20,13 @@ export const Toolbar = ({ groups, selectedGroups, onGroupChange }) => {
                 <FaFilter className="toolbar-button-icon" />
                 Filtrar
             </button>
-            <input className="toolbar-search" type="text" placeholder="Buscar canales..." />
+            <input
+                className="toolbar-search"
+                type="text"
+                placeholder="Buscar canales..."
+                value={searchQuery}
+                onChange={e => onQueryChange(e.target.value)}
+            />
             <button className="toolbar-button" onClick={openInfoModal}>
                 <FaInfoCircle className="toolbar-button-icon" />
                 Info

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Epg, Layout } from 'planby'
 import { useApp } from '@/useApp'
 import { Toolbar, Timeline, ChannelItem, ChannelModal, ProgramItem, ProgramModal } from '@components'
@@ -7,6 +7,7 @@ const App = () => {
     const [selectedChannel, setSelectedChannel] = useState(null) // Estado para el canal seleccionado
     const [selectedProgram, setSelectedProgram] = useState(null) // Estado para el programa seleccionado
     const [selectedGroups, setSelectedGroups] = useState([]) // Estado para los grupos seleccionados
+    const [searchQuery, setSearchQuery] = useState('') // Estado para la búsqueda de canales
     const [isFiltering, setIsFiltering] = useState(false) // Estado de carga por filtrado
 
     // Obtenemos los datos y propiedades de la guía de programación
@@ -32,9 +33,13 @@ const App = () => {
         })
     }
 
+    const handleQueryChange = (query) => {
+        setSearchQuery(query);
+    }
+
     return (
         <div id="epg-root">
-            <Toolbar groups={groups} selectedGroups={selectedGroups} onGroupChange={handleGroupChange} />
+            <Toolbar groups={groups} selectedGroups={selectedGroups} onGroupChange={handleGroupChange} searchQuery={searchQuery} onQueryChange={handleQueryChange} />
             <div style={{ height: `calc(100% - ${toolbarHeight})` }}>
                 <Epg style={{ padding: 0 }} isLoading={isLoading || isFiltering} {...epgProps.getEpgProps()}  >
                     <Layout
