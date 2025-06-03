@@ -2,14 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { useEpg } from 'planby'
 import { fetchData, getTodayStart } from '@utils'
 import { theme } from '@utils/theme'
-
-const normalize = str =>
-    str
-        ?.normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLowerCase()
-        .trim()
-
+import Fuse from 'fuse.js'
 
 export const useApp = (selectedGroups, searchQuery) => {
     const [rawChannels, setRawChannels] = useState([]) // Estado para los canales
@@ -25,33 +18,31 @@ export const useApp = (selectedGroups, searchQuery) => {
             return rawChannels.filter(c => selectedGroups.includes(c.group))
         }
 
-        const query = normalize(searchQuery)
-        const result = new Set()
+        // Eliminamos espacios en blanco al inicio y al final de la búsqueda
+        const query = searchQuery.trim()
 
-        // 1. Buscar coincidencias directas en canales (nombre o grupo)
-        for (const channel of rawChannels) {
-            const nameMatch = normalize(channel.uuid).includes(query)
-            const groupMatch = normalize(channel.group).includes(query)
+        // Buscamos coincidencias en los canales
+        const fuseChannels = new Fuse(rawChannels, {
+            keys: ['uuid', 'group', 'streams.name'],
+            threshold: 0.4,
+        })
+        // Guardamos los UUIDs de los canales que coinciden
+        const matchedChannelUUIDs = new Set(
+            fuseChannels.search(query).map(r => r.item.uuid)
+        )
 
-            if (nameMatch || groupMatch) {
-                result.add(channel.uuid)
-            }
-        }
+        // Buscamos coincidencias en los programas
+        const fusePrograms = new Fuse(rawEpg, {
+            keys: ['title', 'description'],
+            threshold: 0.4,
+        })
+        // Guardamos los UUIDs de los canales de los programas que coinciden
+        fusePrograms.search(query).forEach(r => {
+            matchedChannelUUIDs.add(r.item.channelUuid)
+        })
 
-        // 2. Buscar coincidencias en los programas (título o descripción)
-        for (const program of rawEpg) {
-            if (result.has(program.channelUuid)) continue
-
-            const title = normalize(program.title || '')
-            const desc = normalize(program.description || '')
-
-            if (title.includes(query) || desc.includes(query)) {
-                result.add(program.channelUuid)
-            }
-        }
-
-        // 3. Devolver solo los canales cuyos UUID están en el conjunto resultante
-        return rawChannels.filter(c => result.has(c.uuid))
+        // Filtramos los canales originales por los UUIDs seleccionados
+        return rawChannels.filter(c => matchedChannelUUIDs.has(c.uuid))
     }, [rawChannels, selectedGroups, searchQuery])
 
     // Variable para los datos de la guía EPG
