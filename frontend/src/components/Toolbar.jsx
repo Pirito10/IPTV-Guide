@@ -4,7 +4,7 @@ import { FilterModal, InfoModal } from '@components'
 import '@styles/Toolbar.css'
 
 // Componente para mostrar la barra de herramientas
-export const Toolbar = ({ groups, selectedGroups, onGroupChange, searchQuery, onQueryChange }) => {
+export const Toolbar = ({ groups, selectedGroups, onGroupChange, searchInput, onSearchInputChange }) => {
     const [showFilterModal, setShowFilterModal] = useState(false) // Estado para el modal de filtrado
     const [showInfoModal, setShowInfoModal] = useState(false) // Estado para el modal de información
 
@@ -24,8 +24,8 @@ export const Toolbar = ({ groups, selectedGroups, onGroupChange, searchQuery, on
                 className="toolbar-search"
                 type="text"
                 placeholder="Buscar canales..."
-                value={searchQuery}
-                onChange={e => onQueryChange(e.target.value)}
+                value={searchInput}
+                onChange={e => onSearchInputChange(e.target.value)}
             />
             <button className="toolbar-button" onClick={openInfoModal}>
                 <FaInfoCircle className="toolbar-button-icon" />

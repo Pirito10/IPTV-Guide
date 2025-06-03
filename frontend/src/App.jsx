@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Epg, Layout } from 'planby'
 import { useApp } from '@/useApp'
 import { Toolbar, Timeline, ChannelItem, ChannelModal, ProgramItem, ProgramModal } from '@components'
@@ -8,6 +8,7 @@ const App = () => {
     const [selectedProgram, setSelectedProgram] = useState(null) // Estado para el programa seleccionado
     const [selectedGroups, setSelectedGroups] = useState([]) // Estado para los grupos seleccionados
     const [searchQuery, setSearchQuery] = useState('') // Estado para la búsqueda de canales
+    const [searchInput, setSearchInput] = useState('') // Estado para el texto de la búsqueda de canales
     const [isFiltering, setIsFiltering] = useState(false) // Estado de carga por filtrado
 
     // Obtenemos los datos y propiedades de la guía de programación
@@ -33,13 +34,38 @@ const App = () => {
         })
     }
 
-    const handleQueryChange = (query) => {
-        setSearchQuery(query);
+    // Temporizador de espera antes de realizar la búsqueda
+    const searchTimeout = useRef(null)
+
+    // Función para manejar el cambio de texto de búsqueda
+    const handleSearchInputChange = (query) => {
+        // Actualizamos el estado del texto de búsqueda
+        setSearchInput(query)
+
+        // Si el temporizador de búsqueda está activo, lo cancelamos
+        if (searchTimeout.current) clearTimeout(searchTimeout.current)
+
+        // Activamos el temporizador antes de comenzar la búsqueda
+        searchTimeout.current = setTimeout(() => {
+            // Marcamos el inicio del filtrado para mostrar una animación
+            setIsFiltering(true)
+
+            // Reservamos un frame para mostrar la animación
+            requestAnimationFrame(() => {
+                // Actualizamos el estado de la búsqueda
+                setSearchQuery(query)
+
+                // Marcamos el fin del filtrado después de un tiempo
+                setTimeout(() => {
+                    setIsFiltering(false)
+                }, 300)
+            })
+        }, 500)
     }
 
     return (
         <div id="epg-root">
-            <Toolbar groups={groups} selectedGroups={selectedGroups} onGroupChange={handleGroupChange} searchQuery={searchQuery} onQueryChange={handleQueryChange} />
+            <Toolbar groups={groups} selectedGroups={selectedGroups} onGroupChange={handleGroupChange} searchInput={searchInput} onSearchInputChange={handleSearchInputChange} />
             <div style={{ height: `calc(100% - ${toolbarHeight})` }}>
                 <Epg style={{ padding: 0 }} isLoading={isLoading || isFiltering} {...epgProps.getEpgProps()}  >
                     <Layout
