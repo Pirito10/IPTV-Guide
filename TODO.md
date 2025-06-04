@@ -22,7 +22,7 @@
 - [x] Editar estilo de ProgramItem
 - [x] Añadir instrucciones de uso
 - [x] Añadir filtrado por grupo
-- [ ] Añadir buscador
+- [x] Añadir buscador
 - [x] Revisar sincronización de la barra temporal
 - [x] Mover estilos de los componentes a un .css
 - [x] Modal para cada programa
