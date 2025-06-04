@@ -1,5 +1,5 @@
 -r requirements.txt
 
-pytest
-coverage
-pre-commit
+pytest==8.4.0
+coverage==7.8.2
+pre-commit==4.2.0

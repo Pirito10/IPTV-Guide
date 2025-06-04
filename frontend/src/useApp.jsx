@@ -2,8 +2,9 @@ import { useState, useEffect, useMemo } from 'react'
 import { useEpg } from 'planby'
 import { fetchData, getTodayStart } from '@utils'
 import { theme } from '@utils/theme'
+import Fuse from 'fuse.js'
 
-export const useApp = (selectedGroups) => {
+export const useApp = (selectedGroups, searchQuery) => {
     const [rawChannels, setRawChannels] = useState([]) // Estado para los canales
     const [rawEpg, setRawEpg] = useState([]) // Estado para la guía EPG
     const [isLoading, setIsLoading] = useState(true) // Estado de carga
@@ -11,10 +12,38 @@ export const useApp = (selectedGroups) => {
 
     // Variable para los datos de los canales
     const channels = useMemo(() => {
-        // Filtramos los canales según el grupo seleccionado
-        if (selectedGroups.length === 0) return rawChannels
-        return rawChannels.filter(c => selectedGroups.includes(c.group))
-    }, [rawChannels, selectedGroups])
+        // Filtramos los canales según los grupos seleccionados si no hay una búsqueda activa
+        if (searchQuery.trim() === '') {
+            if (selectedGroups.length === 0) return rawChannels
+            return rawChannels.filter(c => selectedGroups.includes(c.group))
+        }
+
+        // Eliminamos espacios en blanco al inicio y al final de la búsqueda
+        const query = searchQuery.trim()
+
+        // Buscamos coincidencias en los canales
+        const fuseChannels = new Fuse(rawChannels, {
+            keys: ['uuid', 'group', 'streams.name'],
+            threshold: 0.4,
+        })
+        // Guardamos los UUIDs de los canales que coinciden
+        const matchedChannelUUIDs = new Set(
+            fuseChannels.search(query).map(r => r.item.uuid)
+        )
+
+        // Buscamos coincidencias en los programas
+        const fusePrograms = new Fuse(rawEpg, {
+            keys: ['title', 'description'],
+            threshold: 0.4,
+        })
+        // Guardamos los UUIDs de los canales de los programas que coinciden
+        fusePrograms.search(query).forEach(r => {
+            matchedChannelUUIDs.add(r.item.channelUuid)
+        })
+
+        // Filtramos los canales originales por los UUIDs seleccionados
+        return rawChannels.filter(c => matchedChannelUUIDs.has(c.uuid))
+    }, [rawChannels, selectedGroups, searchQuery])
 
     // Variable para los datos de la guía EPG
     const epg = rawEpg
