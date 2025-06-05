@@ -23,7 +23,7 @@ def channels():
 
     # Si no hay datos de canales, devolvemos un error
     if not cache.cached_m3u_data:
-        return jsonify({"error": "No channels available"}), 500
+        return jsonify({"error": "No channels available"}), 503
 
     # Devolvemos la lista de canales almacenada en caché
     return jsonify(cache.cached_m3u_data)
@@ -36,7 +36,7 @@ def epg():
 
     # Si no hay guía EPG, devolvemos un error
     if not cache.cached_epg_data:
-        return jsonify({"error": "No EPG available"}), 500
+        return jsonify({"error": "No EPG available"}), 503
 
     # Devolvemos la guía almacenada en caché
     return jsonify(cache.cached_epg_data)
