@@ -40,3 +40,25 @@ def epg():
 
     # Devolvemos la guía almacenada en caché
     return jsonify(cache.cached_epg_data)
+
+
+# Ruta a la API para comprobar el estado del servicio
+@routes.route("/api/health")
+def health_check():
+    # Comprobamos el estado de la lista M3U y la guía EPG
+    m3u_ok = bool(cache.cached_m3u_data)
+    epg_ok = bool(cache.cached_epg_data)
+
+    # Si no hay datos en alguna de las dos, devolvemos un error
+    if not (m3u_ok and epg_ok):
+        logger.error("Health check failed, M3U or EPG data is missing")
+        return jsonify({
+            "status": "degraded",
+            "m3u_data": m3u_ok,
+            "epg_data": epg_ok
+        }), 503
+    
+    # Si hay datos en ambas, devolvemos un estado OK
+    return jsonify({
+        "status": "ok"
+    }), 200
