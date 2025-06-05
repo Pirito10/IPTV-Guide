@@ -19,7 +19,7 @@ class TestChannelsRoute:
         response = client.get('/api/channels')
 
         mock_update.assert_called_once()
-        assert response.status_code == 500
+        assert response.status_code == 503
         assert response.json == {"error": "No channels available"}
 
     @patch('backend.routes.update_m3u')
@@ -38,7 +38,7 @@ class TestEPGRoute:
         routes_module.cache.cached_epg_data = None
         response = client.get('/api/epg')
 
-        assert response.status_code == 500
+        assert response.status_code == 503
         assert response.json == {"error": "No EPG available"}
 
     def test_epg_success(self, client):
