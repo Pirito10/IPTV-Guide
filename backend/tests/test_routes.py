@@ -57,3 +57,38 @@ class TestEPGRoute:
                 "since": "Start Time",
                 "till": "Stop Time",
             }]
+        
+
+# Tests para la ruta /api/health
+class TestHealthRoute:
+    def test_all_ok(self, client):
+        routes_module.cache.cached_m3u_data = [{}]
+        routes_module.cache.cached_epg_data = [{}]
+        response = client.get('/api/health')
+
+        assert response.status_code == 200
+        assert response.json == {"status": "ok"}
+
+    def test_missing_m3u(self, client):
+        routes_module.cache.cached_m3u_data = None
+        routes_module.cache.cached_epg_data = [{}]
+        response = client.get('/api/health')
+
+        assert response.status_code == 503
+        assert response.json == {"status": "degraded", "m3u_data": False, "epg_data": True}
+
+    def test_missing_epg(self, client):
+        routes_module.cache.cached_m3u_data = [{}]
+        routes_module.cache.cached_epg_data = None
+        response = client.get('/api/health')
+
+        assert response.status_code == 503
+        assert response.json == {"status": "degraded", "m3u_data": True, "epg_data": False}
+
+    def test_all_missing(self, client):
+        routes_module.cache.cached_m3u_data = None
+        routes_module.cache.cached_epg_data = None
+        response = client.get('/api/health')
+
+        assert response.status_code == 503
+        assert response.json == {"status": "degraded", "m3u_data": False, "epg_data": False}
