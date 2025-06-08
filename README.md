@@ -11,8 +11,11 @@ The backend, developed with [Flask](https://flask.palletsprojects.com), parses I
 
 ### Backend
 
+> [!NOTE]
+> Go to *production notes* for more information about running the application in production.
+
 #### Requirements
-Make sure you have [Python](https://www.python.org/downloads/) installed on your system. Then install the required dependencies with:
+Make sure you have [Python](https://www.python.org/downloads) installed on your system. Then install the required dependencies with:
 
 ```bash
 pip install -r backend/requirements.txt
@@ -22,17 +25,39 @@ pip install -r backend/requirements.txt
 Open the [config.py](backend/config/config.py) file to adjust settings such as update intervals, URLs, backup locations, logging level, and more.
 
 > [!WARNING]
-> If you use the default M3U URL, [ZeroNet]() must be installed and running.
+> If you use the default M3U URL, [ZeroNet](https://zeronet.io) must be installed and running.
 
 #### Usage
-Once the dependencies are installed, you can run the development server with:
+Once the dependencies are installed, you can run the server with:
 ```bash
 python -m backend.app
 ```
-This will:
-- Download and parse the M3U and EPG files
-- Launch a local Flask server at `http://localhost:5000`
-- Expose three API endpoints:
-  - `/api/channels` - returns the parsed channel list
-  - `/api/epg` - returns the program guide (EPG)
-  - `/api/health` - returns the health status of the server
+This will expose three API endpoints at `http://localhost:5000`:
+- `/api/channels` — returns the parsed IPTV channel list.
+- `/api/epg` — returns the parsed electronic program guide.
+- `/api/health` — returns a basic health check of the server.
+
+### Frontend
+
+> [!NOTE]
+> Go to *production notes* for more information about running the application in production.
+
+#### Requirements
+Make sure you have [NodeJS](https://nodejs.org/en/download) installed on your system. Then install the required dependencies with:
+```bash
+cd frontend
+npm install
+```
+
+#### Build
+Once the dependencies are installed, you can build the frontend with:
+```bash
+npm run build
+```
+
+#### Usage
+Once the build is finished, you can run the server with:
+```bash
+npm run preview
+```
+Then, open your web browser and navigate to `http://localhost:5173`.
