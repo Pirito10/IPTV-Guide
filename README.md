@@ -61,3 +61,30 @@ Once the build is finished, you can run the server with:
 npm run preview
 ```
 Then, open your web browser and navigate to `http://localhost:5173`.
+
+## About the Code
+
+This project is split into two main parts: the **backend**, resposible for data processing and API serving, and the **frontend**, responsible for rendering the guide and handling user interaction.
+
+### Backend
+
+The backend is built with Flask and handles the following tasks:
+- Download and parse IPTV data: fetches the M3U playlist and XML program guide from configured URLs, and parses them into structures data.
+- Data transformation: groups streams by channel, validates logos, and filters EPG content.
+- Caching and backups: stores the latest valid data in memory and writes backups to disk to ensure data persistence in case of URL failures.
+- Scheduled updates: runs periodic tasks to refresh data in the background, ensuring the guide is always up-to-date.
+- Logging: logs all events and errors into timestamped files for easy debbugging and monitoring.
+- API serving: exposes endpoints to retrieve channel and EPG data in JSON format for the frontend to consume.
+
+The backend is designed to be moderately customizable through the configuration file, allowing users to adjust the server to their needs. It runs independently from the frontend, and can be deployed almost anywhere.
+
+### Frontend
+
+The frontend is a single-page application built with React and Plany, designed to display the IPTV program guide in a timeline format. It provides:
+- Channel browsing: scrollable view of all available IPTV channels.
+- Timeline-based EPG: visual display of programs by time slot, with zoom and scroll support.
+- Program & channel modals: click to view detailed information or stream playback options.
+- Filtering and search: filter by group or search by words.
+- Responsive UI: works on desktop and mobile browsers.
+
+The frontend is built to be lightweight and fast, considering the larga amount of data it handles. Some features are limited due to the customizability of the Planby free tier. It consumes the backend API, rendering all content dynamically at runtime.
