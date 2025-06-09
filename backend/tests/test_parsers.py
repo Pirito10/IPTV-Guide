@@ -128,6 +128,26 @@ class TestParseEPG:
         assert parse_epg(xml_content, ["test_channel"]) == {}
 
     @patch('backend.services.parsers.convert_epg_time')
+    def test_program_outside_time_range(self, mock_convert):
+        start = (datetime.now(timezone.utc) + timedelta(days=101)).isoformat().replace("+00:00", "Z")
+        stop = (datetime.now(timezone.utc) + timedelta(hours=100)).isoformat().replace("+00:00", "Z")
+        mock_convert.side_effect = [start, stop]
+
+        xml_content = textwrap.dedent('''
+            <tv>
+            <channel id="test_channel">
+                <icon src="http://test_channel_logo.png"/>
+            </channel>
+            <programme start="20210101120000 +0000" stop="202140101130000 +0000" channel="test_channel">
+                <title>Old Program</title>
+                <desc>Should be discarded</desc>
+            </programme>
+            </tv>
+            ''')
+        
+        assert parse_epg(xml_content, ["test_channel"]) == {}
+
+    @patch('backend.services.parsers.convert_epg_time')
     def test_channel_with_icon(self, mock_convert):
         start = (datetime.now(timezone.utc) + timedelta(hours=1)).isoformat().replace("+00:00", "Z")
         stop = (datetime.now(timezone.utc) + timedelta(hours=2)).isoformat().replace("+00:00", "Z")
