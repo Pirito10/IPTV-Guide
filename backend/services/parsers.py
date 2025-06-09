@@ -78,10 +78,10 @@ def parse_epg(xml_content, channel_ids):
 
     logger.info("Parsing EPG content...")
 
-    # Obtenemos un intervalo de tiempo de tres días
+    # Obtenemos un intervalo de tiempo comenzando con el día anterior al actual
     today = datetime.now().date()
     start_time = datetime.combine(today - timedelta(days=1), datetime.min.time()).isoformat() + "Z"
-    end_time = datetime.combine(today + timedelta(days=2), datetime.min.time()).isoformat() + "Z"
+    end_time = datetime.combine(today + timedelta(days=config.EPG_MAX_DAYS), datetime.min.time()).isoformat() + "Z"
 
     # Recorremos cada elemento <programme> para extraer la información necesaria
     for programme in root.findall("programme"):

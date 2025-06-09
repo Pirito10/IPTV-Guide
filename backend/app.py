@@ -11,7 +11,7 @@ logger.info("Starting IPTV-Guide server...")
 
 # Servidor Flask
 app = Flask(__name__)
-app.register_blueprint(routes)
+app.register_blueprint(routes, url_prefix=config.API_BASE_PATH)
 CORS(app)
 
 # Planificador de tareas
@@ -34,4 +34,4 @@ logger.info("Server started successfully")
 
 # Iniciamos el servidor de desarrollo de Flask
 if __name__ == "__main__":
-    app.run(config.SERVER_IP)
+    app.run(config.SERVER_IP, config.SERVER_PORT)
