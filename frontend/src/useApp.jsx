@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { useEpg } from 'planby'
 import { fetchData, getTodayStart } from '@utils'
 import { theme } from '@utils/theme'
+import { FUSE_SEARCH_THRESHOLD, EPG_DAY_WIDTH } from '@utils/constants'
 import Fuse from 'fuse.js'
 
 export const useApp = (selectedGroups, searchQuery) => {
@@ -24,7 +25,7 @@ export const useApp = (selectedGroups, searchQuery) => {
         // Buscamos coincidencias en los canales
         const fuseChannels = new Fuse(rawChannels, {
             keys: ['uuid', 'group', 'streams.name'],
-            threshold: 0.4,
+            threshold: FUSE_SEARCH_THRESHOLD,
         })
         // Guardamos los UUIDs de los canales que coinciden
         const matchedChannelUUIDs = new Set(
@@ -34,7 +35,7 @@ export const useApp = (selectedGroups, searchQuery) => {
         // Buscamos coincidencias en los programas
         const fusePrograms = new Fuse(rawEpg, {
             keys: ['title', 'description'],
-            threshold: 0.4,
+            threshold: FUSE_SEARCH_THRESHOLD,
         })
         // Guardamos los UUIDs de los canales de los programas que coinciden
         fusePrograms.search(query).forEach(r => {
@@ -57,7 +58,7 @@ export const useApp = (selectedGroups, searchQuery) => {
     const epgProps = useEpg({
         channels: channels,
         epg: epg,
-        dayWidth: 10000,
+        dayWidth: EPG_DAY_WIDTH,
         startDate: getTodayStart(),
         theme: theme
     })

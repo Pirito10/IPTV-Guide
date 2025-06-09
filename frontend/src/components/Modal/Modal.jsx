@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { FaTimes } from 'react-icons/fa'
+import { MODAL_CLOSE_KEY } from '@utils/constants'
 import '@styles/Modal/Modal.css'
 
 // Componente para mostrar un modal genérico
@@ -8,7 +9,7 @@ export const Modal = ({ header, body, onClose }) => {
     useEffect(() => {
         // Creamos una función para manejar el evento "keydown"
         const handleKeyDown = e => {
-            if (e.key === 'Escape') onClose()
+            if (e.key === MODAL_CLOSE_KEY) onClose()
         }
         // Añadimos el listener de "keydown" a la ventana
         window.addEventListener('keydown', handleKeyDown)

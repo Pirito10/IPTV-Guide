@@ -1,4 +1,5 @@
 import { Modal } from '@components'
+import { FILTER_MODAL_TEXTS } from '@utils/constants'
 import '@styles/Modal/FilterModal.css'
 
 // Componente para mostrar un modal con los grupos para filtrar
@@ -13,7 +14,7 @@ export const FilterModal = ({ groups, selectedGroups, onChange, onClose }) => {
 
     // Creamos la cabecera del modal
     const header = (
-        <h2 className="modal-title">Grupos de canales</h2>
+        <h2 className="modal-title">{FILTER_MODAL_TEXTS.TITLE}</h2>
     )
 
     // Creamos el cuerpo del modal, con un selector para cada grupo
