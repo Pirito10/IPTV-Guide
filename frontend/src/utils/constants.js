@@ -65,7 +65,7 @@ export const INFO_MODAL_TEXTS = {
 
 // Enlaces del modal de información
 export const INFO_MODAL_LINKS = {
-    README: "TODO",
+    README: "https://github.com/Pirito10/IPTV-Guide#readme",
     ACESTREAM: "https://www.acestream.org",
     ACESTREAM_PC: "https://www.acestream.org/?page=products",
     ACESTREAM_ANDROID: "https://play.google.com/store/apps/details?id=org.acestream.node",
