@@ -88,3 +88,18 @@ The frontend is a single-page application built with React and Plany, designed t
 - Responsive UI: works on desktop and mobile browsers.
 
 The frontend is built to be lightweight and fast, considering the larga amount of data it handles. Some features are limited due to the customizability of the Planby free tier. It consumes the backend API, rendering all content dynamically at runtime.
+
+## Production Notes
+
+This project is designed to be self-hosted and can be deployed in production with various configurations, depending on your environment and needs.
+
+A typical production setup might include:
+- Running the backend with a production WSGI server such as [Gunicorn]().
+- Serving the frontend as static files via [GitHub Pages](), [Nginx](), or similar.
+- Using [ZeroNet]() to access private or decentralized IPTV playlists, if needed.
+- Setting up a reverse proxy to handle requests and serve both frontend and backend seamlessly.
+- Setting up HTTPS with [Let's Encrypt](), specially when frontend and backend are served from different origins.
+- Configuring a process manager like [systemd]() to ensure the servers are always running and restarted on failure.
+
+> [!NOTE]
+> The application was tested and worked on a low specification machine (Raspberry Pi Zero W). This may vary depending on the amount of data managed and the number of concurrent users.
