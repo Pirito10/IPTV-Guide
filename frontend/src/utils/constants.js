@@ -16,3 +16,10 @@ export const FUSE_SEARCH_THRESHOLD = 0.4
 
 // Ancho de la guía EPG en píxeles
 export const EPG_DAY_WIDTH = 10000
+
+// Textos de la barra de herramientas
+export const TOOLBAR_TEXTS = {
+    FILTER: "Filtrar",
+    SEARCH_PLACEHOLDER: "Buscar canales...",
+    INFO: "Info"
+};

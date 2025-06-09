@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { FaFilter, FaInfoCircle } from 'react-icons/fa'
 import { FilterModal, InfoModal } from '@components'
+import { TOOLBAR_TEXTS } from '@utils/constants'
 import '@styles/Toolbar.css'
 
 // Componente para mostrar la barra de herramientas
@@ -18,18 +19,18 @@ export const Toolbar = ({ groups, selectedGroups, onGroupChange, searchInput, on
         <div className="toolbar">
             <button className="toolbar-button" onClick={openFilterModal}>
                 <FaFilter className="toolbar-button-icon" />
-                Filtrar
+                {TOOLBAR_TEXTS.FILTER}
             </button>
             <input
                 className="toolbar-search"
                 type="text"
-                placeholder="Buscar canales..."
+                placeholder={TOOLBAR_TEXTS.SEARCH_PLACEHOLDER}
                 value={searchInput}
                 onChange={e => onSearchInputChange(e.target.value)}
             />
             <button className="toolbar-button" onClick={openInfoModal}>
                 <FaInfoCircle className="toolbar-button-icon" />
-                Info
+                {TOOLBAR_TEXTS.INFO}
             </button>
 
             {showFilterModal && <FilterModal
