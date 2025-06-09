@@ -15,7 +15,7 @@ The backend, implemented with [Flask](https://flask.palletsprojects.com), is res
 ## How To Run
 
 > [!TIP]
-> See [Production Notes](#production-notes) for guidance on deploying the app in a production environment.
+> See [*Production Notes*](#production-notes) for guidance on deploying the app in a production environment.
 
 ### Backend
 #### Requirements
@@ -52,7 +52,7 @@ npm install
 #### Configuration
 Open the [`frontend/src/utils/constants.js`](frontend/src/utils/constants.js) file to adjust API URLs to match your backend server.
 
-> [!WARNING]
+> [!IMPORTANT]
 > If you use the default settings, the frontend will try to connect to the public backend server hosted by the author at `https://api.tebas-ladron.me`. This endpoint is not guaranteed to remain available and may be removed or changed at any time.
 
 #### Build
@@ -102,15 +102,18 @@ The frontend is a single-page application built with React and Planby, designed 
 
 ## Production Notes
 
-This project is designed to be self-hosted and can be deployed in production with various configurations, depending on your environment and needs.
+This project is designed to be self-hosted and can be deployed in production using different tools or setups depending on your environment and requirements.
+
+> [!TIP]
+> The backend and frontend can be hosted on different machines, as long as the frontend is properly configured to point to the backend API URL.
 
 A typical production setup might include:
 - Running the backend with a production WSGI server such as [Gunicorn](https://gunicorn.org).
-- Serving the frontend as static files via [GitHub Pages](https://pages.github.com), [NGINX](https://nginx.org), or similar.
-- Using [ZeroNet](https://zeronet.io) to access private or decentralized IPTV playlists, if needed.
-- Setting up a reverse proxy to handle requests and serve both frontend and backend seamlessly.
+- Serving the frontend as static files via [GitHub Pages](https://pages.github.com), [NGINX](https://nginx.org), or a CDN.
+- Using [ZeroNet](https://zeronet.io) to access private or decentralized IPTV playlists.
+- Setting up a reverse proxy to unify frontend and backend endpoints under a single domain.
 - Setting up HTTPS with [Let's Encrypt](https://letsencrypt.org), especially when frontend and backend are served from different origins.
-- Configuring a process manager like [systemd]() to ensure the servers are always running and restarted on failure.
+- Managing backend processes with a supervisor such as [systemd](https://systemd.io) to ensure automatic restarts and resilience.
 
 > [!NOTE]
-> The application was tested and worked on a low specification machine (Raspberry Pi Zero W). This may vary depending on the amount of data managed and the number of concurrent users.
+> The application has been tested on a low-spec device (Raspberry Pi Zero W) and performed well under light usage. Actual performance may vary depending on the size of the data and number of concurrent users.
