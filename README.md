@@ -14,58 +14,59 @@ The backend, implemented with [Flask](https://flask.palletsprojects.com), is res
 
 ## How To Run
 
+> [!TIP]
+> See [Production Notes](#production-notes) for guidance on deploying the app in a production environment.
+
 ### Backend
-
-> [!NOTE]
-> Go to *production notes* for more information about running the application in production.
-
 #### Requirements
-Make sure you have [Python](https://www.python.org/downloads) installed on your system. Then install the required dependencies with:
+Make sure [Python](https://www.python.org/downloads) is installed on your system. Then install the required dependencies with:
 
 ```bash
 pip install -r backend/requirements.txt
 ```
 
 #### Configuration
-Open the [config.py](backend/config/config.py) file to adjust settings such as update intervals, URLs, backup locations, logging level, and more.
+Open the [`backend/config/config.py`](backend/config/config.py) file to adjust settings such as update intervals, source URLs, backup locations, logging level, and more.
 
 > [!WARNING]
 > If you use the default M3U URL, [ZeroNet](https://zeronet.io) must be installed and running.
 
 #### Usage
-Once the dependencies are installed, you can run the server with:
+Once the dependencies are installed, run the backend with:
 ```bash
 python -m backend.app
 ```
-This will expose three API endpoints at `http://localhost:5000`:
+The server will be available at `http://localhost:5000`, exposing the following API endpoints:
 - `/api/channels` — returns the parsed IPTV channel list.
 - `/api/epg` — returns the parsed electronic program guide.
 - `/api/health` — returns a basic health check of the server.
 
 ### Frontend
-
-> [!NOTE]
-> Go to *production notes* for more information about running the application in production.
-
 #### Requirements
-Make sure you have [NodeJS](https://nodejs.org/en/download) installed on your system. Then install the required dependencies with:
+Make sure [Node.js](https://nodejs.org/en/download) is installed on your system. Then install the required dependencies with:
 ```bash
 cd frontend
 npm install
 ```
 
+#### Configuration
+Open the [`frontend/src/utils/constants.js`](frontend/src/utils/constants.js) file to adjust API URLs to match your backend server.
+
+> [!WARNING]
+> If you use the default settings, the frontend will try to connect to the public backend server hosted by the author at `https://api.tebas-ladron.me`. This endpoint is not guaranteed to remain available and may be removed or changed at any time.
+
 #### Build
-Once the dependencies are installed, you can build the frontend with:
+Once the dependencies are installed, build the frontend with:
 ```bash
 npm run build
 ```
 
 #### Usage
-Once the build is finished, you can run the server with:
+Once the build is finished, run the frontend server with:
 ```bash
 npm run preview
 ```
-Then, open your web browser and navigate to `http://localhost:5173`.
+The app will be available at `http://localhost:5173`.
 
 ## About the Code
 
