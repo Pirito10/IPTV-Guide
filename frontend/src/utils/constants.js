@@ -31,6 +31,11 @@ export const CHANNEL_MODAL_TEXTS = {
     TOAST_COPY_SUCCESS: "ID copiado al portapapeles"
 }
 
+// Textos del modal de filtros
+export const FILTER_MODAL_TEXTS = {
+    TITLE: "Grupos de canales"
+}
+
 // Duración de la animación de desvanecimiento del toast de ID copiado
 export const TOAST_FADE_DURATION = 1000
 export const TOAST_REMOVE_DELAY = 2000
