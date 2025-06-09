@@ -37,3 +37,5 @@ export const TOAST_REMOVE_DELAY = 2000
 
 // Protocolo utilizado para las urls de los streams
 export const STREAM_PROTOCOL = "acestream://"
+
+export const MODAL_CLOSE_KEY = "Escape"
