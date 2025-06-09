@@ -1,5 +1,6 @@
-# IP de la interfaz donde escuchará el servidor
+# IP y puerto de la interfaz donde escuchará el servidor
 SERVER_IP = "0.0.0.0"
+SERVER_PORT = 5000
 
 # Horas a las que actualizar la guía EPG
 EPG_SCHEDULER_HOURS = "10,14,18,22"

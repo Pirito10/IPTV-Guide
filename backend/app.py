@@ -34,4 +34,4 @@ logger.info("Server started successfully")
 
 # Iniciamos el servidor de desarrollo de Flask
 if __name__ == "__main__":
-    app.run(config.SERVER_IP)
+    app.run(config.SERVER_IP, config.SERVER_PORT)
