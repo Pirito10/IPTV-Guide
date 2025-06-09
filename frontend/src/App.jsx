@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import { Epg, Layout } from 'planby'
 import { useApp } from '@/useApp'
 import { Toolbar, Timeline, ChannelItem, ChannelModal, ProgramItem, ProgramModal } from '@components'
+import { FILTER_ANIMATION_DURATION, SEARCH_DEBOUNCE_DELAY } from '@utils/constants'
 
 const App = () => {
     const [selectedChannel, setSelectedChannel] = useState(null) // Estado para el canal seleccionado
@@ -30,7 +31,7 @@ const App = () => {
             // Marcamos el fin del filtrado después de un tiempo
             setTimeout(() => {
                 setIsFiltering(false)
-            }, 300)
+            }, FILTER_ANIMATION_DURATION)
         })
     }
 
@@ -58,9 +59,9 @@ const App = () => {
                 // Marcamos el fin del filtrado después de un tiempo
                 setTimeout(() => {
                     setIsFiltering(false)
-                }, 300)
+                }, FILTER_ANIMATION_DURATION)
             })
-        }, 500)
+        }, SEARCH_DEBOUNCE_DELAY)
     }
 
     return (
