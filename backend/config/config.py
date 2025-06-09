@@ -41,3 +41,11 @@ LOGO_TTL = 4
 INVALID_LOGO_TTL = 1
 # Variación aleatoria (en porcentaje) para el TTL de los logos
 LOGO_JITTER = 0.1
+
+# Prefijo de la URL de la API
+API_BASE_PATH = "/api"
+
+# Rutas de la API
+CHANNELS_ROUTE = "/channels"
+EPG_ROUTE = "/epg"
+HEALTH_ROUTE = "/health"

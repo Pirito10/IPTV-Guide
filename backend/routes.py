@@ -1,7 +1,7 @@
 import threading
 from flask import jsonify, Blueprint
 
-from backend.config import cache
+from backend.config import cache, config
 from backend.services.logger import logger
 from backend.services.updater import update_m3u
 
@@ -10,7 +10,7 @@ routes = Blueprint("routes", __name__)
 m3u_lock = threading.Lock()
 
 # Ruta a la API para obtener los canales
-@routes.route("/api/channels")
+@routes.route(config.CHANNELS_ROUTE)
 def channels():
     logger.info("Request to /api/channels received")
 
@@ -30,7 +30,7 @@ def channels():
 
 
 # Ruta a la API para obtener la guía EPG
-@routes.route("/api/epg")
+@routes.route(config.EPG_ROUTE)
 def epg():
     logger.info("Request to /api/epg received")
 
@@ -43,7 +43,7 @@ def epg():
 
 
 # Ruta a la API para comprobar el estado del servicio
-@routes.route("/api/health")
+@routes.route(config.HEALTH_ROUTE)
 def health_check():
     # Comprobamos el estado de la lista M3U y la guía EPG
     m3u_ok = bool(cache.cached_m3u_data)

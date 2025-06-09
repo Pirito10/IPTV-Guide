@@ -11,7 +11,7 @@ logger.info("Starting IPTV-Guide server...")
 
 # Servidor Flask
 app = Flask(__name__)
-app.register_blueprint(routes)
+app.register_blueprint(routes, url_prefix=config.API_BASE_PATH)
 CORS(app)
 
 # Planificador de tareas
