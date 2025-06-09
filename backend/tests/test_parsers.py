@@ -1,6 +1,7 @@
 import pytest
 import textwrap
 from unittest.mock import patch
+from datetime import datetime, timedelta, timezone
 
 from backend.services import parsers as parsers_module
 from backend.services.parsers import parse_m3u, parse_epg
@@ -66,8 +67,12 @@ class TestParseM3U:
 
 # Tests para la función parse_epg
 class TestParseEPG:
-    @patch('backend.services.parsers.convert_epg_time', return_value="dummy_time")
-    def test_valid_program(self, _):
+    @patch('backend.services.parsers.convert_epg_time')
+    def test_valid_program(self, mock_convert):
+        start = (datetime.now(timezone.utc) + timedelta(hours=1)).isoformat().replace("+00:00", "Z")
+        stop = (datetime.now(timezone.utc) + timedelta(hours=2)).isoformat().replace("+00:00", "Z")
+        mock_convert.side_effect = [start, stop]
+
         xml_content = textwrap.dedent('''
             <tv>
             <channel id="test_channel">
@@ -85,8 +90,8 @@ class TestParseEPG:
         assert result["test_channel"]["programs"][0] == {
             "title": "Program Title",
             "description": "Program description",
-            "since": "dummy_time",
-            "till": "dummy_time"
+            "since": start,
+            "till": stop
         }
         assert result["test_channel"]["logo"] == "http://test_channel_logo.png"
 
@@ -122,8 +127,12 @@ class TestParseEPG:
         
         assert parse_epg(xml_content, ["test_channel"]) == {}
 
-    @patch('backend.services.parsers.convert_epg_time', return_value="dummy_time")
-    def test_channel_with_icon(self, _):
+    @patch('backend.services.parsers.convert_epg_time')
+    def test_channel_with_icon(self, mock_convert):
+        start = (datetime.now(timezone.utc) + timedelta(hours=1)).isoformat().replace("+00:00", "Z")
+        stop = (datetime.now(timezone.utc) + timedelta(hours=2)).isoformat().replace("+00:00", "Z")
+        mock_convert.side_effect = [start, stop]
+
         xml_content = textwrap.dedent('''
             <tv>
             <channel id="test_channel">
@@ -140,8 +149,12 @@ class TestParseEPG:
         assert "test_channel" in result
         assert result["test_channel"]["logo"] == "http://test_channel_logo.png"
 
-    @patch('backend.services.parsers.convert_epg_time', return_value="dummy_time")
-    def test_channel_without_icon(self, _):
+    @patch('backend.services.parsers.convert_epg_time')
+    def test_channel_without_icon(self, mock_convert):
+        start = (datetime.now(timezone.utc) + timedelta(hours=1)).isoformat().replace("+00:00", "Z")
+        stop = (datetime.now(timezone.utc) + timedelta(hours=2)).isoformat().replace("+00:00", "Z")
+        mock_convert.side_effect = [start, stop]
+
         xml_content = textwrap.dedent('''
             <tv>
             <channel id="test_channel"></channel>

@@ -1,5 +1,6 @@
 import re
 import xml.etree.ElementTree as ET
+from datetime import datetime, timedelta
 
 from backend.config import config
 from backend.services.logger import logger
@@ -77,6 +78,11 @@ def parse_epg(xml_content, channel_ids):
 
     logger.info("Parsing EPG content...")
 
+    # Obtenemos un intervalo de tiempo de tres días
+    today = datetime.now().date()
+    start_time = datetime.combine(today - timedelta(days=1), datetime.min.time()).isoformat() + "Z"
+    end_time = datetime.combine(today + timedelta(days=2), datetime.min.time()).isoformat() + "Z"
+
     # Recorremos cada elemento <programme> para extraer la información necesaria
     for programme in root.findall("programme"):
         channel_id = programme.get("channel") # ID del canal
@@ -92,6 +98,10 @@ def parse_epg(xml_content, channel_ids):
 
         if not start or not stop:
             logger.warning(f"Invalid start/stop time for program: {title} ({channel_id})")
+            continue
+
+        # Comprobamos que el programa corresponda al intervalo de tiempo
+        if stop <= start_time or start >= end_time:
             continue
 
         # Agregamos la información del programa al canal correspondiente
