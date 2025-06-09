@@ -1,7 +1,7 @@
 {
   "name": "iptv-guide",
   "description": "A web-based EPG viewer using React and Planby",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Aarón Riveiro Vilar <aaronriveiro@gmail.com>",
   "license": "MIT",
   "private": true,
