@@ -36,6 +36,28 @@ export const FILTER_MODAL_TEXTS = {
     TITLE: "Grupos de canales"
 }
 
+// Textos del modal de información
+export const INFO_MODAL_TEXTS = {
+    TITLE: "Información",
+    AUTHOR: "Pirito10"
+}
+
+// Enlaces del modal de información
+export const INFO_MODAL_LINKS = {
+    README: "TODO",
+    ACESTREAM: "https://www.acestream.org",
+    ACESTREAM_PC: "https://www.acestream.org/?page=products",
+    ACESTREAM_ANDROID: "https://play.google.com/store/apps/details?id=org.acestream.node",
+    INSTRUCTIONS: "TODO",
+    GITHUB: "https://github.com/Pirito10/IPTV-Guide",
+    DONATIONS: "https://paypal.me/Pirito10",
+    CHANNELS: "https://ipfs.io/ipns/elcano.top",
+    EPG: "https://github.com/davidmuma",
+    HELP: "https://github.com/Pirito10/IPTV-Guide/issues/new/choose",
+    FAQ: "TODO",
+    AUTHOR: "https://github.com/Pirito10"
+}
+
 // Duración de la animación de desvanecimiento del toast de ID copiado
 export const TOAST_FADE_DURATION = 1000
 export const TOAST_REMOVE_DELAY = 2000
