@@ -54,3 +54,5 @@ HEALTH_ROUTE = "/health"
 LOG_FORMAT = "[%(levelname)s] %(asctime)s - %(message)s"
 LOG_DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 LOG_FILENAME_TIME_FORMAT = "%Y-%m-%d_%H-%M-%S"
+
+EPG_MAX_DAYS = 2
