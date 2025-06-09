@@ -3,9 +3,14 @@ _IPTV Guide_ is a **web-based electronic program guide viewer** for IPTV channel
 
 ## About The Project
 
-The frontend is built with [React](https://react.dev) and powered by [Planby](https://planby.app), offering a responsive and visually intuitive timeline interface. Users can browse through channels, view current and upcoming programs, filter by group, search by name, and open modals with detailed information or playback options.
+This project is a self-hosted solution for browsing IPTV channels and their schedules in real time through a modern web interface.
 
-The backend, developed with [Flask](https://flask.palletsprojects.com), parses IPTV playlists (M3U) and electronic program guides (XML) to serve up-to-date channel and EPG data. It includes caching, scheduled background updates, local backups, and file-based logging to ensure continuous operation even under network issues.
+The frontend is built with [React](https://react.dev) and powered by [Planby](https://planby.app). It provides a fast and responsive interface where users can scroll through channels, view current and upcoming programs, filter by group, search by keywords, and open modals with detailed information or playback options.
+
+The backend, implemented with [Flask](https://flask.palletsprojects.com), is responsible for fetching, parsing and serving IPTV data. It supports M3U playlists and XML electronic program guides, transforming them into a consistend format for the frontend. It also includes caching, automatic scheduled updates, local backups as fallback, and file-based logging to ensure robustness and availability, even under unstable network conditions.
+
+> [!NOTE]
+> While the system is minimally customizable, it is designed to run autonomously on a server, avoiding the need for manual downloads or additional tools on the client side.
 
 ## How To Run
 
