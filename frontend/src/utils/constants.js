@@ -10,3 +10,9 @@ export const DEFAULT_GROUP = "OTROS"
 export const SEARCH_DEBOUNCE_DELAY = 500
 // Duración de la animación de filtrado
 export const FILTER_ANIMATION_DURATION = 300
+
+// Umbral de coincidencia para la búsqueda con Fuse.js
+export const FUSE_SEARCH_THRESHOLD = 0.4
+
+// Ancho de la guía EPG en píxeles
+export const EPG_DAY_WIDTH = 10000
