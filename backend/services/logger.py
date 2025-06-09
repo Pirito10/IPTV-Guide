@@ -11,7 +11,7 @@ logs_dir = os.path.join(base_dir, "..", config.LOGS_DIRECTORY)
 os.makedirs(logs_dir, exist_ok=True)
 
 # Obtenemos la fecha y hora actual
-timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+timestamp = datetime.now().strftime(config.LOG_FILENAME_TIME_FORMAT)
 
 # Ruta al fichero
 log_file = os.path.join(logs_dir, f'{timestamp}.log')
@@ -29,8 +29,8 @@ logger.propagate = False
 # Creamos el manejador de fichero
 file_handler = logging.FileHandler(log_file, encoding='utf-8')
 file_handler.setFormatter(logging.Formatter(
-    '[%(levelname)s] %(asctime)s - %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
+    config.LOG_FORMAT,
+    datefmt=config.LOG_DATE_FORMAT
 ))
 
 # Añadimos el manejador al logger
