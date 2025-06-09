@@ -70,41 +70,46 @@ The app will be available at `http://localhost:5173`.
 
 ## About the Code
 
-This project is split into two main parts: the **backend**, resposible for data processing and API serving, and the **frontend**, responsible for rendering the guide and handling user interaction.
+This project is divided into two main parts: the **backend**, responsible for data processing and API serving; and the **frontend**, responsible for rendering the guide and handling user interaction.
 
 ### Backend
 
-The backend is built with Flask and handles the following tasks:
-- Download and parse IPTV data: fetches the M3U playlist and XML program guide from configured URLs, and parses them into structures data.
-- Data transformation: groups streams by channel, validates logos, and filters EPG content.
-- Caching and backups: stores the latest valid data in memory and writes backups to disk to ensure data persistence in case of URL failures.
-- Scheduled updates: runs periodic tasks to refresh data in the background, ensuring the guide is always up-to-date.
-- Logging: logs all events and errors into timestamped files for easy debbugging and monitoring.
-- API serving: exposes endpoints to retrieve channel and EPG data in JSON format for the frontend to consume.
+The backend is built with Flask and performs the following tasks:
+- <u>Data fetching</u>: downloads the IPTV playlist and program guide from configurable URLs.
+- <u>Parsing and transformation</u>: parses raw data into a structured format, groups streams by channel, validates logos, filters program entries, and more.
+- <u>Caching and backups</u>: stores the latest valid data in memory and saves local backups to disk to ensure resilience against network or source failures.
+- <u>Scheduled updates</u>: runs periodic tasks to refresh the playlist and EPG in the background, ensuring the data is always up-to-date.
+- <u>Logging</u>: records events and errors into timestamped log files for easy debugging and monitoring.
+- <u>API serving</u>: exposes endpoints to retrieve channel and EPG data in JSON format for the frontend to consume.
 
-The backend is designed to be moderately customizable through the configuration file, allowing users to adjust the server to their needs. It runs independently from the frontend, and can be deployed almost anywhere.
+> [!NOTE]
+> The backend is designed to be moderately customizable through the configuration file, allowing users to adapt it to their needs. It runs independently from the frontend and can be deployed almost anywhere.
 
 ### Frontend
 
-The frontend is a single-page application built with React and Plany, designed to display the IPTV program guide in a timeline format. It provides:
-- Channel browsing: scrollable view of all available IPTV channels.
-- Timeline-based EPG: visual display of programs by time slot, with zoom and scroll support.
-- Program & channel modals: click to view detailed information or stream playback options.
-- Filtering and search: filter by group or search by words.
-- Responsive UI: works on desktop and mobile browsers.
+The frontend is a single-page application built with React and Planby, designed to render the IPTV guide as a timeline-based interface. It offers the following features:
+- <u>Channel browsing</u>: scrollable view of all available IPTV channels.
+- <u>Timeline-based EPG</u>: visual layout of programs over time, with support for horizontal scrolling and current-time tracking.
+- <u>Modals for channels and programs</u>: clickable elements open overlays with detailed information or playback options.
+- <u>Filtering and search</u>: filter channels by group or search by keywords across channel names, program titles, and descriptions.
+- <u>Responsive UI</u>: optimized for both desktop and mobile use.
 
-The frontend is built to be lightweight and fast, considering the larga amount of data it handles. Some features are limited due to the customizability of the Planby free tier. It consumes the backend API, rendering all content dynamically at runtime.
+> [!NOTE]
+> The frontend is built to be lightweight and fast, considering the large amount of data it handles. All content is rendered dynamically at runtime using the backend API.
+
+> [!WARNING]
+> Some UI features are limited by the capabilities of the Planby free tier, such as support for only a single day of schedule data.
 
 ## Production Notes
 
 This project is designed to be self-hosted and can be deployed in production with various configurations, depending on your environment and needs.
 
 A typical production setup might include:
-- Running the backend with a production WSGI server such as [Gunicorn]().
-- Serving the frontend as static files via [GitHub Pages](), [Nginx](), or similar.
-- Using [ZeroNet]() to access private or decentralized IPTV playlists, if needed.
+- Running the backend with a production WSGI server such as [Gunicorn](https://gunicorn.org).
+- Serving the frontend as static files via [GitHub Pages](https://pages.github.com), [NGINX](https://nginx.org), or similar.
+- Using [ZeroNet](https://zeronet.io) to access private or decentralized IPTV playlists, if needed.
 - Setting up a reverse proxy to handle requests and serve both frontend and backend seamlessly.
-- Setting up HTTPS with [Let's Encrypt](), specially when frontend and backend are served from different origins.
+- Setting up HTTPS with [Let's Encrypt](https://letsencrypt.org), especially when frontend and backend are served from different origins.
 - Configuring a process manager like [systemd]() to ensure the servers are always running and restarted on failure.
 
 > [!NOTE]
