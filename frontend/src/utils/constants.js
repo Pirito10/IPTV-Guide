@@ -22,4 +22,18 @@ export const TOOLBAR_TEXTS = {
     FILTER: "Filtrar",
     SEARCH_PLACEHOLDER: "Buscar canales...",
     INFO: "Info"
-};
+}
+
+// Textos del modal de canales
+export const CHANNEL_MODAL_TEXTS = {
+    COPY_ID: "Copiar ID",
+    PLAY: "Reproducir",
+    TOAST_COPY_SUCCESS: "ID copiado al portapapeles"
+}
+
+// Duración de la animación de desvanecimiento del toast de ID copiado
+export const TOAST_FADE_DURATION = 1000
+export const TOAST_REMOVE_DELAY = 2000
+
+// Protocolo utilizado para las urls de los streams
+export const STREAM_PROTOCOL = "acestream://"
