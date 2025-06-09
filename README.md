@@ -1,5 +1,5 @@
 # IPTV Guide
-_IPTV Guide_ is a **web-based electronic program guide viewer** for IPTV channels, providing a fast and user-friendly way to explore TV schedules in real time.
+_IPTV Guide_ is a **Web-Based Electronic Program Guide Viewer** for IPTV channels, providing a fast and user-friendly way to explore TV schedules in real time.
 
 ## About The Project
 
