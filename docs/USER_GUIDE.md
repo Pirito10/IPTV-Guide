@@ -1,6 +1,6 @@
 # Guía de uso
 
-Esta guía explica paso a paso cómo utilizar la aplicación Guía IPTV  para buscar canales y reproducirlos en distintos dispositivos (PC, Android o Android TV).
+Esta guía explica paso a paso cómo utilizar la aplicación **Guía IPTV**  para buscar canales y reproducirlos en distintos dispositivos (PC, Android o Android TV).
 
 ## 1. Instalación de Ace Stream
 
