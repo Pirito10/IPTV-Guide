@@ -33,7 +33,7 @@ Esta guía explica paso a paso cómo utilizar la aplicación **Guía IPTV**  par
 
 ## 2. Búsqueda de canales
 
-Abre tu navegador y accede a la Guía IPTV mediante el enlace [`tebas-ladron.me`](https://tebas-ladron.me).
+Abre tu navegador y accede a la **Guía IPTV** mediante el enlace [`tebas-ladron.me`](https://tebas-ladron.me).
 
 - Desplázate verticalmente para ver los canales disponibles, u horizontalmente para ver la programación por horas.
 - Usa la barra de búsqueda para **buscar** canales o programas por nombre o descripción.
