@@ -76,3 +76,5 @@ Abre tu navegador y accede a la **Guía IPTV** mediante el enlace [`tebas-ladron
     - En PC, busca y abre el programa "*Ace Stream*", y pega el ID en la barra de búsqueda.
     - En Android, abre la aplicación "*Ace Stream*" y pega el ID en la barra de búsqueda.
 - Si en la selección de dispositivos no aparece tu Android TV, asegúrate de que tu teléfono y TV están conectados a la misma red.
+
+Si tienes alguna duda o problema, puedes consultar las [preguntas frecuentes](https://TODO) o pedir ayuda [aquí]("https://github.com/Pirito10/IPTV-Guide/issues/new/choose").
