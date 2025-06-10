@@ -38,7 +38,7 @@
 - [x] Eliminar puntos y coma
 - [x] Añadir protección "Require status checks to pass" a main
 - [x] Desplegar frontend en GitHub Pages
-- [ ] README
+- [x] README
 
 ## 🧪 Testing
 - [x] Testear rendimiento en la Raspberry (en especial get_valid_logo())
