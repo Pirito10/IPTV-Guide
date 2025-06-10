@@ -6,7 +6,7 @@ Esta guía explica paso a paso cómo utilizar la aplicación **Guía IPTV**  par
 
 ### 🖥️ PC (Windows)
 
-1. Descarga Ace Stream desde su página web o usando [este enlace](https://www.acestream.org/?page=products) haciendo click en *"Instalar"*.
+1. Descarga Ace Stream desde su [página web](https://www.acestream.org) o usando [este enlace](https://www.acestream.org/?page=products) haciendo click en *"Instalar"*.
 2. Ejecuta el instalador que acabas de descargar (*`Ace_Stream_Media_3.2.8`*) y sigue las instrucciones de instalación.
 
 > [!TIP]
