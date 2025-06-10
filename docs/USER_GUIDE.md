@@ -23,7 +23,7 @@ Esta guía explica paso a paso cómo utilizar la aplicación **Guía IPTV**  par
 ### 📺 Android TV
 
 > [!IMPORTANT]
-> Para la reproducción de canales en Android TV, es necesario instalar Ace Stream en un teléfono Android siguiendo las instrucciones de la [sección anterior](#📱-android).
+> Para la reproducción de canales en Android TV, es necesario instalar Ace Stream en un teléfono Android siguiendo las instrucciones de la [sección anterior](#-android).
 
 1. Abre Google Play Store en tu dispositivo Android TV.
 2. Busca y descarga la aplicación Ace Stream.
