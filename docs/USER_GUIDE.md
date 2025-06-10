@@ -63,7 +63,7 @@ Abre tu navegador y accede a la **Guía IPTV** mediante el enlace [`tebas-ladron
 2. Desde tu teléfono Android, pulsa en el botón "*Reproducir*" del flujo que quieras ver.
 3. Espera a que se abra una ventana de Ace Stream, y selecciona "*Jugar en dispositivo remoto*".
 4. Selecciona el dispositivo Android TV en el que quieres reproducir el canal.
-5. Espera o salta el anuncio (en el teléfono y en la TV), y el canal comenzará a reproducirse.
+5. Espera o salta los anuncios (en el teléfono y en la TV), y el canal comenzará a reproducirse.
 
 > [!WARNING]
 > Si sales de la aplicación antes de saltar o terminar el anuncio, se detendrá la reproducción. Una vez el anuncio haya terminado, la reproducción en la TV es totalmente independiente de tu teléfono.
