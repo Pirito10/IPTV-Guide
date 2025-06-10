@@ -34,7 +34,7 @@ export const InfoModal = ({ onClose }) => {
                     <li>Haz click en un canal para ver los enlaces disponibles.</li>
                     <li>Copia el ID para reproducirlo en Ace Stream, o pulsa <b>"Reproducir"</b> para abrirlo directamente.</li>
                 </ul>
-                <p>Puedes consultar instrucciones de uso más detalladas <a href={INFO_MODAL_LINKS.INSTRUCTIONS} target="_blank">aquí</a>.</p>
+                <p>Puedes consultar instrucciones de uso más detalladas <a href={INFO_MODAL_LINKS.USER_GUIDE} target="_blank">aquí</a>.</p>
             </section>
 
             <div className="info-footer">
