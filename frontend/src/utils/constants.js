@@ -69,7 +69,7 @@ export const INFO_MODAL_LINKS = {
     ACESTREAM: "https://www.acestream.org",
     ACESTREAM_PC: "https://www.acestream.org/?page=products",
     ACESTREAM_ANDROID: "https://play.google.com/store/apps/details?id=org.acestream.node",
-    USER_GUIDE: "TODO",
+    USER_GUIDE: "https://github.com/Pirito10/IPTV-Guide/blob/main/docs/USER_GUIDE.md",
     GITHUB: "https://github.com/Pirito10/IPTV-Guide",
     DONATIONS: "https://paypal.me/Pirito10",
     CHANNELS: "https://ipfs.io/ipns/elcano.top",
