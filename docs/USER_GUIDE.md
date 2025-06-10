@@ -15,10 +15,10 @@ Esta guía explica paso a paso cómo utilizar la aplicación **Guía IPTV** para
 ### 📱 Android
 
 1. Abre Google Play Store.
-2. Busca y descarga la aplicación Ace Stream o usa [este enlace](https://play.google.com/store/apps/details?id=org.acestream.node) directamente.
+2. Busca y descarga la aplicación Ace Stream, o usa [este enlace](https://play.google.com/store/apps/details?id=org.acestream.node) directamente.
 
 > [!TIP]
-> Al abrir la aplicación por primera vez, pedirá permisos para notificaciones, pero no son necesarios para su funcionamiento. A continuación, pedirá aceptar las cookies. Se recomienda pulsar en "*Gestionar opciones*", desmarcar todas las casillas y pulsar en "*Confirmar opciones*".
+> Al abrir la aplicación por primera vez, pedirá permisos para notificaciones, pero no son necesarios para su funcionamiento. Luego pedirá aceptar las cookies. Se recomienda pulsar en "*Gestionar opciones*", desmarcar todas las casillas y pulsar en "*Confirmar opciones*".
 
 ### 📺 Android TV
 
@@ -48,20 +48,20 @@ Abre tu navegador y accede a la **Guía IPTV** mediante el enlace [`tebas-ladron
 1. Busca y abre el programa "*Ace Player*".
 2. Haz click en el botón "*Reproducir*" del flujo que quieras ver.
 3. La primera vez, se abrirá una ventana preguntando si quieres abrir Ace Stream. Marca la casilla y acepta.
-4. Espera a que se abra una ventana de Ace Stream, y selecciona "*Ace Player*".
+4. Espera a que se abra una ventana de Ace Stream y selecciona "*Ace Player*".
 5. Espera o salta el anuncio, y el canal comenzará a reproducirse.
 
 ### 📱 Android
 
 1. Pulsa en el botón "*Reproducir*" del flujo que quieras ver.
-2. Espera a que se abra una ventana de Ace Stream, y selecciona "*Ace Player*".
+2. Espera a que se abra una ventana de Ace Stream y selecciona "*Ace Player*".
 3. Espera o salta el anuncio, y el canal comenzará a reproducirse.
 
 ### 📺 Android TV
 
-1. Abre la aplicación "*Ace Stream*" en tu dispositivo Android TV.
+1. Abre la aplicación "*Ace Stream*" en tu Android TV.
 2. Desde tu teléfono Android, pulsa en el botón "*Reproducir*" del flujo que quieras ver.
-3. Espera a que se abra una ventana de Ace Stream, y selecciona "*Jugar en dispositivo remoto*".
+3. Espera a que se abra una ventana de Ace Stream y selecciona "*Jugar en dispositivo remoto*".
 4. Selecciona el dispositivo Android TV en el que quieres reproducir el canal.
 5. Espera o salta los anuncios (en el teléfono y en la TV), y el canal comenzará a reproducirse.
 
