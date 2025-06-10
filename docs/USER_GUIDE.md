@@ -18,7 +18,7 @@ Esta guía explica paso a paso cómo utilizar la aplicación Guía IPTV  para bu
 2. Busca y descarga la aplicación Ace Stream o usa [este enlace](https://play.google.com/store/apps/details?id=org.acestream.node) directamente.
 
 > [!TIP]
-> Al abrir la aplicación por primera vez, pedirá permisos para notificaciones, pero no son necesarios para el funcionamiento de la aplicación. A continuación, pedirá aceptar las cookies. Se recomienda pulsar en "Gestionar opciones", desmarcar todas las casillas y pulsar en "Confirmar opciones".
+> Al abrir la aplicación por primera vez, pedirá permisos para notificaciones, pero no son necesarios para su funcionamiento. A continuación, pedirá aceptar las cookies. Se recomienda pulsar en "Gestionar opciones", desmarcar todas las casillas y pulsar en "Confirmar opciones".
 
 ### 📺 Android TV
 
