@@ -22,9 +22,14 @@ Esta guía explica paso a paso cómo utilizar la aplicación Guía IPTV  para bu
 
 ### 📺 Android TV
 
-1. 
+> [!IMPORTANT]
+> Para la reproducción de canales en Android TV, es necesario instalar Ace Stream en un teléfono Android siguiendo las instrucciones de la [sección anterior](#📱-android).
 
+1. Abre Google Play Store en tu dispositivo Android TV.
+2. Busca y descarga la aplicación Ace Stream.
 
+> [!TIP]
+> Al abrir la aplicación por primera vez, pedirá permisos para acceder a archivos multimedia, pero no son necesarios para su funcionamiento.
 
 ## 2. Búsqueda de canales
 
@@ -54,9 +59,14 @@ Abre tu navegador y accede a la Guía IPTV mediante el enlace [`tebas-ladron.me`
 
 ### 📺 Android TV
 
-1.
+1. Abre la aplicación "*Ace Stream*" en tu dispositivo Android TV.
+2. Desde tu teléfono Android, pulsa en el botón "*Reproducir*" del flujo que quieras ver.
+3. Espera a que se abra una ventana de Ace Stream, y selecciona "Jugar en dispositivo remoto".
+4. Selecciona el dispositivo Android TV en el que quieres reproducir el canal.
+5. Espera o salta el anuncio (en el teléfono y en la TV), y el canal comenzará a reproducirse.
 
----
+> [!WARNING]
+> Si sales de la aplicación antes de saltar o terminar el anuncio, se detendrá la reproducción. Una vez el anuncio haya terminado, la reproducción en la TV es totalmente independiente de tu teléfono.
 
 ## 4. Consejos adicionales
 
@@ -65,3 +75,4 @@ Abre tu navegador y accede a la Guía IPTV mediante el enlace [`tebas-ladron.me`
 - Si con el botón "*Reproducir*" no se abre correctamente Ace Stream, prueba a usar el botón "*Copiar ID*" y:
     - En PC, busca y abre el programa "*Ace Stream*", y pega el ID en la barra de búsqueda.
     - En Android, abre la aplicación Ace Stream y pega el ID en la barra de búsqueda.
+- Si en la selección de dispositivos no aparece tu Android TV, asegúrate de que tu teléfono y TV están conectados a la misma red.
