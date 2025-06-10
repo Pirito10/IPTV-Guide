@@ -66,15 +66,15 @@ Abre tu navegador y accede a la **Guía IPTV** mediante el enlace [`tebas-ladron
 5. Espera o salta los anuncios (en el teléfono y en la TV), y el canal comenzará a reproducirse.
 
 > [!WARNING]
-> Si sales de la aplicación antes de saltar o terminar el anuncio, se detendrá la reproducción. Una vez el anuncio haya terminado, la reproducción en la TV es totalmente independiente de tu teléfono.
+> Si sales de la aplicación antes de saltar o terminar el anuncio, la reproducción se detendrá. Una vez el anuncio haya terminado, la reproducción en la TV es totalmente independiente de tu teléfono.
 
 ## 4. Consejos adicionales
 
 - Esta aplicación se limita a mostrar los flujos disponibles, pero no garantiza su funcionamiento. Si un flujo no funciona, prueba con los demás disponibles.
 - La reproducción de los canales se basa en una [arquitectura P2P](https://es.wikipedia.org/wiki/Peer-to-peer), por lo que puede haber cortes o lentitud dependiendo de la cantidad de usuarios conectados al canal.
 - Si con el botón "*Reproducir*" no se abre correctamente Ace Stream, prueba a usar el botón "*Copiar ID*" y:
-    - En PC, busca y abre el programa "*Ace Stream*", y pega el ID en la barra de búsqueda.
+    - En PC, abre el programa "*Ace Stream*" y pega el ID en la barra de búsqueda.
     - En Android, abre la aplicación "*Ace Stream*" y pega el ID en la barra de búsqueda.
 - Si en la selección de dispositivos no aparece tu Android TV, asegúrate de que tu teléfono y TV están conectados a la misma red.
 
-Si tienes alguna duda o problema, puedes consultar las [preguntas frecuentes](https://TODO) o pedir ayuda [aquí]("https://github.com/Pirito10/IPTV-Guide/issues/new/choose").
+Si tienes alguna duda o problema, puedes consultar las [preguntas frecuentes](https://TODO) o pedir ayuda [aquí](https://github.com/Pirito10/IPTV-Guide/issues/new/choose).
