@@ -75,6 +75,6 @@ export const INFO_MODAL_LINKS = {
     CHANNELS: "https://ipfs.io/ipns/elcano.top",
     EPG: "https://github.com/davidmuma",
     HELP: "https://github.com/Pirito10/IPTV-Guide/issues/new/choose",
-    FAQ: "TODO",
+    FAQ: "https://github.com/Pirito10/IPTV-Guide/blob/main/docs/FAQ.md",
     AUTHOR: "https://github.com/Pirito10"
 }
