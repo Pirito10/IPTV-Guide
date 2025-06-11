@@ -31,6 +31,10 @@ En la lista de dispositivos disponibles aparecerán todos los que soportan Mirac
 ## ❓ ¿Puedo usar la aplicación sin instalar Ace Stream?
 Existen otras aplicaciones que cumplen funciones similares, pero no se recomienda su uso. También hay versiones modificadas de Ace Stream, creadas por la comunidad, que eliminan anuncios u ofrecen mejoras específicas.
 
+## ❓ ¿Puedo guardar canales favoritos o personalizar la guía?
+No. Dado que los canales y sus flujos pueden cambiar en cualquier momento, no es posible guardar favoritos ni personalizar la guía.  
+La aplicación siempre muestra los canales disponibles en el momento de la consulta.
+
 ## ❓ ¿Cómo puedo apoyar el proyecto?
 - Donando a través de:
   - [PayPal](https://www.paypal.com/paypalme/Pirito10)
