@@ -9,7 +9,7 @@ Ace Stream es un reproductor multimedia basado en VLC que permite la reproducci�
 ## ❓ ¿Necesito una cuenta de Ace Stream para usarlo?
 No. Puedes usar Ace Stream sin registrarte ni iniciar sesión, tanto en PC como en Android o Android TV.
 
-## ❓¿Por qué no se abre Ace Stream al pulsar en "*Reproducir*"?
+## ❓ ¿Por qué no se abre Ace Stream al pulsar en "*Reproducir*"?
 Puede deberse a varias razones:
 - Tu navegador no reconoce el protocolo `acestream://`. Usa el botón "*Copiar ID*" y pégalo manualmente en Ace Stream.
 - Ace Stream no se ha instalado correctamente, o (en PC) no está corriendo en segundo plano. Asegúrate de que Ace Stream esté instalado y funcionando.
