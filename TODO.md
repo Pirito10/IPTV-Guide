@@ -30,7 +30,7 @@
 - [x] Animaciones "active" para los botones
 - [x] Revisar handlers para click fuera de modal
 - [x] Animaciones para los modales
-- [ ] Completar los TODO de InfoModal.jsx
+- [x] Completar los TODO de InfoModal.jsx
 
 ## ✨ Extras
 - [x] Si un canal no tiene logo o al cargarlo da error, asignarle su correspondiente de la guía EPG
