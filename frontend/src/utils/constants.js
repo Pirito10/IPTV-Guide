@@ -65,16 +65,16 @@ export const INFO_MODAL_TEXTS = {
 
 // Enlaces del modal de información
 export const INFO_MODAL_LINKS = {
-    README: "TODO",
+    README: "https://github.com/Pirito10/IPTV-Guide#readme",
     ACESTREAM: "https://www.acestream.org",
     ACESTREAM_PC: "https://www.acestream.org/?page=products",
     ACESTREAM_ANDROID: "https://play.google.com/store/apps/details?id=org.acestream.node",
-    INSTRUCTIONS: "TODO",
+    USER_GUIDE: "https://github.com/Pirito10/IPTV-Guide/blob/main/docs/USER_GUIDE.md",
     GITHUB: "https://github.com/Pirito10/IPTV-Guide",
     DONATIONS: "https://paypal.me/Pirito10",
     CHANNELS: "https://ipfs.io/ipns/elcano.top",
     EPG: "https://github.com/davidmuma",
     HELP: "https://github.com/Pirito10/IPTV-Guide/issues/new/choose",
-    FAQ: "TODO",
+    FAQ: "https://github.com/Pirito10/IPTV-Guide/blob/main/docs/FAQ.md",
     AUTHOR: "https://github.com/Pirito10"
 }
