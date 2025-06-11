@@ -77,4 +77,4 @@ Abre tu navegador y accede a la **Guía IPTV** mediante el enlace [`tebas-ladron
     - En Android, abre la aplicación "*Ace Stream*" y pega el ID en la barra de búsqueda.
 - Si tu Android TV no aparece como dispositivo disponible, asegúrate de que tanto tu teléfono como el televisor están conectados a la misma red Wi-Fi.
 
-Si tienes alguna duda o problema, puedes consultar las [preguntas frecuentes](https://TODO) o pedir ayuda [aquí](https://github.com/Pirito10/IPTV-Guide/issues/new/choose).
+Si tienes alguna duda o problema, puedes consultar las [preguntas frecuentes](https://github.com/Pirito10/IPTV-Guide/blob/main/docs/FAQ.md) o pedir ayuda [aquí](https://github.com/Pirito10/IPTV-Guide/issues/new/choose).
