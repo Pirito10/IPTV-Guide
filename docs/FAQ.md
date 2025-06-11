@@ -1,13 +1,13 @@
 # Preguntas Frecuentes
 
 ## ❓ ¿Cómo uso la aplicación?
-Puedes consultar la [guía de uso](https://github.com/Pirito10/IPTV-Guide/blob/main/docs/USER_GUIDE.md) para obtener instrucciones de instalación de Ace Stream, búsqueda de canales, y reproducción.
+Puedes consultar la [guía de uso](https://github.com/Pirito10/IPTV-Guide/blob/main/docs/USER_GUIDE.md) para obtener instrucciones sobre la instalación de Ace Stream, búsqueda de canales y reproducción.
 
 ## ❓ ¿Qué es Ace Stream?
-Ace Stream es un reproductor multimedia basado en VLC que permite la reproducción de flujos P2P, usando el protocolo BitTorrent.
+Ace Stream es un reproductor multimedia basado en VLC que permite la reproducción de flujos P2P utilizando el protocolo BitTorrent.
 
 ## ❓ ¿Necesito una cuenta de Ace Stream para usarlo?
-No, puedes usar Ace Stream sin registrarte o iniciar sesión, ya sea en PC, Android o Android TV.
+No. Puedes usar Ace Stream sin registrarte ni iniciar sesión, tanto en PC como en Android o Android TV.
 
 ## ❓¿Por qué no se abre Ace Stream al pulsar en "*Reproducir*"?
 Puede deberse a varias razones:
