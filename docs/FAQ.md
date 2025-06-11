@@ -17,6 +17,13 @@ Puede deberse a varias razones:
 ## ❓ ¿Por qué algunos canales no se reproducen?
 La aplicación solo muestra los flujos disponibles, pero **no garantiza su funcionamiento**. Las redes P2P son inestables y los flujos pueden dejar de funcionar en cualquier momento, presentar cortes, variar en calidad, etc.
 
+## ❓ ¿Puedo usar la aplicación sin instalar Ace Stream?
+Existen otras aplicaciones que cumplen funciones similares, pero no se recomienda su uso. También hay versiones modificadas de Ace Stream, creadas por la comunidad, que eliminan anuncios u ofrecen mejoras específicas.
+
+## ❓ ¿Puedo guardar canales favoritos o personalizar la guía?
+No. Dado que los canales y sus flujos pueden cambiar en cualquier momento, no es posible guardar favoritos ni personalizar la guía.  
+La aplicación siempre muestra los canales disponibles en el momento de la consulta.
+
 ## ❓ ¿Se pueden añadir más canales?
 Los canales disponibles son proporcionados por la comunidad y no están bajo el control de la aplicación. Puedes obtener más información [aquí](https://ipfs.io/ipns/elcano.top).
 
@@ -27,13 +34,6 @@ Asegúrate de que:
 
 ## ❓ ¿Por qué no me deja reproducir en mi Android TV?
 En la lista de dispositivos disponibles aparecerán todos los que soportan Miracast, pero esta es una función premium de Ace Stream. Por ello, es necesario instalar Ace Stream en tu Android TV y seleccionar el dispositivo que tiene el texto "*(free)*" después del nombre.
-
-## ❓ ¿Puedo usar la aplicación sin instalar Ace Stream?
-Existen otras aplicaciones que cumplen funciones similares, pero no se recomienda su uso. También hay versiones modificadas de Ace Stream, creadas por la comunidad, que eliminan anuncios u ofrecen mejoras específicas.
-
-## ❓ ¿Puedo guardar canales favoritos o personalizar la guía?
-No. Dado que los canales y sus flujos pueden cambiar en cualquier momento, no es posible guardar favoritos ni personalizar la guía.  
-La aplicación siempre muestra los canales disponibles en el momento de la consulta.
 
 ## ❓ ¿Cómo puedo apoyar el proyecto?
 - Donando a través de:
