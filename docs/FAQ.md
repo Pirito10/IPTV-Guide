@@ -36,5 +36,5 @@ Existen otras aplicaciones que cumplen funciones similares, pero no se recomiend
   - [PayPal](https://www.paypal.com/paypalme/Pirito10)
   - [Ko-fi](https://ko-fi.com/pirito10)
   - [Buy Me a Coffee](https://buymeacoffee.com/pirito10)
-- Compartiendo la aplicación con tus amigos y familiares.
-- Contribuyendo al desarrollo en [GitHub](https://github.com/Pirito10/IPTV-Guide)
+- Compartiendo la aplicación con amigos y familiares.
+- Contribuyendo al desarrollo en [GitHub](https://github.com/Pirito10/IPTV-Guide).
