@@ -11,7 +11,7 @@ export const EPG_URL = "https://api.tebas-ladron.me/api/epg"
 // ========================
 
 export const SEARCH_DEBOUNCE_DELAY = 500 // Tiempo de espera (en milisegundos) antes de procesar la búsqueda
-export const FILTER_ANIMATION_DURATION = 300 // Duración (en milisegundos) de la animación de filtrado
+export const FILTER_ANIMATION_DURATION = 150 // Duración (en milisegundos) de la animación de filtrado
 export const FUSE_SEARCH_THRESHOLD = 0.4 // Umbral de coincidencia para la búsqueda difusa
 export const EPG_DAY_WIDTH = 10000 // Ancho total de la interfaz
 export const MODAL_CLOSE_KEY = "Escape" // Tecla para cerrar modales
