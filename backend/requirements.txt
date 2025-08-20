@@ -1,4 +1,4 @@
-Flask==3.1.1
+Flask==3.1.2
 flask-cors==6.0.1
 requests==2.32.4
 APScheduler==3.11.0
