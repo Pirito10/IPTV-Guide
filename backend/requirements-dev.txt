@@ -1,5 +1,5 @@
 -r requirements.txt
 
 pytest==8.4.2
-coverage==7.10.6
+coverage==7.10.7
 pre-commit==4.3.0
