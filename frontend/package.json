@@ -11,7 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "fuse.js": "^7.3.0",
+    "fuse.js": "^7.4.2",
     "planby": "^2.0.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.7",
