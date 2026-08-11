@@ -11,10 +11,10 @@ class TestLogger:
         assert logger.name == "iptv_logger"
         assert logger.level == getattr(logging, logger_module.config.LOGS_LEVEL.upper(), logging.INFO)
 
-        handlers = [h for h in logger.handlers if isinstance(h, logging.FileHandler)]
-        assert len(handlers) == 1
+        file_handler = logger_module.file_handler
+        assert file_handler in logger.handlers
 
-        log_path = handlers[0].baseFilename
+        log_path = file_handler.baseFilename
         assert os.path.exists(log_path)
         assert re.match(r'.*\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}\.log$', log_path)
 
