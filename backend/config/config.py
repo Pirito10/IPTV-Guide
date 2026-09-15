@@ -20,7 +20,7 @@ HEALTH_ROUTE = "/health"
 # ==============================
 
 # URLs de los ficheros de la lista M3U y la guía EPG
-M3U_URL = "http://127.0.0.1:43110/1JKe3VPvFe35bm1aiHdD4p1xcGCkZKhH3Q/data/listas/lista_fuera_iptv.m3u"
+M3U_URL = ""
 EPG_URL = "https://raw.githubusercontent.com/davidmuma/EPG_dobleM/master/guiatv.xml"
 
 
