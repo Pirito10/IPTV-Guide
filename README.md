@@ -1,6 +1,9 @@
 # IPTV Guide
 _IPTV Guide_ is a **Web-Based Electronic Program Guide Viewer** for IPTV channels, providing a fast and user-friendly way to explore TV schedules in real time.
 
+<img width="1920" height="1080" alt="Screenshot 2026-09-15 130232" src="https://github.com/user-attachments/assets/a8189a0e-2365-4391-9545-3200613df23f" />
+
+
 ## About The Project
 
 This project is a self-hosted solution for browsing IPTV channels and their schedules in real time through a modern web interface.
@@ -27,9 +30,6 @@ pip install -r backend/requirements.txt
 
 #### Configuration
 Open the [`backend/config/config.py`](backend/config/config.py) file to adjust settings such as update intervals, source URLs, backup locations, logging level, and more.
-
-> [!WARNING]
-> If you use the default M3U URL, [ZeroNet](https://zeronet.io) must be installed and running.
 
 #### Usage
 Once the dependencies are installed, run the backend with:
@@ -110,7 +110,6 @@ This project is designed to be self-hosted and can be deployed in production usi
 A typical production setup might include:
 - Running the backend with a production WSGI server such as [Gunicorn](https://gunicorn.org).
 - Serving the frontend as static files via [GitHub Pages](https://pages.github.com), [NGINX](https://nginx.org), or a CDN.
-- Using [ZeroNet](https://zeronet.io) to access private or decentralized IPTV playlists.
 - Setting up a reverse proxy to unify frontend and backend endpoints under a single domain.
 - Setting up HTTPS with [Let's Encrypt](https://letsencrypt.org), especially when frontend and backend are served from different origins.
 - Managing backend processes with a supervisor such as [systemd](https://systemd.io) to ensure automatic restarts and resilience.
